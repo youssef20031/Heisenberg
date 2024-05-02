@@ -1,0 +1,136 @@
+/* Base styles */
+.sign-in-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 10px;
+    background-color: #f0f2f5;
+
+}
+
+.sign-in-form {
+    width: 100%;
+    max-width: 600px; /* Adjust this value as needed */
+    padding: 30px; /* Increased padding for more spacing */
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+    margin-bottom: 20px; /* Added margin to separate form groups */
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 12px; /* Increased padding for better touch target */
+    border: 1px solid #e0e0e0; /* Utilize Material Design color for borders */
+    border-radius: 4px;
+    transition: border-color 0.3s; /* Add transition for interactive states */
+}
+
+.form-control:focus {
+    border-color: #64b5f6; /* Apply focus color for input fields */
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #1976d2; /* Utilize Material Design color for primary action */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s; /* Add transition for interactive states */
+}
+
+.submit-btn:hover {
+    background-color: #1565c0; /* Apply hover color for button */
+}
+
+.error-message {
+    color: #d32f2f; /* Utilize Material Design color for error messages */
+    text-align: center;
+    position: relative;
+}
+
+.error-message::before {
+    content: "\26A0"; /* Unicode for warning symbol */
+    display: inline-block;
+    margin-right: 5px;
+    font-size: 1.2em;
+}
+
+.login-prompt {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.login-link {
+    color: #1976d2; /* Utilize Material Design color for links */
+    cursor: pointer;
+    font-family: 'Material Icons', sans-serif; /* Use Material Design icon font */
+    font-weight: 900;
+}
+
+.banner {
+    text-align: center;
+    background: linear-gradient(to right, #1976d2, #2196f3); /* Utilize Material Design color for banner background */
+    color: white;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Apply elevation for the banner */
+}
+
+/* Desktop specific styles */
+@media (min-width: 768px) {
+    .signup-wrapper {
+        padding: 40px;
+    }
+
+    .signup-form {
+        max-width: 600px; /* Slightly larger form on desktop */
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .form-label {
+        flex: 0 0 120px; /* Fixed width for labels */
+        margin-bottom: 0; /* Adjust label margin for horizontal layout */
+    }
+
+    .form-control {
+        flex: 1; /* Input fields take up the remaining space */
+    }
+}
+.sign-up-prompt {
+    text-align: center;
+    margin-top: 20px;
+}
+.sign-up-link {
+    color: #1976d2; /* Utilize Material Design color for links */
+    cursor: pointer;
+    font-family: 'Material Icons', sans-serif; /* Use Material Design icon font */
+    font-weight: 900;
+}
+/*.signupOrg html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+}*/
