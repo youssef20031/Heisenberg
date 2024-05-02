@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { ref, get, remove,update } from 'firebase/database';
 import { db,storage } from '@/firebase';
-import { Button, Table } from 'react-bootstrap';
+import {Button, Form, InputGroup, Table} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { getAuth, deleteUser, User } from "firebase/auth";
 import { getDownloadURL,deleteObject} from 'firebase/storage';
@@ -9,7 +9,7 @@ import { ref as Ref2 } from 'firebase/storage';
 
 const OrganizationList: React.FC = () => {
   const [data, setData] = useState<any>(null);
-
+  const [search, setSearch]=useState('');
   const handleView = async (email:string) => {
     try {
 
@@ -110,6 +110,16 @@ const OrganizationList: React.FC = () => {
   return (
       <div className="container" style={{ marginTop: '50px', marginBottom: '50px' }}>
         <h2 className="text-center" style={{ marginBottom: '30px' }}>Realtime Database Data:</h2>
+
+        <Form>
+          <InputGroup>
+            <Form.Control
+                onChange={(e) => setSearch(e.target.value)}
+                placeholder="search Organization names"
+            />
+          </InputGroup>
+        </Form>
+
         {data && Object.keys(data).length > 0 ? (
             <Table striped bordered hover responsive>
               <thead>
@@ -130,7 +140,10 @@ const OrganizationList: React.FC = () => {
               </tr>
               </thead>
               <tbody>
-              {Object.values(data).map((item: any, index: number) => (
+              {Object.values(data)
+                  .filter(item => search.toLowerCase() === '' || item.organizationname.toLowerCase().includes(search.toLowerCase()))
+                  .map((item: any, index: number) => (
+
                   <tr key={index}  >
                     <td style={{ width: '15%' }}>{item.email}</td>
                     <td style={{ width: '15%' }}>{item.password}</td>

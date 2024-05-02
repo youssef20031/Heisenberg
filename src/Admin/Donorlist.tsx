@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { ref, get, remove,update } from 'firebase/database';
 import { db,storage } from '@/firebase';
-import { Button, Table } from 'react-bootstrap';
+import {Button, Form, InputGroup, Table} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { getAuth, deleteUser, User } from "firebase/auth";
 import { getDownloadURL,deleteObject} from 'firebase/storage';
 import { ref as Ref2 } from 'firebase/storage';
 
+
 const DonorList: React.FC = () => {
   const [data, setData] = useState<any>(null);
+  const [search,setSearch]=useState('');
+  console.log(search);
 
   const handleView = async (email:string) => {
     try {
@@ -26,11 +29,11 @@ const DonorList: React.FC = () => {
     try {
       const dbRef = ref(db, '/UserData');
       const snapshot = await get(dbRef);
-  
+
       if (snapshot.exists()) {
         const userData = snapshot.val();
         const userId = Object.keys(userData).find(key => userData[key].email === email);
-  
+
         if (userId) {
           await update(ref(db, `UserData/${userId}`), { verified: "True" });
           setData((prevData: any) => {
@@ -38,7 +41,7 @@ const DonorList: React.FC = () => {
             newData[userId].verified = "True";
             return newData;
           });
-  
+
         } else {
           console.log('No user found with email:', email);
         }
@@ -49,18 +52,18 @@ const DonorList: React.FC = () => {
       console.error('Error updating verification status:', error);
     }
   };
-  
-  
+
+
 
   const handleReject = async (email: string) => {
     try {
       const dbRef = ref(db, '/UserData');
       const snapshot = await get(dbRef);
-  
+
       if (snapshot.exists()) {
         const userData = snapshot.val();
         const userId = Object.keys(userData).find(key => userData[key].email === email);
-  
+
         if (userId) {
           await remove(ref(db, `UserData/${userId}`));
           const fileRef = Ref2(storage, `${email}`);
@@ -71,10 +74,10 @@ const DonorList: React.FC = () => {
             delete newData[userId];
             return newData;
           });
-  
+
           const auth = getAuth();
           const currentUser: User | null = auth.currentUser;
-  
+
           if (currentUser) {
             // Delete the authenticated user
             await deleteUser(currentUser);
@@ -91,7 +94,7 @@ const DonorList: React.FC = () => {
       console.error('Error deleting data:', error);
     }
   };
-  
+
 
 
   useEffect(() => {
@@ -116,6 +119,16 @@ const DonorList: React.FC = () => {
   return (
       <div >
         <h2>Realtime Database Data:</h2>
+
+        <Form>
+            <InputGroup>
+            <Form.Control
+                onChange={(e) => setSearch(e.target.value)}
+              placeholder="Search contacts"
+            />
+            </InputGroup>
+        </Form>
+
         {data && Object.keys(data).length > 0 ? (
             <Table striped bordered hover >
               <thead>
@@ -136,7 +149,7 @@ const DonorList: React.FC = () => {
               </tr>
               </thead>
               <tbody>
-              {Object.values(data).map((item: any, index: number) => (
+              { Object.values(data).map((item: any, index: number) => (
                   <tr key={index}  >
                     <td style={{ width: '15%' }}>{item.email}</td>
                     <td style={{ width: '15%' }}>{item.password}</td>
