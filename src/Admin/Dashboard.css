@@ -1,0 +1,102 @@
+/* Dashboard Container */
+.dashboard-container {
+  display: flex;
+  height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+/* Add these styles to your existing Dashboard.css */
+
+.welcome-message {
+  background: linear-gradient(135deg, #6e8efb, #a777e3);
+  color: #fff;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.welcome-message h2 {
+  margin-top: 0;
+  font-size: 24px;
+}
+
+.content {
+  flex-grow: 1;
+  background-color: #f8f9fa;
+  padding: 20px; /* Adjust or remove padding if needed to allow the welcome message to expand more */
+  width: 100%; /* Ensure it takes the full width */
+}
+
+.welcome-message {
+  background: linear-gradient(135deg, #6e8efb, #a777e3);
+  color: #fff;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: calc(100% - 40px); /* Adjust based on the padding of the parent container to ensure it fills the space */
+  box-sizing: border-box; /* Ensures padding doesn't add to the total width */
+
+}
+
+/* Adjustments for responsive design */
+@media (max-width: 768px) {
+  .content, .welcome-message {
+    padding: 10px;
+    width: calc(100% - 20px); /* Adjust for smaller screens */
+  }
+}
+
+/* Sidebar Styles */
+.sidebar {
+  background-color: #343a40;
+  color: #fff;
+  min-width: 250px;
+  padding: 20px 0;
+}
+
+.menu-item {
+  display: block;
+  padding: 10px 20px;
+  color: #fff;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.menu-item:hover, .menu-item.active {
+  background-color: #495057;
+}
+
+/* Content Styles */
+.content {
+  flex-grow: 1;
+  background-color: #f8f9fa;
+  padding: 20px;
+}
+
+.header h1 {
+  margin-bottom: 20px;
+}
+
+.main {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .dashboard-container {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    min-width: auto;
+  }
+
+  .content {
+    padding: 10px;
+  }
+}
