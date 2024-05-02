@@ -36,6 +36,10 @@ const SignUpFormDonor =() => {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
+            await createUserWithEmailAndPassword(auth, email, password); // Use await to wait for the authentication to complete
+
+            <h1>You go registered now Login</h1>
+            console.log("Account created");
             const options={
                 method:'Post',
                 header:{
@@ -45,7 +49,7 @@ const SignUpFormDonor =() => {
             }
             const res= await fetch('https://se-project-951b4-default-rtdb.firebaseio.com/UserData.json' , options)
             console.log(res);
-            console.log("Account created");
+            
             if (file) { 
                 const storageRef = ref(storage, `${email}`);
                 await uploadBytes(storageRef, file);
@@ -68,7 +72,7 @@ const SignUpFormDonor =() => {
 
             <form onSubmit={handleSubmit} className="signup-form">
                 <div className="banner">
-                    <h1>Donor Registration</h1>
+                    <h1>Sign Up</h1>
                 </div>
                 <div className="form-group">
                     <label htmlFor="email" className="form-label">Email</label>

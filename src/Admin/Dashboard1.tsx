@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './Dashboard.css'; // Make sure your CSS file is correctly imported
+import './Dashboard.css';
 import { Button } from 'react-bootstrap';
 const Dashboard1: React.FC = () => {
     const navigate = useNavigate();
