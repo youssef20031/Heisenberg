@@ -1,27 +1,40 @@
 import React, { useEffect, useState } from 'react';
-import { ref, get, remove,update } from 'firebase/database';
-import { db,storage } from '@/firebase';
-import {Button, Form, InputGroup, Table} from 'react-bootstrap';
+import { ref, get, remove, update } from 'firebase/database';
+import { db, storage } from '@/firebase';
+import { Button, Form, InputGroup, Table } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { getAuth, deleteUser, User } from "firebase/auth";
-import { getDownloadURL,deleteObject} from 'firebase/storage';
+import { getDownloadURL, deleteObject } from 'firebase/storage';
 import { ref as Ref2 } from 'firebase/storage';
 
+interface OrganizationData {
+  email: string;
+  password: string;
+  firstname: string;
+  lastname: string;
+  address: string;
+  gender: string;
+  area: string;
+  number: string;
+  governate: string;
+  verification: string;
+  organizationname: string;
+  organizationtype: string;
+}
+
 const OrganizationList: React.FC = () => {
-  const [data, setData] = useState<any>(null);
-  const [search, setSearch]=useState('');
-  const handleView = async (email:string) => {
+  const [data, setData] = useState<Record<string, OrganizationData> | null>(null);
+  const [search, setSearch] = useState('');
+
+  const handleView = async (email: string) => {
     try {
-
       const pdf = Ref2(storage, `${email}`);
-
       const pdfurl = await getDownloadURL(pdf);
       window.open(pdfurl, '_blank');
     } catch (error) {
       console.error('Error fetching PDF:', error);
     }
   };
-
 
   const handleAccept = async (email: string) => {
     try {
@@ -123,7 +136,7 @@ const OrganizationList: React.FC = () => {
         {data && Object.keys(data).length > 0 ? (
             <Table striped bordered hover responsive>
               <thead>
-              <tr style={{ marginTop: '20px' ,marginBottom:'20px',marginLeft:'20px',marginRight:'20px'}}>
+              <tr style={{ marginTop: '20px', marginBottom: '20px', marginLeft: '20px', marginRight: '20px' }}>
                 <th style={{ width: '10%' }} >Email</th>
                 <th style={{ width: '10%' }} >Password</th>
                 <th style={{ width: '10%' }}>First Name</th>
@@ -142,31 +155,31 @@ const OrganizationList: React.FC = () => {
               <tbody>
               {Object.values(data)
                   .filter(item => search.toLowerCase() === '' || item.organizationname.toLowerCase().includes(search.toLowerCase()))
-                  .map((item: any, index: number) => (
+                  .map((item: OrganizationData, index: number) => (
 
-                  <tr key={index}  >
-                    <td style={{ width: '15%' }}>{item.email}</td>
-                    <td style={{ width: '15%' }}>{item.password}</td>
-                    <td style={{ width: '10%' }}>{item.firstname}</td>
-                    <td style={{ width: '10%' }}>{item.lastname}</td>
-                    <td style={{ width: '10%' }}>{item.address}</td>
-                    <td>{item.gender}</td>
-                    <td style={{ width: '10%' }}>{item.area}</td>
-                    <td style={{ width: '10%' }}>{item.number}</td>
-                    <td style={{ width: '10%' }}>{item.governate}</td>
-                    <td style={{ width: '15%' }}>{item.verification}</td>
+                      <tr key={index}  >
+                        <td style={{ width: '15%' }}>{item.email}</td>
+                        <td style={{ width: '15%' }}>{item.password}</td>
+                        <td style={{ width: '10%' }}>{item.firstname}</td>
+                        <td style={{ width: '10%' }}>{item.lastname}</td>
+                        <td style={{ width: '10%' }}>{item.address}</td>
+                        <td>{item.gender}</td>
+                        <td style={{ width: '10%' }}>{item.area}</td>
+                        <td style={{ width: '10%' }}>{item.number}</td>
+                        <td style={{ width: '10%' }}>{item.governate}</td>
+                        <td style={{ width: '15%' }}>{item.verification}</td>
 
-                    <td style={{ width: '15%' }}>{item.organizationname}</td>
-                    <td style={{ width: '15%' }}>{item.organizationtype}</td>
+                        <td style={{ width: '15%' }}>{item.organizationname}</td>
+                        <td style={{ width: '15%' }}>{item.organizationtype}</td>
 
-                    <td style={{ display: 'flex', gap: '8px' }}>
-                      <Button variant="danger" id="rejectbutton" onClick={() => handleReject(item.email)}>Reject</Button>
-                      <Button variant="success" id="acceptbutton" onClick={() => handleAccept(item.email)}>Accept</Button>
-                      <Button onClick={() => handleView(item.email)}>View Organization document</Button>
+                        <td style={{ display: 'flex', gap: '8px' }}>
+                          <Button variant="danger" id="rejectbutton" onClick={() => handleReject(item.email)}>Reject</Button>
+                          <Button variant="success" id="acceptbutton" onClick={() => handleAccept(item.email)}>Accept</Button>
+                          <Button onClick={() => handleView(item.email)}>View Organization document</Button>
 
-                    </td>
-                  </tr>
-              ))}
+                        </td>
+                      </tr>
+                  ))}
               </tbody>
             </Table>
         ) : (
