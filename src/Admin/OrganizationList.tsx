@@ -217,6 +217,7 @@ const OrganizationList: React.FC = () => {
               <tbody>
               {isClicked ? (
                   filteredData.map((item: OrganizationData, index: number) => (
+                      item.verification === "True" && (
                       <tr key={index}>
                         <td style={{ width: '15%' }}>{item.email}</td>
                         <td style={{ width: '15%' }}>{item.password}</td>
@@ -231,13 +232,15 @@ const OrganizationList: React.FC = () => {
                         <td style={{ width: '15%' }}>{item.organizationname}</td>
                         <td style={{ width: '15%' }}>{item.organizationtype}</td>
                         <td style={{ display: 'flex', gap: '8px' }}>
-                          <Button variant="danger" id="rejectbutton" onClick={() => handleReject(item.email)}>Remove Account</Button>
+                          <Button variant="danger" id="rejectbutton" onClick={() => handleReject(item.email)}>Remove</Button>
                           <Button onClick={() => handleView(item.email)}>View Organization document</Button>
                         </td>
                       </tr>
+                      )
                   ))
               ) : (
                   Object.values(data).map((item: OrganizationData, index: number) => (
+                        item.verification === "True" && (
                       <tr key={index}>
                         <td style={{ width: '15%' }}>{item.email}</td>
                         <td style={{ width: '15%' }}>{item.password}</td>
@@ -252,10 +255,11 @@ const OrganizationList: React.FC = () => {
                         <td style={{ width: '15%' }}>{item.organizationname}</td>
                         <td style={{ width: '15%' }}>{item.organizationtype}</td>
                         <td style={{ display: 'flex', gap: '8px' }}>
-                          <Button variant="danger" id="rejectbutton" onClick={() => handleReject(item.email)}>Reject</Button>
+                          <Button variant="danger" id="rejectbutton" onClick={() => handleReject(item.email)}>Remove</Button>
                           <Button onClick={() => handleView(item.email)}>View Organization document</Button>
                         </td>
                       </tr>
+                        )
                   ))
               )}
               </tbody>
