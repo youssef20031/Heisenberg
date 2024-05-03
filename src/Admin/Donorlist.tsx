@@ -7,10 +7,26 @@ import { getAuth, deleteUser, User } from "firebase/auth";
 import { getDownloadURL, deleteObject } from 'firebase/storage';
 import { ref as Ref2 } from 'firebase/storage';
 
+interface UserData {
+  email: string;
+  password: string;
+  firstname: string;
+  lastname: string;
+  address: string;
+  gender: string;
+  area: string;
+  number: string;
+  governate: string;
+  Organization: string;
+  user: string;
+  verified: string;
+}
 
 const DonorList: React.FC = () => {
-  const [data, setData] = useState<any>(null);
-  const [selectedGovernate, setSelectedGovernate] = useState<any>('');
+  const [data, setData] = useState<Record<string, UserData> | null>(null);
+  const [selectedGovernate, setSelectedGovernate] = useState<string>('');
+  const [clicked, setClicked] = useState<boolean>(false);
+  const [filteredData, setFilteredData] = useState<UserData[]>([]);
 
   const handleView = async (email: string) => {
     try {
@@ -109,6 +125,16 @@ const DonorList: React.FC = () => {
     setSelectedGovernate(event.target.value);
   };
 
+  const handleButton = () => {
+    setClicked(true);
+    if (selectedGovernate !== '') {
+      const filtered = Object.values(data!).filter(item => item.governate === selectedGovernate);
+      setFilteredData(filtered);
+    } else {
+      setFilteredData(Object.values(data!));
+    }
+  };
+
   return (
       <div>
         <h2>Realtime Database Data:</h2>
@@ -122,6 +148,8 @@ const DonorList: React.FC = () => {
             {/* Add more options as needed */}
           </Form.Select>
         </Form>
+
+        <Button onClick={handleButton}>Submit</Button>
         {data && Object.keys(data).length > 0 ? (
             <Table striped bordered hover>
               <thead>
@@ -142,8 +170,8 @@ const DonorList: React.FC = () => {
               </tr>
               </thead>
               <tbody>
-              {Object.values(data).map((item: any, index: number) => (
-                  item.governate === selectedGovernate && (
+              {clicked ? (
+                  filteredData.map((item: UserData, index: number) => (
                       <tr key={index}>
                         <td style={{ width: '15%' }}>{item.email}</td>
                         <td style={{ width: '15%' }}>{item.password}</td>
@@ -163,8 +191,30 @@ const DonorList: React.FC = () => {
                           <Button onClick={() => handleView(item.email)}>View donor submission</Button>
                         </td>
                       </tr>
-                  )
-              ))}
+                  ))
+              ) : (
+                  Object.values(data).map((item: UserData, index: number) => (
+                      <tr key={index}>
+                        <td style={{ width: '15%' }}>{item.email}</td>
+                        <td style={{ width: '15%' }}>{item.password}</td>
+                        <td style={{ width: '10%' }}>{item.firstname}</td>
+                        <td style={{ width: '10%' }}>{item.lastname}</td>
+                        <td style={{ width: '10%' }}>{item.address}</td>
+                        <td>{item.gender}</td>
+                        <td style={{ width: '10%' }}>{item.area}</td>
+                        <td style={{ width: '10%' }}>{item.number}</td>
+                        <td style={{ width: '10%' }}>{item.governate}</td>
+                        <td style={{ width: '10%' }}>{item.Organization}</td>
+                        <td style={{ width: '10%' }}>{item.user}</td>
+                        <td style={{ width: '10%' }}>{item.verified}</td>
+                        <td style={{ display: 'flex', gap: '8px' }}>
+                          <Button variant="danger" id="rejectbutton" onClick={() => handleReject(item.email)}>Reject</Button>
+                          <Button variant="success" id="acceptbutton" onClick={() => handleAccept(item.email)}>Accept</Button>
+                          <Button onClick={() => handleView(item.email)}>View donor submission</Button>
+                        </td>
+                      </tr>
+                  ))
+              )}
               </tbody>
             </Table>
         ) : (
