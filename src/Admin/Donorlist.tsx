@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { ref, get, remove, update } from 'firebase/database';
 import { db, storage } from '@/firebase';
-import { Button, Form, Table } from 'react-bootstrap';
+import { Button, Form, Table,Row,Col } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { getAuth, deleteUser, User } from "firebase/auth";
 import { getDownloadURL, deleteObject } from 'firebase/storage';
@@ -121,35 +121,12 @@ const DonorList: React.FC = () => {
     fetchData();
   }, []);
 
-  const handleGovernateChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedGovernate(event.target.value);
-  };
 
-  const handleButton = () => {
-    setClicked(true);
-    if (selectedGovernate !== '') {
-      const filtered = Object.values(data!).filter(item => item.governate === selectedGovernate);
-      setFilteredData(filtered);
-    } else {
-      setFilteredData(Object.values(data!));
-    }
-  };
 
   return (
       <div>
         <h2>Realtime Database Data:</h2>
-        <Form>
-          <Form.Select onChange={handleGovernateChange} value={selectedGovernate}>
-            <option value="">Select Governate</option>
-            <option value="Cairo">Cairo</option>
-            <option value="Alexandria">Alexandria</option>
-            <option value="Al Dakahlia">Al Dakahlia</option>
-            <option value="Matrouh">Matrouh</option>
-            {/* Add more options as needed */}
-          </Form.Select>
-        </Form>
 
-        <Button onClick={handleButton}>Submit</Button>
         {data && Object.keys(data).length > 0 ? (
             <Table striped bordered hover>
               <thead>

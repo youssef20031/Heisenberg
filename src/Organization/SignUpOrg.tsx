@@ -67,6 +67,7 @@ const SignUpFormOrg =() => {
           }
     };
 
+
     return (
         <div className="signup-wrapper" >
             <Form onSubmit={handleSubmit} className="signup-form">
