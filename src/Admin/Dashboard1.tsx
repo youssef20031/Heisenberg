@@ -20,6 +20,7 @@ const Dashboard1: React.FC = () => {
                 <NavLink to="/dashboard1" className="menu-item">Dashboard</NavLink>
                 <NavLink to="/organizationList" className="menu-item">Organization List</NavLink>
                 <NavLink to="/donorlist" className="menu-item">Donor List</NavLink>
+                <NavLink to="/notregisteredorganizations" className="menu-item">Pending Organizations</NavLink>
                 {/* Add more NavLink components for other menu items */}
             </div>
             <div className="content" style={{ flexGrow: 1 }}>

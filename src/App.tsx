@@ -17,6 +17,7 @@ import PasswordModification from './Admin/passwordmodif.tsx';
 import Sign_in1 from './Donor/Signin1.tsx';
 import SigninOrg from './Organization/SigninOrg.tsx';
 import Home2 from './Organization/Home2.tsx';
+import NotRegisteredOrg from "@/Admin/NotRegistered.tsx";
 
 export const App = () => {
   const location = useLocation();
@@ -50,6 +51,7 @@ export const App = () => {
             <Route path="/organizationlist" element={<OrganizationList />} />
             <Route path="/donorlist" element={<DonorList />} />
             <Route path="/changepassword" element={<PasswordModification />} />
+            <Route path="/notregisteredorganizations" element={<NotRegisteredOrg />} />
           </Routes>
         </main>
       </>
