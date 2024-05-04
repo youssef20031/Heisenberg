@@ -1,38 +1,32 @@
 import React, { useEffect, useState } from 'react';
-import {ref, get, update} from 'firebase/database';
+import {ref, get} from 'firebase/database';
 import { db } from '@/firebase';
-import Mapgetter from '@/Donor/LocationCompForMedical.tsx';
+import MapWithMarker from "@/Admin/MapComp.tsx";
 import {useParams} from "react-router-dom";
 
 
-const Mapsetter= () => {
+const Mapsetter2= () => {
     const [lat, setLat] = useState<number | null>(null);
     const [lng, setLng] = useState<number | null>(null);
     const { CaseNum } = useParams<{ CaseNum: string }>();
 
     const handleViewloc = async () => {
         try {
-            const dbRef = ref(db, `/MedicaCase`);
+            const dbRef = ref(db, `/MedicaCase/Case${CaseNum}/`);
             const snapshot = await get(dbRef);
 
             if (snapshot.exists()) {
                 const userData = snapshot.val();
-                const userId = Object.keys(userData).find(key => userData[key].CaseNum === CaseNum);
-                if (userId) {
-                    // Update the verification column to true
-                    const latLngData = userData[userId];
-                    setLat(latLngData.lat);
-                    setLng(latLngData.lng);
-                } else {
-                    console.log('No user found with caseNu,:', CaseNum);
-                }
+                setLat(userData.Lat);
+                setLng(userData.Lng);
             } else {
-                console.log('No data available');
+                console.log('No data available for CaseNum:', CaseNum);
             }
         } catch (error) {
-            console.error('Error updating verification status:', error);
+            console.error('Error fetching location data:', error);
         }
     };
+
 
     useEffect(() => {
         handleViewloc();
@@ -40,10 +34,10 @@ const Mapsetter= () => {
 
     return (
         <div>
-            {lat && lng && <Mapgetter lat={lat} lng={lng} />}
+            {lat && lng && <MapWithMarker lat={lat} lng={lng} />}
 
         </div>
     );
 };
 
-export default Mapsetter;
+export default Mapsetter2;

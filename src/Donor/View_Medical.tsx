@@ -23,11 +23,10 @@ interface View_Medical {
 
 const View_Medical: React.FC = () => {
     const [data, setData] = useState<Record<string, View_Medical> | null>(null);
-    const [search, setSearch]=useState('');
     const navigate = useNavigate();
 
     const handleViewloc = async (CaseNum: string) => {
-        navigate(`/locationMapsetter/${CaseNum}`);
+        navigate(`/locationMapsetter2/${CaseNum}`);
     }
 
     const handleFulfill = async (caseNum: string) => {

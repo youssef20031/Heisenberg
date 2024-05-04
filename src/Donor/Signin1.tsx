@@ -2,7 +2,7 @@ import { useState } from "react";
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { auth,db } from "../firebase";
-import { signInWithEmailAndPassword } from "firebase/auth";
+
 import { ref, get } from 'firebase/database';
 import { Button } from "../components/ui/button";
 import {Form} from "react-bootstrap";
