@@ -1,9 +1,8 @@
 import { useState } from "react";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { auth,storage } from "../firebase.tsx";
-import {  createUserWithEmailAndPassword } from "firebase/auth";
-import { Form, Col } from 'react-bootstrap';
+import { storage } from "../firebase.tsx";
+import { Form } from 'react-bootstrap';
 import { Button } from "../components/ui/button.tsx";
 import "./SignUpOrg.css";
 import { uploadBytes } from "firebase/storage";
@@ -36,7 +35,6 @@ const SignUpFormOrg =() => {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            await createUserWithEmailAndPassword(auth, email, password); // Use await to wait for the authentication to complete
 
             <h1>You go registered now Login</h1>
             console.log("Account created");
