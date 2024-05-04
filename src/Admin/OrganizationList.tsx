@@ -6,6 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { getAuth, deleteUser, User } from "firebase/auth";
 import { getDownloadURL, deleteObject } from 'firebase/storage';
 import { ref as Ref2 } from 'firebase/storage';
+import {useNavigate} from "react-router-dom";
 
 interface OrganizationData {
   email: string;
@@ -29,6 +30,7 @@ const OrganizationList: React.FC = () => {
   const [isClicked, setIsClicked] = useState<boolean>(false);
   const [filteredData, setFilteredData] = useState<OrganizationData[]>([]);
   const [Organizationtype,setOrganizationtype] = useState('');
+  const navigate=useNavigate();
 
   const handleView = async (email: string) => {
     try {
@@ -40,33 +42,9 @@ const OrganizationList: React.FC = () => {
     }
   };
 
-  const handleAccept = async (email: string) => {
-    try {
-      const dbRef = ref(db, '/OrganizationData');
-      const snapshot = await get(dbRef);
-
-      if (snapshot.exists()) {
-        const userData = snapshot.val();
-        const userId = Object.keys(userData).find(key => userData[key].email === email);
-
-        if (userId) {
-          // Update the verification column to true
-          await update(ref(db, `OrganizationData/${userId}`), { verification: "True" });
-          setData((prevData: any) => {
-            const newData = { ...prevData };
-            newData[userId].verification = "True";
-            return newData;
-          });
-        } else {
-          console.log('No user found with email:', email);
-        }
-      } else {
-        console.log('No data available');
-      }
-    } catch (error) {
-      console.error('Error updating verification status:', error);
-    }
-  };
+  const handleViewloc = async (email: string) => {
+      navigate(`/locationMapsetter/${email}`);
+  }
 
   const handleReject = async (email: string) => {
     try {
@@ -215,8 +193,10 @@ const OrganizationList: React.FC = () => {
               </tr>
               </thead>
               <tbody>
+
               {isClicked ? (
                   filteredData.map((item: OrganizationData, index: number) => (
+                      item.verification === "True" && (
                       <tr key={index}>
                         <td style={{ width: '15%' }}>{item.email}</td>
                         <td style={{ width: '15%' }}>{item.password}</td>
@@ -233,11 +213,15 @@ const OrganizationList: React.FC = () => {
                         <td style={{ display: 'flex', gap: '8px' }}>
                           <Button variant="danger" id="rejectbutton" onClick={() => handleReject(item.email)}>Remove Account</Button>
                           <Button onClick={() => handleView(item.email)}>View Organization document</Button>
+                          <Button onClick={() => handleViewloc(item.email)}>View Location</Button>
                         </td>
                       </tr>
+                      )
                   ))
               ) : (
+
                   Object.values(data).map((item: OrganizationData, index: number) => (
+                      item.verification === "True" && (
                       <tr key={index}>
                         <td style={{ width: '15%' }}>{item.email}</td>
                         <td style={{ width: '15%' }}>{item.password}</td>
@@ -252,10 +236,12 @@ const OrganizationList: React.FC = () => {
                         <td style={{ width: '15%' }}>{item.organizationname}</td>
                         <td style={{ width: '15%' }}>{item.organizationtype}</td>
                         <td style={{ display: 'flex', gap: '8px' }}>
-                          <Button variant="danger" id="rejectbutton" onClick={() => handleReject(item.email)}>Reject</Button>
+                          <Button variant="danger" id="rejectbutton" onClick={() => handleReject(item.email)}>Remove</Button>
                           <Button onClick={() => handleView(item.email)}>View Organization document</Button>
+                          <Button onClick={() => handleViewloc(item.email)}>View Location</Button>
                         </td>
                       </tr>
+                    )
                   ))
               )}
               </tbody>

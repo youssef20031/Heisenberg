@@ -13,6 +13,7 @@ import SignUpFormOrg from './Organization/SignUpOrg.tsx';
 import OrganizationList from './Admin/OrganizationList';
 import DonorList from './Admin/Donorlist';
 import './App.css'; // Import the CSS file
+import Mapsetter from "@/Admin/Mapsetter.tsx";
 import PasswordModification from './Admin/passwordmodif.tsx';
 import Sign_in1 from './Donor/Signin1.tsx';
 import SigninOrg from './Organization/SigninOrg.tsx';
@@ -46,6 +47,7 @@ export const App = () => {
             <Route path="/Home2" element={<Home2 />} />
             <Route path="/organization" element={<Organization />} />
             <Route path="/location/:email" element={<LocationComponent />} />
+            <Route path="/locationMapsetter/:email" element={<Mapsetter />} />
             <Route path="/admin" element={<Admin />} />
             <Route path="/dashboard1" element={<Dashboard1 />} />
             <Route path="/organizationlist" element={<OrganizationList />} />

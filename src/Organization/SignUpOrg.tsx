@@ -56,6 +56,7 @@ const SignUpFormOrg =() => {
             }
             if(res){
                 alert("You got registered now login");
+                navigate(`/location/${email}`);
             }
             else{
                 alert("Error Occured");
