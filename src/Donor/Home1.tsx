@@ -3,13 +3,12 @@ import React, { useEffect, useState } from 'react';
 import { ref, onValue, remove } from 'firebase/database';
 import { db } from '@/firebase';
 
-// Define a type for the donation post
 type DonationPost = {
     id: string;
     category: string;
     content: string;
-    details: any; // Adjust this type as needed
-    showDetails?: boolean; // Optional property for showing details
+    details: any;
+    showDetails?: boolean; 
 };
 
 const Home1: React.FC = () => {
