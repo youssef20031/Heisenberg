@@ -19,14 +19,14 @@
   
   label {
     display: block;
-    margin-bottom: 5px;
+    margin-bottom: 10px; /* Adjusted spacing */
   }
   
   select,
   textarea {
     width: 100%;
     padding: 10px;
-    margin-bottom: 15px;
+    margin-bottom: 20px; /* Adjusted spacing */
     font-size: 16px;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -40,6 +40,7 @@
     border-radius: 4px;
     cursor: pointer;
     font-size: 16px;
+    margin-right: 10px; /* Added spacing between buttons */
   }
   
   button:hover {

@@ -1,17 +1,60 @@
-import React, { useState } from 'react';
-import { ref, push } from 'firebase/database';
+import React, { useState, useEffect } from 'react';
+import { ref, push, remove, update, onValue } from 'firebase/database';
 import { db } from '@/firebase';
 import './Home2.css';
+
+// Define a type for the donation post
+type DonationPost = {
+    id: string;
+    category: string;
+    content: string;
+    details: any; // Adjust this type as needed
+    timestamp: string; // Add timestamp
+};
 
 const Home2: React.FC = () => {
     const [category, setCategory] = useState<string>('');
     const [donationPost, setDonationPost] = useState<string>('');
     const [details, setDetails] = useState<any>({});
+    const [editMode, setEditMode] = useState<boolean>(false);
+    const [editId, setEditId] = useState<string>('');
+    const [donationPosts, setDonationPosts] = useState<DonationPost[]>([]);
+
+    useEffect(() => {
+        const fetchDonationPosts = async () => {
+            try {
+                const donationPostsRef = ref(db, 'donationPosts');
+                onValue(donationPostsRef, (snapshot) => {
+                    if (snapshot.exists()) {
+                        const donationPostsData: Record<string, any> = snapshot.val();
+                        const donationPostsArray: DonationPost[] = Object.entries(donationPostsData).map(([id, value]) => ({
+                            id,
+                            ...value
+                        }));
+                        setDonationPosts(donationPostsArray);
+                    } else {
+                        console.log('No donation posts available');
+                    }
+                });
+            } catch (error) {
+                console.error('Error fetching donation posts:', error);
+            }
+        };
+
+        fetchDonationPosts();
+    }, []);
 
     const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         const selectedCategory = e.target.value;
         setCategory(selectedCategory);
         setDetails({});
+        if(selectedCategory === 'teaching') {
+            setDetails({
+                NumberOfStudent: 5,
+                addess: "hamada",
+                subjects: "math"
+            });
+        }
     };
 
     const handleDonationPostChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -47,6 +90,50 @@ const Home2: React.FC = () => {
         } catch (error) {
             console.error('Error submitting donation post:', error);
             alert('An error occurred while submitting the donation post. Please try again later.');
+        }
+    };
+
+    const handleEdit = (id: string) => {
+        setEditId(id);
+        setEditMode(true);
+        const postToEdit = donationPosts.find(post => post.id === id);
+        if (postToEdit) {
+            setCategory(postToEdit.category);
+            setDonationPost(postToEdit.content);
+            setDetails(postToEdit.details);
+        }
+    };
+
+    const handleUpdateDonationPost = () => {
+        try {
+            const donationPostRef = ref(db, `donationPosts/${editId}`);
+            update(donationPostRef, {
+                category: category,
+                content: donationPost,
+                details: details
+            });
+            alert('Donation post updated successfully!');
+            setEditMode(false);
+            setEditId('');
+            setCategory('');
+            setDonationPost('');
+            setDetails({});
+        } catch (error) {
+            console.error('Error updating donation post:', error);
+            alert('An error occurred while updating the donation post. Please try again later.');
+        }
+    };
+
+    const handleDelete = (id: string) => {
+        try {
+            const donationPostRef = ref(db, `donationPosts/${id}`);
+            remove(donationPostRef);
+            const updatedDonationPosts = donationPosts.filter(post => post.id !== id);
+            setDonationPosts(updatedDonationPosts);
+            alert('Donation post deleted successfully!');
+        } catch (error) {
+            console.error('Error deleting donation post:', error);
+            alert('An error occurred while deleting the donation post. Please try again later.');
         }
     };
 
@@ -112,6 +199,17 @@ const Home2: React.FC = () => {
                         </select>
                     </>
                 );
+            case 'teaching':
+                return (
+                    <>
+                        <label htmlFor="NumberOfStudent">Number Of Student:</label>
+                        <input type="text" id="NumberOfStudent" name="NumberOfStudent" value={details.NumberOfStudent || ''} onChange={handleDetailChange} />
+                        <label htmlFor="addess">Address:</label>
+                        <input type="text" id="addess" name="addess" value={details.addess || ''} onChange={handleDetailChange} />
+                        <label htmlFor="subjects">Subjects:</label>
+                        <input type="text" id="subjects" name="subjects" value={details.subjects || ''} onChange={handleDetailChange} />
+                    </>
+                );
             default:
                 return null;
         }
@@ -120,7 +218,7 @@ const Home2: React.FC = () => {
     return (
         <div className="home2">
             <div className="header">
-                <h1>Create Donation Post</h1>
+                <h1>{editMode ? 'Edit Donation Post' : 'Create Donation Post'}</h1>
             </div>
             <div className="form-container">
                 <label htmlFor="category">Category:</label>
@@ -132,11 +230,33 @@ const Home2: React.FC = () => {
                     <option value="medical">Medical Supplies</option>
                     <option value="school">School Supplies</option>
                     <option value="blood">Blood Donations</option>
+                    <option value="teaching">Teaching Posts</option>
                 </select>
                 {renderDetailFields()}
                 <label htmlFor="donation-post">Details:</label>
                 <textarea id="donation-post" value={donationPost} onChange={handleDonationPostChange}></textarea>
-                <button onClick={handleSubmitDonationPost}>Create Donation Post</button>
+                {editMode ? (
+                    <button onClick={handleUpdateDonationPost}>Update Donation Post</button>
+                ) : (
+                    <button onClick={handleSubmitDonationPost}>Create Donation Post</button>
+                )}
+            </div>
+            <div className="donation-posts">
+                <h2>Donation Posts</h2>
+                <ul>
+                    {donationPosts.map(post => (
+                        <li key={post.id}>
+                            <div>
+                                <h3>{post.category}</h3>
+                                <p>{post.content}</p>
+                                <p>{JSON.stringify(post.details)}</p>
+                                <p>{post.timestamp}</p>
+                                <button onClick={() => handleEdit(post.id)}>Edit</button>
+                                <button onClick={() => handleDelete(post.id)}>Delete</button>
+                            </div>
+                        </li>
+                    ))}
+                </ul>
             </div>
         </div>
     );
