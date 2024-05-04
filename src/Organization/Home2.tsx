@@ -3,13 +3,12 @@ import { ref, push, remove, update, onValue } from 'firebase/database';
 import { db } from '@/firebase';
 import './Home2.css';
 
-// Define a type for the donation post
 type DonationPost = {
     id: string;
     category: string;
     content: string;
-    details: any; // Adjust this type as needed
-    timestamp: string; // Add timestamp
+    details: any; 
+    timestamp: string; 
 };
 
 const Home2: React.FC = () => {
