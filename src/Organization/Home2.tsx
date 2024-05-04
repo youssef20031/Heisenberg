@@ -24,23 +24,30 @@ const Home2: React.FC = () => {
     };
 
     const handleSubmitDonationPost = () => {
-        if (!category || !donationPost) {
+        if (!category && !donationPost) {
             alert('Please select a category and provide donation post content.');
             return;
         }
-
+        else if (!category){
+            alert('Please select a category.');
+            return;
+        }
+        else if(!donationPost){
+            alert('Please provide content for the donation post.')
+            return;
+        }
         try {
             const donationPostsRef = ref(db, 'donationPosts');
 
             push(donationPostsRef, {
                 category: category,
                 content: donationPost,
-                details: details, 
+                details: details,
                 timestamp: new Date().toISOString()
             });
 
             alert('Donation post submitted successfully!');
-            
+
             setCategory('');
             setDonationPost('');
             setDetails({});

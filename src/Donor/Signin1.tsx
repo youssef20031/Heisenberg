@@ -30,7 +30,7 @@ const Sign_in1 = () => {
             && userData[key].verified === "True");
             if(userId){
                 console.log("Log in Successfully");
-                navigate("/Home1"); 
+                navigate("/DonorXVolunteer");
             }
 
         }
