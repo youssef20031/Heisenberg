@@ -11,7 +11,6 @@ const Home2: React.FC = () => {
     const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         const selectedCategory = e.target.value;
         setCategory(selectedCategory);
-        // Reset details when category changes
         setDetails({});
     };
 
@@ -25,27 +24,23 @@ const Home2: React.FC = () => {
     };
 
     const handleSubmitDonationPost = () => {
-        // Basic form validation
         if (!category || !donationPost) {
             alert('Please select a category and provide donation post content.');
             return;
         }
 
         try {
-            // Get a reference to the donation posts collection in your Firebase database
             const donationPostsRef = ref(db, 'donationPosts');
 
-            // Push the new donation post data to the collection
             push(donationPostsRef, {
                 category: category,
                 content: donationPost,
-                details: details, // Include additional details in the donation post
-                timestamp: new Date().toISOString() // Add a timestamp to track when the donation post was created
+                details: details, 
+                timestamp: new Date().toISOString()
             });
 
             alert('Donation post submitted successfully!');
             
-            // Clear the form fields after submission
             setCategory('');
             setDonationPost('');
             setDetails({});

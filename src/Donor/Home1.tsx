@@ -63,7 +63,7 @@ const Home1: React.FC = () => {
                             {post.showDetails && (
                                 <div className="donation-details">
                                     <p>{post.content}</p>
-                                    <p>{JSON.stringify(post.details)}</p> {/* Display details here */}
+                                    <p>{JSON.stringify(post.details)}</p> {}
                                 </div>
                             )}
                         </li>
