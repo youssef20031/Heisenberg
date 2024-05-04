@@ -4,7 +4,6 @@ import Donor from './Donor/Donor';
 import Organization from './Organization/Organization';
 import Admin from './Admin/Admin';
 import NavigationButtons from './Admin/Navigation';
-
 import SignUpFormDonor from './Donor/SignUpFormDonor.tsx';
 import Home1 from "@/Donor/Home1.tsx";
 import LocationComponent from './location';
@@ -21,6 +20,8 @@ import Home2 from './Organization/Home2.tsx';
 import NotRegisteredOrg from "@/Admin/NotRegistered.tsx";
 import Doctor from "@/Donor/Doctor.tsx";
 import Teacher from "@/Donor/Teacher.tsx";
+import View_Medical from './Donor/View_Medical.tsx';
+
 
 export const App = () => {
   const location = useLocation();
@@ -58,6 +59,7 @@ export const App = () => {
             <Route path="/donorlist" element={<DonorList />} />
             <Route path="/changepassword" element={<PasswordModification />} />
             <Route path="/notregisteredorganizations" element={<NotRegisteredOrg />} />
+            <Route path="/view_medical" element={<View_Medical />} />
           </Routes>
         </main>
       </>
