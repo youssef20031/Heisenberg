@@ -27,6 +27,12 @@ const Home1: React.FC = () => {
         fetchDonationPosts();
     }, []);
 
+    const toggleDetails = (index: number) => {
+        const updatedDonationPosts = [...donationPosts];
+        updatedDonationPosts[index].showDetails = !updatedDonationPosts[index].showDetails;
+        setDonationPosts(updatedDonationPosts);
+    };
+
     const filteredDonationPosts = selectedCategory
         ? donationPosts.filter(post => post.category === selectedCategory)
         : donationPosts;
@@ -50,7 +56,16 @@ const Home1: React.FC = () => {
                 <ul className="donation-list">
                     {filteredDonationPosts.map((post, index) => (
                         <li key={index} className="donation-list-item">
-                            <p>{post.content}</p>
+                            <div className="donation-header" onClick={() => toggleDetails(index)}>
+                                <p>{post.category}</p>
+                                {post.showDetails ? <span>&#x25B2;</span> : <span>&#x25BC;</span>}
+                            </div>
+                            {post.showDetails && (
+                                <div className="donation-details">
+                                    <p>{post.content}</p>
+                                    <p>{JSON.stringify(post.details)}</p> {/* Display details here */}
+                                </div>
+                            )}
                         </li>
                     ))}
                 </ul>
