@@ -54,14 +54,6 @@ const SignUpFormDonor =() => {
             }
             if(res){
                 alert("You got registered now login");
-                if (user === 'Doctor') {
-                    navigate("/doctor");
-                } else if (user === 'Teacher') {
-                    navigate("/teacher");
-                } else {
-                    navigate("/Home1");
-                }
-
             }
             else{
                 alert("Error Occured");
