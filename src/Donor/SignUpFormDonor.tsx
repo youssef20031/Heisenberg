@@ -127,6 +127,8 @@ const SignUpFormDonor =() => {
                         <option value="">Select a donor type</option>
                         <option value="Doctor">Doctor</option>
                         <option value="Teacher">Teacher</option>
+                        <option value="regular donor">regular donor</option>
+
                     </Form.Select>
                 </div>
                 <div className="form-group">
