@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        .label {
+            margin-bottom: 10px;
+        }
+
+        .input-box {
+            width: 200px;
+            padding: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .incrementor {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .increment-box {
+            width: 40px;
+            padding: 5px;
+            text-align: center;
+            border: 1px solid #ccc;
+            cursor: pointer;
+            user-select: none;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="label">
+        <label for="label1">Label 1:</label>
+        <input type="text" id="label1" class="input-box">
+    </div>
+    <div class="label">
+        <label for="label2">Label 2:</label>
+        <input type="text" id="label2" class="input-box">
+    </div>
+    <div class="label">
+        <label for="label3">Label 3:</label>
+        <input type="text" id="label3" class="input-box">
+    </div>
+    <div class="label">
+        <label for="label4">Label 4:</label>
+        <input type="text" id="label4" class="input-box">
+    </div>
+    <div class="label">
+        <label for="label5">Label 5:</label>
+        <input type="text" id="label5" class="input-box">
+    </div>
+    <div class="incrementor">
+        <div class="increment-box" id="decrement">-</div>
+        <div id="counter" style="margin: 0 10px;">0</div>
+        <div class="increment-box" id="increment">+</div>
+    </div>
+</div>
+
+<script>
+    // Incrementor functionality
+    const counter = document.getElementById('counter');
+    const incrementBtn = document.getElementById('increment');
+    const decrementBtn = document.getElementById('decrement');
+
+    let count = 0;
+
+    incrementBtn.addEventListener('click', () => {
+        count++;
+        counter.textContent = count.toString();
+    });
+
+    decrementBtn.addEventListener('click', () => {
+        if (count > 0) {
+            count--;
+            counter.textContent = count.toString();
+        }
+    });
+</script>
+</body>
+</html>

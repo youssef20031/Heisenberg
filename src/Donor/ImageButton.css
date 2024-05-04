@@ -1,0 +1,14 @@
+.image-button {
+    width: 50%;
+    height: 100vh; /* Full height of the viewport */
+    float: left; /* Float elements side by side */
+    background-size: cover; /* Cover the entire div with background image */
+    background-position: center; /* Center the background image */
+}
+
+.image-button a {
+    display: block; /* Make the link fill the entire button */
+    width: 100%;
+    height: 100%;
+    text-decoration: none; /* Remove default underline */
+}
