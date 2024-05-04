@@ -1,9 +1,9 @@
 import React, {useState} from "react";
 import { useNavigate } from "react-router-dom";
-import { auth,storage } from "../firebase.tsx";
+import { storage } from "../firebase.tsx";
 import { ref } from "firebase/storage";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { Form, Col } from 'react-bootstrap';
+
+import { Form } from 'react-bootstrap';
 import { Button } from "../components/ui/button.tsx";
 import { uploadBytes } from "firebase/storage";
 import './SignUpFormDonor.css';
@@ -36,8 +36,6 @@ const SignUpFormDonor =() => {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            await createUserWithEmailAndPassword(auth, email, password); // Use await to wait for the authentication to complete
-
             <h1>You go registered now Login</h1>
             console.log("Account created");
             const options={
@@ -49,13 +47,21 @@ const SignUpFormDonor =() => {
             }
             const res= await fetch('https://se-project-951b4-default-rtdb.firebaseio.com/UserData.json' , options)
             console.log(res);
-            
-            if (file) { 
+
+            if (file) {
                 const storageRef = ref(storage, `${email}`);
                 await uploadBytes(storageRef, file);
             }
             if(res){
                 alert("You got registered now login");
+                if (user === 'Doctor') {
+                    navigate("/doctor");
+                } else if (user === 'Teacher') {
+                    navigate("/teacher");
+                } else {
+                    navigate("/Home1");
+                }
+
             }
             else{
                 alert("Error Occured");
@@ -127,6 +133,8 @@ const SignUpFormDonor =() => {
                         <option value="">Select a donor type</option>
                         <option value="Doctor">Doctor</option>
                         <option value="Teacher">Teacher</option>
+                        <option value="regular donor">regular donor</option>
+
                     </Form.Select>
                 </div>
                 <div className="form-group">

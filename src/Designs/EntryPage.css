@@ -1,5 +1,3 @@
-/* EntryPage.css */
-
 .entry-page {
     display: flex;
     flex-direction: column;
@@ -13,16 +11,16 @@
     align-items: center;
     font-size: 24px;
     background-size: cover;
-    transition: background-image 0.3s ease; /* Smooth transition for background image change */
+    transition: background-image 0.3s ease;
   }
   
   .section:nth-child(odd) {
-    background-color: #f0f0f0; /* Alternate background color for odd sections */
+    background-color: #f0f0f0;
   }
   
   .section:hover {
-    background-color: rgba(255, 255, 255, 0.5); /* Slightly transparent white overlay on hover */
-    animation: zoomIn 0.3s ease; /* Add animation on hover */
+    background-color: rgba(255, 255, 255, 0.5);
+    animation: zoomIn 0.3s ease;
   }
   
   @keyframes zoomIn {

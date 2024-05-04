@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import L from 'leaflet';
-import 'leaflet/dist/leaflet.css'; // Import Leaflet CSS
-import icon from 'leaflet/dist/images/marker-icon.png'; // Import default marker icon
-import iconShadow from 'leaflet/dist/images/marker-shadow.png'; // Import marker shadow
+import 'leaflet/dist/leaflet.css';
+import icon from 'leaflet/dist/images/marker-icon.png';
+import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 import { Button } from './components/ui/button';
 import { useNavigate, useParams } from 'react-router-dom';
-import styles from './LocationComponent.module.css'; // Import the CSS module
+import styles from './LocationComponent.module.css';
 
-// Create a new marker icon using the default icon and shadow images
 const markerIcon = new L.Icon({
   iconUrl: icon,
   shadowUrl: iconShadow,
@@ -25,14 +24,14 @@ const LocationComponent = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      if (newLatLng) { // Check if newLatLng is not null
+      if (newLatLng) {
         console.log("Account created");
         const options = {
           method: 'Post',
           header: {
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify({ email, newLatLng }) // Use newLatLng here
+          body: JSON.stringify({ email, newLatLng })
         }
         const res = await fetch('https://se-project-951b4-default-rtdb.firebaseio.com/OrgLocations.json', options)
         console.log(res);
@@ -51,35 +50,29 @@ const LocationComponent = () => {
   };
 
   useEffect(() => {
-    // Fetch the user's current location
+
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         position => {
           const { latitude, longitude } = position.coords;
 
-          // Create a Leaflet map centered at the user's location with an adjusted zoom level
           const newMap = L.map('map').setView([latitude, longitude], 15); // Adjust the zoom level here
 
-          // Add a tile layer from OpenStreetMap
           L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '© OpenStreetMap contributors',
             maxZoom: 19,
           }).addTo(newMap);
 
-          // Add a marker at the user's location
           const newMarker = L.marker([latitude, longitude], { icon: markerIcon, draggable: true }).addTo(newMap).bindPopup('Your Location');
 
-          // Set the map and marker state variables
           setMap(newMap);
           setMarker(newMarker);
-          setNewLatLng(newMarker.getLatLng()); // Set newLatLng state with initial marker position
+          setNewLatLng(newMarker.getLatLng());
 
-          // Listen for dragend event on the marker
           newMarker.on('dragend', () => {
-            const newLatLng = newMarker.getLatLng(); // Get the new LatLng after dragend
+            const newLatLng = newMarker.getLatLng();
             console.log('New Marker Position:', newLatLng);
-            setNewLatLng(newLatLng); // Update newLatLng state
-            // You can perform actions with the new marker position here
+            setNewLatLng(newLatLng);
           });
         },
         error => {
