@@ -1,11 +1,20 @@
 import './Home1.css';
 import React, { useEffect, useState } from 'react';
-import { ref, onValue } from 'firebase/database';
+import { ref, onValue, remove } from 'firebase/database';
 import { db } from '@/firebase';
+
+// Define a type for the donation post
+type DonationPost = {
+    id: string;
+    category: string;
+    content: string;
+    details: any; // Adjust this type as needed
+    showDetails?: boolean; // Optional property for showing details
+};
 
 const Home1: React.FC = () => {
     const [selectedCategory, setSelectedCategory] = useState<string>('');
-    const [donationPosts, setDonationPosts] = useState<any[]>([]);
+    const [donationPosts, setDonationPosts] = useState<DonationPost[]>([]);
 
     useEffect(() => {
         const fetchDonationPosts = async () => {
@@ -13,8 +22,12 @@ const Home1: React.FC = () => {
                 const donationPostsRef = ref(db, 'donationPosts');
                 onValue(donationPostsRef, (snapshot) => {
                     if (snapshot.exists()) {
-                        const donationPostsData = snapshot.val();
-                        setDonationPosts(Object.values(donationPostsData));
+                        const donationPostsData: Record<string, any> = snapshot.val();
+                        const donationPostsArray: DonationPost[] = Object.entries(donationPostsData).map(([id, value]) => ({
+                            id,
+                            ...value
+                        }));
+                        setDonationPosts(donationPostsArray);
                     } else {
                         console.log('No donation posts available');
                     }
@@ -27,10 +40,27 @@ const Home1: React.FC = () => {
         fetchDonationPosts();
     }, []);
 
-    const toggleDetails = (index: number) => {
-        const updatedDonationPosts = [...donationPosts];
-        updatedDonationPosts[index].showDetails = !updatedDonationPosts[index].showDetails;
+    const toggleDetails = (id: string) => {
+        const updatedDonationPosts = donationPosts.map(post => {
+            if (post.id === id) {
+                return { ...post, showDetails: !post.showDetails };
+            }
+            return post;
+        });
         setDonationPosts(updatedDonationPosts);
+    };
+
+    const handleDonate = (id: string) => {
+        try {
+            const donationPostRef = ref(db, `donationPosts/${id}`);
+            remove(donationPostRef);
+            const updatedDonationPosts = donationPosts.filter(post => post.id !== id);
+            setDonationPosts(updatedDonationPosts);
+            alert('Donation successful!');
+        } catch (error) {
+            console.error('Error donating:', error);
+            alert('An error occurred while processing the donation. Please try again later.');
+        }
     };
 
     const filteredDonationPosts = selectedCategory
@@ -55,16 +85,17 @@ const Home1: React.FC = () => {
             </div>
             {filteredDonationPosts.length > 0 ? (
                 <ul className="donation-list">
-                    {filteredDonationPosts.map((post, index) => (
-                        <li key={index} className="donation-list-item">
-                            <div className="donation-header" onClick={() => toggleDetails(index)}>
+                    {filteredDonationPosts.map((post) => (
+                        <li key={post.id} className="donation-list-item">
+                            <div className="donation-header" onClick={() => toggleDetails(post.id)}>
                                 <p>{post.category}</p>
                                 {post.showDetails ? <span>&#x25B2;</span> : <span>&#x25BC;</span>}
                             </div>
                             {post.showDetails && (
                                 <div className="donation-details">
                                     <p>{post.content}</p>
-                                    <p>{JSON.stringify(post.details)}</p> {}
+                                    <p>{JSON.stringify(post.details)}</p>
+                                    <button onClick={() => handleDonate(post.id)}>Donate</button>
                                 </div>
                             )}
                         </li>
