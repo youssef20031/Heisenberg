@@ -7,6 +7,8 @@ import { getAuth, deleteUser, User } from "firebase/auth";
 import { getDownloadURL,deleteObject} from 'firebase/storage';
 import { ref as Ref2 } from 'firebase/storage';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import {useNavigate} from "react-router-dom";
+// eslint-disable-next-line react-hooks/rules-of-hooks
 
 
 
@@ -19,13 +21,14 @@ interface View_Medical {
 
 
 
-
 const View_Medical: React.FC = () => {
     const [data, setData] = useState<Record<string, View_Medical> | null>(null);
     const [search, setSearch]=useState('');
+    const navigate = useNavigate();
 
-
-
+    const handleViewloc = async (CaseNum: string) => {
+        navigate(`/locationMapsetter/${CaseNum}`);
+    }
 
     const handleFulfill = async (caseNum: string) => {
         try {
@@ -88,7 +91,9 @@ const View_Medical: React.FC = () => {
                         <th>Location</th>
                         <th>Weight</th>
                         <th>Organization name</th>
+                        <th>Medical Speciality</th>
                         <th>Case Description</th>
+                        <th>Location</th>
                         <th>Control Center</th>
                     </tr>
                     </thead>
@@ -98,11 +103,15 @@ const View_Medical: React.FC = () => {
                             <td style={{width: '15%'}}>{item.CaseNum}</td>
                             <td style={{width: '15%'}}>{item.Name}</td>
                             <td style={{width: '10%'}}>{item.Age}</td>
-                            <td>{item.Gender}</td>
-                            <td style={{width: '10%'}}>{item.Locaton}</td>
+                            <td style={{width: '10%'}}>{item.Gender}</td>
+                            <td style={{width: '10%'}}>{item.Location}</td>
                             <td style={{width: '10%'}}>{item.Weight}</td>
                             <td style={{width: '15%'}}>{item.OrgName}</td>
+                            <td style={{width: '15%'}}>{item.MedicalSpeciality}</td>
                             <td style={{width: '15%'}}>{item.CaseDescription}</td>
+                            <td style={{width: '15%'}}>
+                                <Button variant="primary" onClick={() => handleViewloc(item.CaseNum)}>Location</Button>
+                            </td>
                             <td style={{width: '15%'}}>
                                 <Button variant="primary" onClick={() => handleFulfill(item.CaseNum)}>Fulfill</Button>
                             </td>

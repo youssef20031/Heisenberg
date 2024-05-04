@@ -21,7 +21,7 @@ import NotRegisteredOrg from "@/Admin/NotRegistered.tsx";
 import Doctor from "@/Donor/Doctor.tsx";
 import Teacher from "@/Donor/Teacher.tsx";
 import View_Medical from './Donor/View_Medical.tsx';
-
+import LocationSetter from "@/Donor/LocationSetterForMedical.tsx";
 
 export const App = () => {
   const location = useLocation();
@@ -60,6 +60,7 @@ export const App = () => {
             <Route path="/changepassword" element={<PasswordModification />} />
             <Route path="/notregisteredorganizations" element={<NotRegisteredOrg />} />
             <Route path="/view_medical" element={<View_Medical />} />
+            <Route path="/locationMapsetter/:CaseNum" element={<LocationSetter />} />
           </Routes>
         </main>
       </>
