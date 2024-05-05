@@ -26,11 +26,10 @@ const Sign_in1 = () => {
   
       if (snapshot.exists()) {
         const userData = snapshot.val();
-        const userId = Object.keys(userData).find(key => userData[key].email === email && userData[key].password===password 
-            && userData[key].verified === "True");
+        const userId = Object.keys(userData).find(key => userData[key].email === email && userData[key].password===password);
             if(userId){
                 console.log("Log in Successfully");
-                navigate("/DonorXVolunteer");
+                navigate(`/DonorXVolunteer/${email}`);
             }
 
         }
