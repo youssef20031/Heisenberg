@@ -2,7 +2,7 @@ import './Home1.css';
 import React, { useEffect, useState } from 'react';
 import { ref, onValue, remove } from 'firebase/database';
 import { db } from '@/firebase';
-import {Navigate, useNavigate} from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 
 type DonationPost = {
     id: string;
@@ -15,6 +15,9 @@ type DonationPost = {
 const Home1: React.FC = () => {
     const [selectedCategory, setSelectedCategory] = useState<string>('');
     const [donationPosts, setDonationPosts] = useState<DonationPost[]>([]);
+    const [ageFilter, setAgeFilter] = useState<string>('');
+    const [genderFilter, setGenderFilter] = useState<string>('');
+    const [seasonFilter, setSeasonFilter] = useState<string>('');
 
     useEffect(() => {
         const fetchDonationPosts = async () => {
@@ -64,7 +67,21 @@ const Home1: React.FC = () => {
     };
 
     const filteredDonationPosts = selectedCategory
-        ? donationPosts.filter(post => post.category === selectedCategory)
+        ? donationPosts.filter(post => {
+            if (post.category === selectedCategory) {
+                if (selectedCategory === 'clothes') {
+                    // Apply additional filters for clothes category
+                    return (
+                        (!ageFilter || post.details.age === ageFilter) &&
+                        (!genderFilter || post.details.gender === genderFilter) &&
+                        (!seasonFilter || post.details.season === seasonFilter)
+                    );
+                } else {
+                    return true; // For other categories, no additional filtering needed
+                }
+            }
+            return false;
+        })
         : donationPosts;
 
     return (
@@ -83,6 +100,16 @@ const Home1: React.FC = () => {
                     <option value="teaching">Teaching Posts</option>
                 </select>
             </div>
+            {selectedCategory === 'clothes' && (
+                <div className="clothes-filters">
+                    <label htmlFor="ageFilter">Age:</label>
+                    <input type="text" id="ageFilter" value={ageFilter} onChange={(e) => setAgeFilter(e.target.value)} />
+                    <label htmlFor="genderFilter">Gender:</label>
+                    <input type="text" id="genderFilter" value={genderFilter} onChange={(e) => setGenderFilter(e.target.value)} />
+                    <label htmlFor="seasonFilter">Season:</label>
+                    <input type="text" id="seasonFilter" value={seasonFilter} onChange={(e) => setSeasonFilter(e.target.value)} />
+                </div>
+            )}
             {filteredDonationPosts.length > 0 ? (
                 <ul className="donation-list">
                     {filteredDonationPosts.map((post) => (
