@@ -25,6 +25,7 @@ import Mapsetter2 from '@/Donor/LocationSetterForMedical.tsx';
 import DonorXVolunteer from "@/Donor/DonorXVolunteer.tsx";
 import Notverified from '@/Donor/notverified';
 import NavigationButton from "@/Donor/DonorXVolunteer.tsx";
+import View_Teaching from './Donor/View_Teaching.tsx';
 export const App = () => {
   const location = useLocation();
 
@@ -62,6 +63,7 @@ export const App = () => {
             <Route path="/changepassword" element={<PasswordModification />} />
             <Route path="/notregisteredorganizations" element={<NotRegisteredOrg />} />
             <Route path="/view_medical" element={<View_Medical />} />
+            <Route path="/view_teaching" element={<View_Teaching />} />
             <Route path="/locationMapsetter2/:CaseNum" element={<Mapsetter2 />} />
             <Route path ="/DonorXVolunteer/:email" element={<NavigationButton />} />
             <Route path ="/notverified" element={<Notverified />} />
