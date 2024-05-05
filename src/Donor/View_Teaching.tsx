@@ -8,7 +8,7 @@ import { getDownloadURL,deleteObject} from 'firebase/storage';
 import { ref as Ref2 } from 'firebase/storage';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {useNavigate} from "react-router-dom";
-// eslint-disable-next-line react-hooks/rules-of-hooks
+
 
 
 
@@ -72,7 +72,7 @@ const View_Teaching: React.FC = () => {
 
     const handleButton = () => {
         setIsClicked(true);
-        if (searchSpeciality !== '') {
+        if (Governate !== '') {
             const filtered = Object.values(data!).filter(item => {
                 const specialityMatch = Governate === '' || item.Governate === Governate;
                 const searchMatch = search === '' || item.OrgName.toLowerCase().includes(search.toLowerCase()) || item.Location.toLowerCase().includes(search.toLowerCase());
