@@ -2,9 +2,11 @@ import React, { useState, useEffect } from "react";
 import { ref, push, remove, update, onValue, get } from "firebase/database";
 import { db } from "@/firebase";
 import "./Home2.css";
+import {useParams} from "react-router-dom";
 
 type DonationPost = {
   id: string;
+  email:string;
   category: string;
   content: string;
   details: any;
@@ -23,6 +25,7 @@ const Home2: React.FC = () => {
   const [pendingPosts, setPendingPosts] = useState<DonationPost[]>([]);
   const [donatedPosts, setDonatedPosts] = useState<DonationPost[]>([]);
   const [displayOption, setDisplayOption] = useState<string>("pending");
+  const { email } = useParams<{ email: string }>();
 
   useEffect(() => {
     const fetchDonationPosts = async () => {
@@ -39,10 +42,15 @@ const Home2: React.FC = () => {
             }));
             setDonationPosts(donationPostsArray);
 
+            const filteredDonationPosts = donationPostsArray.filter(
+                (post) => post.email === email
+            );
+
+            setDonationPosts(filteredDonationPosts);
             // Separate posts based on status
             const pending: DonationPost[] = [];
             const donated: DonationPost[] = [];
-            donationPostsArray.forEach((post) => {
+            filteredDonationPosts.forEach((post) => {
               if (post.status === "Pending") {
                 pending.push(post);
               } else if (post.status === "Donated") {
@@ -117,6 +125,7 @@ const Home2: React.FC = () => {
       const donationPostsRef = ref(db, "donationPosts");
 
       push(donationPostsRef, {
+        email:email,
         category: category,
         content: donationPost,
         details: details,

@@ -24,7 +24,7 @@ const SigninOrg = () => {
                 const userId = Object.keys(userData).find(key => userData[key].email === email && userData[key].password === password && userData[key].verification === "True");
                 if (userId) {
                     console.log("Log in Successfully");
-                    navigate("/Home2"); 
+                    navigate(`/Home2/${email}`);
                 }
             }
         } catch (error) {

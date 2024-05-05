@@ -52,7 +52,7 @@ export const App = () => {
             <Route path="/teacher" element={<Teacher />} />
             <Route path="/SignUpForm2" element={<SignUpFormOrg />} />
             <Route path="/SigninOrg" element={<SigninOrg />} />
-            <Route path="/Home2" element={<Home2 />} />
+            <Route path="/Home2/:email" element={<Home2 />} />
             <Route path="/organization" element={<Organization />} />
             <Route path="/location/:email" element={<LocationComponent />} />
             <Route path="/locationMapsetter/:email" element={<Mapsetter />} />
