@@ -157,10 +157,18 @@ const Home2: React.FC = () => {
             case 'clothes':
                 return (
                     <>
-                        <label htmlFor="size">Size:</label>
-                        <input type="text" id="size" name="size" value={details.size || ''} onChange={handleDetailChange} />
-                        <label htmlFor="color">Color:</label>
-                        <input type="text" id="color" name="color" value={details.color || ''} onChange={handleDetailChange} />
+                        <label htmlFor="type">type of clothing:</label>
+                        <input type="text" id="type" name="type" value={details.type || ''} onChange={handleDetailChange} />
+                        <label htmlFor="age">age:</label>
+                        <input type="text" id="age" name="age" value={details.age || ''} onChange={handleDetailChange} />
+                        <label htmlFor="gender">gender:</label>
+                        <input type="text" id="gender" name="gender" value={details.gender || ''} onChange={handleDetailChange} />
+                        <label htmlFor="season">season:</label>
+                        <input type="text" id="season" name="season" value={details.season || ''} onChange={handleDetailChange} />
+                        <label htmlFor="material">material:</label>
+                        <input type="text" id="material" name="material" value={details.material || ''} onChange={handleDetailChange} />
+                        <label htmlFor="quality">quality:</label>
+                        <input type="text" id="quality" name="quality" value={details.quality || ''} onChange={handleDetailChange} />
                     </>
                 );
             case 'toys':
@@ -255,7 +263,7 @@ const Home2: React.FC = () => {
                             <div>
                                 <h3>{post.category}</h3>
                                 <p>{post.content}</p>
-                                <p>{JSON.stringify(post.details)}</p>
+                                <p>{JSON.stringify(post.details).replace(/[{"}]/g, ' ')}</p>
                                 <p>{post.timestamp}</p>
                                 <button onClick={() => handleEdit(post.id)}>Edit</button>
                                 <button onClick={() => handleDelete(post.id)}>Delete</button>
