@@ -157,10 +157,18 @@ const Home2: React.FC = () => {
             case 'clothes':
                 return (
                     <>
-                        <label htmlFor="size">Size:</label>
-                        <input type="text" id="size" name="size" value={details.size || ''} onChange={handleDetailChange} />
-                        <label htmlFor="color">Color:</label>
-                        <input type="text" id="color" name="color" value={details.color || ''} onChange={handleDetailChange} />
+                        <label htmlFor="type of clothing">type of clothing:</label>
+                        <input type="text" id="type" name="type of clothing" value={details.size || ''} onChange={handleDetailChange} />
+                        <label htmlFor="age">age:</label>
+                        <input type="text" id="age" name="age" value={details.color || ''} onChange={handleDetailChange} />
+                        <label htmlFor="gender">gender:</label>
+                        <input type="text" id="gender" name="gender" value={details.color || ''} onChange={handleDetailChange} />
+                        <label htmlFor="season">season:</label>
+                        <input type="text" id="season" name="season" value={details.color || ''} onChange={handleDetailChange} />
+                        <label htmlFor="material">material:</label>
+                        <input type="text" id="material" name="material" value={details.color || ''} onChange={handleDetailChange} />
+                        <label htmlFor="quality">quality:</label>
+                        <input type="text" id="quality" name="quality" value={details.color || ''} onChange={handleDetailChange} />
                     </>
                 );
             case 'toys':
