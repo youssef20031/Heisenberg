@@ -1,16 +1,45 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import {useNavigate, useParams} from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import '@/Designs/EntryPage.css';
+import {get, ref} from "firebase/database";
+import {db} from "@/firebase.tsx";
 const NavigationButton = () => {
     const navigate = useNavigate();
+    const { email } = useParams<{ email: string }>();
 
-    const handleNavigateDonate = () => {
+    const handleNavigateDonate =  () => {
         navigate('/Home1');
     };
 
-    const handleNavigateVolunteer = () => {
-        navigate('/View_Medical');
+    const handleNavigateVolunteer = async (e: React.FormEvent) => {
+        e.preventDefault();
+        try {
+            const dbRef = ref(db, '/UserData');
+            const snapshot = await get(dbRef);
+
+            if (snapshot.exists()) {
+                const userData = snapshot.val();
+                const userId = Object.keys(userData).find(key => userData[key].email === email && userData[key].verified==="True" &&
+                    (userData[key].user==="Doctor" || userData[key].user==="Teacher"));
+                if(userId){
+                    if(userData[userId].user==="Doctor"){
+                        navigate('/View_Medical');
+                    }
+                    else {
+                        navigate('/View_Teaching');
+                    }
+                }
+                else{
+                    navigate('/notverified');
+                }
+
+            }
+        } catch (error) {
+            console.log(error);
+
+        }
+
     };
 
     return (
