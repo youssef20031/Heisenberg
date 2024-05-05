@@ -133,11 +133,11 @@ const View_Teaching: React.FC = () => {
                     <thead>
                     <tr style={{marginTop: '20px', marginBottom: '20px', marginLeft: '20px', marginRight: '20px'}}>
                         <th>TeachingNum</th>
-                        <th>NumOfStudents</th>
+                        <th>Number Of Students</th>
                         <th>Location</th>
                         <th>Subjects</th>
                         <th>Fulfilled</th>
-                        <th>OrgName</th>
+                        <th>Organization Name</th>
                         <th>Area</th>
                         <th>Governate</th>
                     </tr>
