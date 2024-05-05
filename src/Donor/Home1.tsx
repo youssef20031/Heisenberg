@@ -61,7 +61,7 @@ const Home1: React.FC = () => {
         } catch (error) {
             console.error('Error donating:', error);
             alert('An error occurred while processing the donation. Please try again later.');
-        }
+        }//test
     };
 
     const filteredDonationPosts = selectedCategory
