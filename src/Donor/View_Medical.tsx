@@ -76,15 +76,16 @@ const View_Medical: React.FC = () => {
 
     const handleButton = () => {
         setIsClicked(true);
-        if (searchSpeciality !== '') {
+        if (Governate !== '') {
             const filtered = Object.values(data!).filter(item => {
-                const specialityMatch = Governate === '' || item.Governate === Governate;
-                const searchMatch = search === '' || item.OrgName.toLowerCase().includes(search.toLowerCase()) || item.Location.toLowerCase().includes(search.toLowerCase());
-                return specialityMatch && searchMatch;
+                const GovernateMatch = Governate === '' || item.Governate === Governate;
+                const searchMatch = search === '' || item.Location.toLowerCase().includes(search.toLowerCase()) || item.OrgName.toLowerCase().includes(search.toLowerCase()) ;
+                return GovernateMatch && searchMatch;
             });
             setFilteredData(filtered);
         } else {
-            const filtered = Object.values(data!).filter(item => search === '' || item.Location.toLowerCase().includes(search.toLowerCase()) || item.OrgName.toLowerCase().includes(search.toLowerCase()));
+            const filtered = Object.values(data!).filter(item => search === '' ||
+                item.Location.toLowerCase().includes(search.toLowerCase()) || item.OrgName.toLowerCase().includes(search.toLowerCase()));
             setFilteredData(filtered);
         }
     };
