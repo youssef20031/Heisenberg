@@ -23,7 +23,12 @@ const NavigationButton = () => {
                 const userId = Object.keys(userData).find(key => userData[key].email === email && userData[key].verified==="True" &&
                     (userData[key].user==="Doctor" || userData[key].user==="Teacher"));
                 if(userId){
-                    navigate('/View_Medical');
+                    if(userData[userId].user==="Doctor"){
+                        navigate('/View_Medical');
+                    }
+                    else {
+                        navigate('/View_Teaching');
+                    }
                 }
                 else{
                     navigate('/notverified');
