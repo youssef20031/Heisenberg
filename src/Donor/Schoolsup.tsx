@@ -53,24 +53,24 @@ const FormExample: React.FC = () => {
         // Step 2: Use the styled components
         <Container>
             <Label>
-                <label htmlFor="label1">Pencil(s)</label>
+                <label htmlFor="label1">Pencils:</label>
                 {/* Step 3: Use the styled input component */}
                 <InputBox type="text" id="label1" />
             </Label>
             <Label>
-                <label htmlFor="label2">Label 2:</label>
+                <label htmlFor="label2">Notebooks:</label>
                 <InputBox type="text" id="label2" />
             </Label>
             <Label>
-                <label htmlFor="label3">Label 3:</label>
+                <label htmlFor="label3">Rulers:</label>
                 <InputBox type="text" id="label3" />
             </Label>
             <Label>
-                <label htmlFor="label4">Label 4:</label>
+                <label htmlFor="label4">Erasers:</label>
                 <InputBox type="text" id="label4" />
             </Label>
             <Label>
-                <label htmlFor="label5">Label 5:</label>
+                <label htmlFor="label5">Sharpeners:</label>
                 <InputBox type="text" id="label5" />
             </Label>
             <Incrementor>
