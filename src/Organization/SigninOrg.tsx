@@ -1,7 +1,8 @@
+import "./SigninOrg.css";
 import { useState } from "react";
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { auth,db } from "../firebase";
+import { auth, db } from "../firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { ref, get } from 'firebase/database';
 import { Button } from "../components/ui/button";
@@ -16,41 +17,43 @@ const SigninOrg = () => {
         e.preventDefault();
         try {
             const dbRef = ref(db, '/OrganizationData');
-        	const snapshot = await get(dbRef);
+            const snapshot = await get(dbRef);
   
-      if (snapshot.exists()) {
-        const userData = snapshot.val();
-        const userId = Object.keys(userData).find(key => userData[key].email === email && userData[key].password===password 
-            && userData[key].verification === "True");
-            if(userId){
-                console.log("Log in Successfully");
-                navigate("/Home2"); 
+            if (snapshot.exists()) {
+                const userData = snapshot.val();
+                const userId = Object.keys(userData).find(key => userData[key].email === email && userData[key].password === password && userData[key].verification === "True");
+                if (userId) {
+                    console.log("Log in Successfully");
+                    navigate("/Home2"); 
+                }
             }
-            
-
-        }
-    } catch (error) {
+        } catch (error) {
             console.log(error);
-            
         }
     };
 
     return (
-        <div>
-            <form onSubmit={handleSubmit}>
-                <h2>Login</h2>
-                <label htmlFor="email">
-                    Email
-                    <input type="text" onChange={(e) => setEmail(e.target.value)} className="inputfields"/> {/* Use e.target.value to get the input value */}
-                </label>
-                <label htmlFor="password">
-                    Password
-                    <input type="password" onChange={(e) => setPassword(e.target.value)} className="inputfields"/> {/* Use e.target.value to get the input value */}
-                </label>
-                <Button type="submit" id="submit" style={{ backgroundColor: 'rgb(120 120 163)'}} className="flex-center gap-2" >Login</Button>
-                {error && <p style={{ color: 'red' }}>{error}</p>} {/* Render the error message if it exists */}
-                <p>Don't have an account?<Link to="/SignUpForm2">Sign Up</Link></p> {/* Link to the Sign Up page */}
-            </form>
+        <div className="sign-in-wrapper">
+            <div className="sign-in-form">
+                <form onSubmit={handleSubmit}>
+                    <h2>Login</h2>
+                    <div className="form-group">
+                        <label htmlFor="email" className="form-label">
+                            Email
+                            <input type="text" onChange={(e) => setEmail(e.target.value)} className="inputfields"/>
+                        </label>
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="password" className="form-label">
+                            Password
+                            <input type="password" onChange={(e) => setPassword(e.target.value)} className="inputfields"/>
+                        </label>
+                    </div>
+                    <Button type="submit" id="submit" className="submit-btn">Login</Button>
+                    {error && <p className="error-message">{error}</p>}
+                    <p className="login-prompt">Don't have an account? <Link to="/SignUpForm2" className="login-link">Sign Up</Link></p>
+                </form>
+            </div>
         </div>
     );
 };
