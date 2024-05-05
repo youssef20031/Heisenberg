@@ -57,7 +57,6 @@ const Home1: React.FC = () => {
             remove(donationPostRef);
             const updatedDonationPosts = donationPosts.filter(post => post.id !== id);
             setDonationPosts(updatedDonationPosts);
-            navigate('/Schoolsup');
         } catch (error) {
             console.error('Error donating:', error);
             alert('An error occurred while processing the donation. Please try again later.');
