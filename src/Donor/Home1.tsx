@@ -1,5 +1,6 @@
-import './Home1.css';
+// Home1.tsx
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { ref, onValue, remove } from 'firebase/database';
 import { db } from '@/firebase';
 
@@ -103,6 +104,7 @@ const Home1: React.FC = () => {
             ) : (
                 <p className="no-posts-message">No donation posts available for selected category.</p>
             )}
+            <Link to="/update-account-info">Update Account Information</Link>
         </div>
     );
 };
