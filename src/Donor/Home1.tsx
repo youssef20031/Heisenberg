@@ -2,6 +2,7 @@ import './Home1.css';
 import React, { useEffect, useState } from 'react';
 import { ref, onValue, remove } from 'firebase/database';
 import { db } from '@/firebase';
+import {Navigate, useNavigate} from "react-router-dom";
 
 type DonationPost = {
     id: string;
@@ -48,6 +49,7 @@ const Home1: React.FC = () => {
         });
         setDonationPosts(updatedDonationPosts);
     };
+    const navigate = useNavigate();
 
     const handleDonate = (id: string) => {
         try {
@@ -55,7 +57,7 @@ const Home1: React.FC = () => {
             remove(donationPostRef);
             const updatedDonationPosts = donationPosts.filter(post => post.id !== id);
             setDonationPosts(updatedDonationPosts);
-            alert('Donation successful!');
+            navigate('/Schoolsup');
         } catch (error) {
             console.error('Error donating:', error);
             alert('An error occurred while processing the donation. Please try again later.');
@@ -93,7 +95,7 @@ const Home1: React.FC = () => {
                             {post.showDetails && (
                                 <div className="donation-details">
                                     <p>{post.content}</p>
-                                    <p>{JSON.stringify(post.details)}</p>
+                                    <p>{JSON.stringify(post.details).replace(/[{"}]/g, ' ')}</p>
                                     <button onClick={() => handleDonate(post.id)}>Donate</button>
                                 </div>
                             )}
