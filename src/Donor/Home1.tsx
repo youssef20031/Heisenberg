@@ -51,22 +51,18 @@ const Home1: React.FC = () => {
         setDonationPosts(updatedDonationPosts);
     };
 
-    const handleDonate = (id: string, donorEmail: string) => {
-      try {
-          const donationPostRef = ref(db, `donationPosts/${id}`);
-          update(donationPostRef, {
-              status: 'Donated', // Update the status to 'Donated' when the donation button is clicked
-              donorDetails: {
-                  email: donorEmail // Record the donor's email
-              }
-          });
-          alert('Donation successful!');
-      } catch (error) {
-          console.error('Error donating:', error);
-          alert('An error occurred while processing the donation. Please try again later.');
-      }
-  };
-  
+    const handleDonate = (id: string) => {
+        try {
+            const donationPostRef = ref(db, `donationPosts/${id}`);
+            update(donationPostRef, {
+                status: 'Donated' // Update the status to 'Donated' when the donation button is clicked
+            });
+            alert('Donation successful!');
+        } catch (error) {
+            console.error('Error donating:', error);
+            alert('An error occurred while processing the donation. Please try again later.');
+        }
+    };
 
     const filteredDonationPosts = selectedCategory
         ? donationPosts.filter(post => post.category === selectedCategory)

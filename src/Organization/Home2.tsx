@@ -20,6 +20,9 @@ const Home2: React.FC = () => {
   const [editMode, setEditMode] = useState<boolean>(false);
   const [editId, setEditId] = useState<string>("");
   const [donationPosts, setDonationPosts] = useState<DonationPost[]>([]);
+  const [pendingPosts, setPendingPosts] = useState<DonationPost[]>([]);
+  const [donatedPosts, setDonatedPosts] = useState<DonationPost[]>([]);
+  const [displayOption, setDisplayOption] = useState<string>("pending");
 
   useEffect(() => {
     const fetchDonationPosts = async () => {
@@ -35,6 +38,19 @@ const Home2: React.FC = () => {
               ...value,
             }));
             setDonationPosts(donationPostsArray);
+
+            // Separate posts based on status
+            const pending: DonationPost[] = [];
+            const donated: DonationPost[] = [];
+            donationPostsArray.forEach((post) => {
+              if (post.status === "Pending") {
+                pending.push(post);
+              } else if (post.status === "Donated") {
+                donated.push(post);
+              }
+            });
+            setPendingPosts(pending);
+            setDonatedPosts(donated);
           } else {
             console.log("No donation posts available");
           }
@@ -47,7 +63,9 @@ const Home2: React.FC = () => {
     fetchDonationPosts();
   }, []);
 
-  const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleCategoryChange = (
+    e: React.ChangeEvent<HTMLSelectElement>
+  ) => {
     const selectedCategory = e.target.value;
     setCategory(selectedCategory);
     setDetails({});
@@ -66,25 +84,23 @@ const Home2: React.FC = () => {
     setDetails({ ...details, [name]: value });
   };
 
-  // Inside your organization page where you display donation posts
   const handleViewDonorDetails = async (id: string) => {
     try {
-        const donationPostRef = ref(db, `donationPosts/${id}`);
-        const snapshot = await get(donationPostRef);
-        if (snapshot.exists()) {
-            const donationPostData = snapshot.val();
-            const donorEmail = donationPostData.donorDetails.email;
-            console.log('Donor Email:', donorEmail);
-            // You can now display donor email in your organization page UI
-        } else {
-            console.log('Donor details not available.');
-        }
+      const donationPostRef = ref(db, `donationPosts/${id}`);
+      const snapshot = await get(donationPostRef);
+      if (snapshot.exists()) {
+        const donationPostData = snapshot.val();
+        const donorEmail = donationPostData.donorDetails.email;
+        console.log('Donor Email:', donorEmail);
+        // You can now display donor email in your organization page UI
+      } else {
+        console.log('Donor details not available.');
+      }
     } catch (error) {
-        console.error('Error fetching donor details:', error);
-        alert('An error occurred while fetching donor details. Please try again later.');
+      console.error('Error fetching donor details:', error);
+      alert('An error occurred while fetching donor details. Please try again later.');
     }
-};
-
+  };
 
   const handleSubmitDonationPost = () => {
     if (!category && !donationPost) {
@@ -358,6 +374,16 @@ const Home2: React.FC = () => {
     }
   };
 
+  const handleUpdateUserInfo = () => {
+    // Add logic to update user information
+    alert("User information updated successfully!");
+  };
+
+  const handleDeleteUserInfo = () => {
+    // Add logic to delete user information
+    alert("User information deleted successfully!");
+  };
+
   return (
     <div className="home2">
       <div className="header">
@@ -383,9 +409,13 @@ const Home2: React.FC = () => {
           onChange={handleDonationPostChange}
         ></textarea>
         {editMode ? (
-          <button onClick={handleUpdateDonationPost}>
-            Update Donation Post
-          </button>
+          <>
+            <button onClick={handleUpdateDonationPost}>
+              Update Donation Post
+            </button>
+            <button onClick={handleUpdateUserInfo}>Update Account</button>
+            <button onClick={handleDeleteUserInfo}>Delete Account</button>
+          </>
         ) : (
           <button onClick={handleSubmitDonationPost}>
             Create Donation Post
@@ -394,20 +424,45 @@ const Home2: React.FC = () => {
       </div>
       <div className="donation-posts">
         <h2>Donation Posts</h2>
+        <div className="display-options">
+          <label htmlFor="displayOption">Display Option:</label>
+          <select
+            id="displayOption"
+            value={displayOption}
+            onChange={(e) => setDisplayOption(e.target.value)}
+          >
+            <option value="pending">Pending</option>
+            <option value="donated">Donated</option>
+          </select>
+        </div>
         <ul>
-          {donationPosts.map((post) => (
-            <li key={post.id}>
-              <div>
-                <h3>{post.category}</h3>
-                <p>{post.content}</p>
-                <p>{JSON.stringify(post.details).replace(/[{"}]/g, " ")}</p>
-                <p>{new Date(post.timestamp).toLocaleDateString()}</p>
-                <p>Status: {post.status}</p> {/* Displaying the status */}
-                <button onClick={() => handleEdit(post.id)}>Edit</button>
-                <button onClick={() => handleDelete(post.id)}>Delete</button>
-              </div>
-            </li>
-          ))}
+          {displayOption === "pending"
+            ? pendingPosts.map((post) => (
+                <li key={post.id}>
+                  <div>
+                    <h3>{post.category}</h3>
+                    <p>{post.content}</p>
+                    <p>{JSON.stringify(post.details).replace(/[{"}]/g, " ")}</p>
+                    <p>{new Date(post.timestamp).toLocaleDateString()}</p>
+                    <p>Status: {post.status}</p> {/* Displaying the status */}
+                    <button onClick={() => handleEdit(post.id)}>Edit</button>
+                    <button onClick={() => handleDelete(post.id)}>Delete</button>
+                  </div>
+                </li>
+              ))
+            : donatedPosts.map((post) => (
+                <li key={post.id}>
+                  <div>
+                    <h3>{post.category}</h3>
+                    <p>{post.content}</p>
+                    <p>{JSON.stringify(post.details).replace(/[{"}]/g, " ")}</p>
+                    <p>{new Date(post.timestamp).toLocaleDateString()}</p>
+                    <p>Status: {post.status}</p> {/* Displaying the status */}
+                    <button onClick={() => handleEdit(post.id)}>Edit</button>
+                    <button onClick={() => handleDelete(post.id)}>Delete</button>
+                  </div>
+                </li>
+              ))}
         </ul>
       </div>
     </div>
