@@ -263,7 +263,7 @@ const Home2: React.FC = () => {
                             <div>
                                 <h3>{post.category}</h3>
                                 <p>{post.content}</p>
-                                <p>{JSON.stringify(post.details)}</p>
+                                <p>{JSON.stringify(post.details).replace(/[{"}]/g, ' ')}</p>
                                 <p>{post.timestamp}</p>
                                 <button onClick={() => handleEdit(post.id)}>Edit</button>
                                 <button onClick={() => handleDelete(post.id)}>Delete</button>
