@@ -20,7 +20,8 @@ const NavigationButton = () => {
 
             if (snapshot.exists()) {
                 const userData = snapshot.val();
-                const userId = Object.keys(userData).find(key => userData[key].email === email && userData[key].verified==="True");
+                const userId = Object.keys(userData).find(key => userData[key].email === email && userData[key].verified==="True" &&
+                    (userData[key].user==="Doctor" || userData[key].user==="Teacher"));
                 if(userId){
                     navigate('/View_Medical');
                 }
