@@ -2,6 +2,7 @@ import './Home1.css';
 import React, { useEffect, useState } from 'react';
 import { ref, onValue, update,get } from 'firebase/database';
 import { db } from '@/firebase';
+import {useNavigate} from "react-router-dom";
 
 type DonationPost = {
     id: string;
@@ -16,6 +17,7 @@ const Home1: React.FC = () => {
     const [selectedCategory, setSelectedCategory] = useState<string>('');
     const [donationPosts, setDonationPosts] = useState<DonationPost[]>([]);
     const [details, setDetails] = useState<any>({});
+    const navigate = useNavigate();
     useEffect(() => {
         const fetchDonationPosts = async () => {
             try {
@@ -74,6 +76,7 @@ const Home1: React.FC = () => {
                 })();
 
                 alert('Donation successful!');
+                navigate('/ChooseTransportation')
             } else {
                 alert('Donation post not found.');
             }
