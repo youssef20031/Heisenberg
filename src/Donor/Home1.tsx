@@ -1,20 +1,25 @@
 import './Home1.css';
 import React, { useEffect, useState } from 'react';
+<<<<<<< HEAD
 import { ref, onValue, update,get } from 'firebase/database';
+=======
+import { ref, onValue, remove } from 'firebase/database';
+>>>>>>> 1e46e2fc643451ec0b96a3571003d768dcc84d51
 import { db } from '@/firebase';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 type DonationPost = {
     id: string;
     category: string;
     content: string;
     details: any;
-    status: string;
     showDetails?: boolean;
 };
 
 const Home1: React.FC = () => {
     const [selectedCategory, setSelectedCategory] = useState<string>('');
     const [donationPosts, setDonationPosts] = useState<DonationPost[]>([]);
+    const [details, setDetails] = useState<any>({});
 
     useEffect(() => {
         const fetchDonationPosts = async () => {
@@ -41,7 +46,7 @@ const Home1: React.FC = () => {
     }, []);
 
     const toggleDetails = (id: string) => {
-        const updatedDonationPosts = donationPosts.map(post => {
+        const updatedDonationPosts = donationPosts.map((post) => {
             if (post.id === id) {
                 return { ...post, showDetails: !post.showDetails };
             }
@@ -49,10 +54,12 @@ const Home1: React.FC = () => {
         });
         setDonationPosts(updatedDonationPosts);
     };
+    const navigate = useNavigate();
 
     const handleDonate = (id: string) => {
         try {
             const donationPostRef = ref(db, `donationPosts/${id}`);
+<<<<<<< HEAD
             const donationPost = donationPosts.find(post => post.id === id);
             if (donationPost) {
 
@@ -77,15 +84,91 @@ const Home1: React.FC = () => {
             } else {
                 alert('Donation post not found.');
             }
+=======
+            remove(donationPostRef);
+            const updatedDonationPosts = donationPosts.filter((post) => post.id !== id);
+            setDonationPosts(updatedDonationPosts);
+>>>>>>> 1e46e2fc643451ec0b96a3571003d768dcc84d51
         } catch (error) {
             console.error('Error donating:', error);
             alert('An error occurred while processing the donation. Please try again later.');
         }
     };
 
+<<<<<<< HEAD
+=======
+    const renderDetailFields = () => {
+        switch (selectedCategory) {
+            case 'food':
+                return (
+                    <>
+                        <label htmlFor="foodType">Type of Food:</label>
+                        <select
+                            id="foodType"
+                            name="foodType"
+                            value={details.foodType || ''}
+                            onChange={(e) => setDetails({ ...details, foodType: e.target.value })}
+                        >
+                            <option value="">Select Food Type</option>
+                            <option value="fruits_vegetables">Fruit and Vegetables</option>
+                            <option value="canned_foods">Canned Foods</option>
+                            <option value="fresh_meals">Fresh Meals</option>
+                            <option value="baked_goods">Baked Goods</option>
+                            <option value="drinks">Drinks</option>
+                        </select>
+                    </>
+                );
+                case 'medical':
+                return (
+                    <>
+                        <label htmlFor="medsup">Medical Supplies:</label>
+                        <select
+                            id="medsup"
+                            name="medsup"
+                            value={details.medsup || ''}
+                            onChange={(e) => setDetails({ ...details, medsup: e.target.value })}
+                        >
+                            <option value="">Select Medical Supplies</option>
+                            <option value="syringe">Syringe</option>
+                            <option value="spatula">Spatula</option>
+                            <option value="firstAidKit">First Aid Kits</option>
+                            <option value="bandage">Bandages</option>
+                            <option value="oxy">Oxygen Masks</option>
+                            <option value="wheels">Wheelchairs</option>
+                            <option value="bpm">Blood Pressure Monitors</option>
+                        </select>
+                    </>
+                );
+                case 'blood':
+                return (
+                    <>
+                        <label htmlFor="bloodT">Blood Type:</label>
+                        <select
+                            id="bloodT"
+                            name="bloodT"
+                            value={details.bloodT || ''}
+                            onChange={(e) => setDetails({ ...details, bloodT: e.target.value })}
+                        >
+                            <option value="">Select Blood Type</option>
+                            <option value="A+">A+</option>
+                            <option value="A-">A-</option>
+                            <option value="B+">B+</option>
+                            <option value="B-">B-</option>
+                            <option value="AB+">AB+</option>
+                            <option value="AB-">AB-</option>
+                            <option value="O+">O+</option>
+                            <option value="O-">O-</option>
+                        </select>
+                    </>
+                );
+            default:
+                return null;
+        }
+    };
+>>>>>>> 1e46e2fc643451ec0b96a3571003d768dcc84d51
 
     const filteredDonationPosts = selectedCategory
-        ? donationPosts.filter(post => post.category === selectedCategory)
+        ? donationPosts.filter((post) => post.category === selectedCategory)
         : donationPosts;
 
     return (
@@ -93,7 +176,15 @@ const Home1: React.FC = () => {
             <h2 className="donation-posts-heading">Donation Posts</h2>
             <div className="category-dropdown">
                 <label htmlFor="category">Select Category:</label>
-                <select id="category" className="category-select" value={selectedCategory} onChange={(e) => setSelectedCategory(e.target.value)}>
+                <select
+                    id="category"
+                    className="category-select"
+                    value={selectedCategory}
+                    onChange={(e) => {
+                        setSelectedCategory(e.target.value);
+                        setDetails({}); // Reset details when category changes
+                    }}
+                >
                     <option value="">All</option>
                     <option value="clothes">Clothes</option>
                     <option value="toys">Toys</option>
@@ -101,9 +192,9 @@ const Home1: React.FC = () => {
                     <option value="medical">Medical Supplies</option>
                     <option value="school">School Supplies</option>
                     <option value="blood">Blood Donations</option>
-                    <option value="teaching">Teaching Posts</option>
                 </select>
             </div>
+            {renderDetailFields()}
             {filteredDonationPosts.length > 0 ? (
                 <ul className="donation-list">
                     {filteredDonationPosts.map((post) => (
@@ -115,9 +206,13 @@ const Home1: React.FC = () => {
                             {post.showDetails && (
                                 <div className="donation-details">
                                     <p>{post.content}</p>
+<<<<<<< HEAD
                                     {/* Convert the amount to a number and display it */}
                                     <p>Amount: {Number(post.details.amount) || Number(post.details.quantity)}</p>
                                     {/* Render the button without the condition */}
+=======
+                                    <p>{JSON.stringify(post.details).replace(/[{"}]/g, ' ')}</p>
+>>>>>>> 1e46e2fc643451ec0b96a3571003d768dcc84d51
                                     <button onClick={() => handleDonate(post.id)}>Donate</button>
                                 </div>
                             )}
