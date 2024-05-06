@@ -148,6 +148,70 @@ const Home1: React.FC = () => {
                             <option value="O-">O-</option>
                         </select>
                     </>
+                )
+            case 'toys':
+                return (
+                    <>
+                        <label htmlFor="toysup">Toys:</label>
+                        <select
+                            id="toysup"
+                            name="toysup"
+                            value={details.toysup || ''}
+                            onChange={(e) => setDetails({ ...details, toysup: e.target.value })}
+                        >
+                            <option value="">Select Toys</option>
+                            <option value="barb">Barbie</option>
+                            <option value="hot">Hot Wheels</option>
+                            <option value="nerf">Nerf Guns</option>
+                            <option value="lego">Lego</option>
+                            <option value="doll">Dolls</option>
+                            <option value="hard">Rubix Cube</option>
+                        </select>
+                    </>
+                );
+            case 'school':
+                return (
+                    <>
+                        <label htmlFor="schools">School Supplies:</label>
+                        <select
+                            id="schools"
+                            name="schools"
+                            value={details.schools || ''}
+                            onChange={(e) => setDetails({ ...details, schools: e.target.value })}
+                        >
+                            <option value="">Select School Supplies</option>
+                            <option value="book">Books</option>
+                            <option value="pencil">Pencils</option>
+                            <option value="pen">Pens</option>
+                            <option value="note">Notebook</option>
+                            <option value="erase">Erasers</option>
+                            <option value="sharp">Sharpener</option>
+                            <option value="rule">Ruler</option>
+                        </select>
+                    </>
+                );
+            case 'clothes':
+                return (
+                    <>
+                        <label htmlFor="clothesup">Pieces of Clothes:</label>
+                        <select
+                            id="clothesup"
+                            name="clothesup"
+                            value={details.clothesup || ''}
+                            onChange={(e) => setDetails({...details, clothesup: e.target.value})}
+                        >
+                            <option value="">Select Clothes</option>
+                            <option value="pants">Pants</option>
+                            <option value="tees">T-shirt</option>
+                            <option value="short">Shorts</option>
+                            <option value="skirt">Skirts</option>
+                            <option value="pull">Sweaters</option>
+                            <option value="jack">Jackets</option>
+                            <option value="hijab">Hijab</option>
+                            <option value="shoes">Shoes</option>
+                            <option value="sock">Socks</option>
+                        </select>
+                    </>
                 );
             default:
                 return null;
