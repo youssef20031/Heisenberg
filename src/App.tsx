@@ -22,6 +22,7 @@ import Doctor from "@/Donor/Doctor.tsx";
 import Teacher from "@/Donor/Teacher.tsx";
 import View_Medical from './Donor/View_Medical.tsx';
 import Mapsetter2 from '@/Donor/LocationSetterForMedical.tsx';
+import Mapsetter3 from '@/Donor/LocationSetterForTeaching.tsx';
 import DonorXVolunteer from "@/Donor/DonorXVolunteer.tsx";
 import Notverified from '@/Donor/notverified';
 import NavigationButton from "@/Donor/DonorXVolunteer.tsx";
@@ -65,6 +66,7 @@ export const App = () => {
             <Route path="/view_medical" element={<View_Medical />} />
             <Route path="/view_teaching" element={<View_Teaching />} />
             <Route path="/locationMapsetter2/:CaseNum" element={<Mapsetter2 />} />
+            <Route path="/locationMapsetter3/:CaseNum" element={<Mapsetter3 />} />
             <Route path ="/DonorXVolunteer/:email" element={<NavigationButton />} />
             <Route path ="/notverified" element={<Notverified />} />
           </Routes>

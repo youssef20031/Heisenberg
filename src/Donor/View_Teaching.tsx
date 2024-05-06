@@ -35,7 +35,7 @@ const View_Teaching: React.FC = () => {
     const [ search, setSearch] = useState('');
 
     const handleViewloc = async (TeachingNum: string) => {
-        navigate(`/locationMapsetter2/${TeachingNum}`);
+        navigate(`/locationMapsetter3/${TeachingNum}`);
     }
 
     const handleFulfill = async (teachingNum: string) => {
