@@ -1,7 +1,6 @@
-// Home1.tsx
 import './Home1.css';
 import React, { useEffect, useState } from 'react';
-import { ref, onValue, update } from 'firebase/database';
+import { ref, onValue, update,get } from 'firebase/database';
 import { db } from '@/firebase';
 
 type DonationPost = {
@@ -23,7 +22,7 @@ const Home1: React.FC = () => {
                 const donationPostsRef = ref(db, 'donationPosts');
                 onValue(donationPostsRef, (snapshot) => {
                     if (snapshot.exists()) {
-                        const donationPostsData: Record<string, any> = snapshot.val();
+                        const donationPostsData: Record<any, any> = snapshot.val();
                         const donationPostsArray: DonationPost[] = Object.entries(donationPostsData).map(([id, value]) => ({
                             id,
                             ...value
@@ -54,15 +53,36 @@ const Home1: React.FC = () => {
     const handleDonate = (id: string) => {
         try {
             const donationPostRef = ref(db, `donationPosts/${id}`);
-            update(donationPostRef, {
-                status: 'Donated' // Update the status to 'Donated' when the donation button is clicked
-            });
-            alert('Donation successful!');
+            const donationPost = donationPosts.find(post => post.id === id);
+            if (donationPost) {
+
+                update(donationPostRef, {
+                    status: 'Donated',
+                });
+
+
+                (async () => {
+                    const donationPostRef2 = ref(db, `donationPosts/${id}/details`);
+
+                    const donationPostSnapshot = await get(donationPostRef2);
+                    const donationPostData = donationPostSnapshot.val();
+                    const currentAmount = donationPostData.amount || 0;
+                    const updatedQuantity = currentAmount - 1;
+                    update(donationPostRef2, {
+                        amount: updatedQuantity,
+                    });
+                })();
+
+                alert('Donation successful!');
+            } else {
+                alert('Donation post not found.');
+            }
         } catch (error) {
             console.error('Error donating:', error);
             alert('An error occurred while processing the donation. Please try again later.');
         }
     };
+
 
     const filteredDonationPosts = selectedCategory
         ? donationPosts.filter(post => post.category === selectedCategory)
@@ -95,10 +115,13 @@ const Home1: React.FC = () => {
                             {post.showDetails && (
                                 <div className="donation-details">
                                     <p>{post.content}</p>
-                                    <p>{JSON.stringify(post.details)}</p>
-                                    {post.status !== 'Donated' && <button onClick={() => handleDonate(post.id)}>Donate</button>}
+                                    {/* Convert the amount to a number and display it */}
+                                    <p>Amount: {Number(post.details.amount) || Number(post.details.quantity)}</p>
+                                    {/* Render the button without the condition */}
+                                    <button onClick={() => handleDonate(post.id)}>Donate</button>
                                 </div>
                             )}
+
                         </li>
                     ))}
                 </ul>

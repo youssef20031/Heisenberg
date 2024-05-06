@@ -86,11 +86,14 @@ const Home2: React.FC = () => {
   };
 
   const handleDetailChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+      e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
-    setDetails({ ...details, [name]: value });
+    // Parse the value to a number, or use 0 as default if parsing fails
+    const amount = name === 'quantity' || name === 'amount' ? parseInt(value) || 0 : value;
+    setDetails({ ...details, [name]: amount });
   };
+
 
   const handleViewDonorDetails = async (id: string) => {
     try {
@@ -211,7 +214,7 @@ const Home2: React.FC = () => {
             />
             <label htmlFor="quantity">Quantity:</label>
             <input
-              type="text"
+              type="number"
               id="quantity"
               name="quantity"
               value={details.quantity || ""}
@@ -277,7 +280,7 @@ const Home2: React.FC = () => {
           <>
             <label htmlFor="amount">Amount:</label>
             <input
-              type="text"
+              type="number"
               id="amount"
               name="amount"
               value={details.amount || ""}
@@ -298,7 +301,7 @@ const Home2: React.FC = () => {
             />
             <label htmlFor="amount">Amount:</label>
             <input
-              type="text"
+              type="number"
               id="amount"
               name="amount"
               value={details.amount || ""}
@@ -319,7 +322,7 @@ const Home2: React.FC = () => {
             />
             <label htmlFor="amount">Amount:</label>
             <input
-              type="text"
+              type="number"
               id="amount"
               name="amount"
               value={details.amount || ""}
