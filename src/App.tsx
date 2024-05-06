@@ -27,6 +27,10 @@ import DonorXVolunteer from "@/Donor/DonorXVolunteer.tsx";
 import Notverified from '@/Donor/notverified';
 import NavigationButton from "@/Donor/DonorXVolunteer.tsx";
 import View_Teaching from './Donor/View_Teaching.tsx';
+import ChooseTransportation from '@/Donor/ChooseTransportation.tsx';
+
+
+
 export const App = () => {
   const location = useLocation();
 
@@ -69,6 +73,7 @@ export const App = () => {
             <Route path="/locationMapsetter3/:CaseNum" element={<Mapsetter3 />} />
             <Route path ="/DonorXVolunteer/:email" element={<NavigationButton />} />
             <Route path ="/notverified" element={<Notverified />} />
+            <Route path ="/ChooseTransportation" element={<ChooseTransportation />} />
           </Routes>
         </main>
       </>
