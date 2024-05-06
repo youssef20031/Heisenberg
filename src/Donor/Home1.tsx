@@ -115,13 +115,11 @@ const Home1: React.FC = () => {
                             {post.showDetails && (
                                 <div className="donation-details">
                                     <p>{post.content}</p>
-                                    {/* Convert the amount to a number and display it */}
-                                    <p>Amount: {Number(post.details.amount) || Number(post.details.quantity)}</p>
-                                    {/* Render the button without the condition */}
-                                    <button onClick={() => handleDonate(post.id)}>Donate</button>
+                                    <p>{JSON.stringify(post.details)}</p>
+                                    {post.status !== 'Donated' &&
+                                        <button onClick={() => handleDonate(post.id)}>Donate</button>}
                                 </div>
                             )}
-
                         </li>
                     ))}
                 </ul>
