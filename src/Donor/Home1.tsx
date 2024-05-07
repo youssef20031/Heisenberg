@@ -1,7 +1,7 @@
 import './Home1.css';
 import React, { useEffect, useState } from 'react';
-import { ref, onValue, update,get } from 'firebase/database';
-import { db } from '@/firebase';
+import { ref, onValue, update,get, remove } from 'firebase/database';
+import { auth, db } from '@/firebase';
 import {useNavigate} from "react-router-dom";
 
 type DonationPost = {
@@ -17,6 +17,7 @@ const Home1: React.FC = () => {
     const [selectedCategory, setSelectedCategory] = useState<string>('');
     const [donationPosts, setDonationPosts] = useState<DonationPost[]>([]);
     const [details, setDetails] = useState<any>({});
+    const [burgerMenuOpen, setBurgerMenuOpen] = useState<boolean>(false);
     const navigate = useNavigate();
     useEffect(() => {
         const fetchDonationPosts = async () => {
@@ -84,6 +85,14 @@ const Home1: React.FC = () => {
             alert('An error occurred while processing the donation. Please try again later.');
         }
     };
+
+    const handleBurgerMenuClick = () => {
+      const burgerIcon = document.querySelector(".burger-icon");
+      if (burgerIcon) {
+        burgerIcon.classList.toggle("active");
+      }
+    };
+
     const renderDetailFields = () => {
         switch (selectedCategory) {
             case "food":
@@ -217,6 +226,29 @@ const Home1: React.FC = () => {
         }
     };
 
+    const handleUpdate = () => {
+      navigate('/update');
+    };
+  
+    const handleDeleteUser = async () => {
+      try {
+        const user = auth.currentUser;
+        if (user) {
+          const userId = user.uid;
+          const userDataRef = ref(db, `UserData/${userId}`);
+          await remove(userDataRef);
+          navigate('/Signin1');
+          alert('User deleted successfully!');
+        } else {
+          console.log('No user signed in');
+          alert('No user signed in.');
+        }
+      } catch (error) {
+        console.error('Error deleting user:', error);
+        alert('An error occurred while deleting user. Please try again later.');
+      }
+    };
+
     const filteredDonationPosts = selectedCategory
         ? donationPosts.filter(post => post.category === selectedCategory && (!post.details || post.details.amount > 0))
         : donationPosts.filter(post => !post.details || post.details.amount > 0);
@@ -224,6 +256,21 @@ const Home1: React.FC = () => {
 
     return (
         <div className="home1">
+          <div className="burger-menu">
+        {}
+        <button className={`burger-icon ${burgerMenuOpen ? 'active' : ''}`} onClick={() => setBurgerMenuOpen(!burgerMenuOpen)}>
+          <div className="bar" />
+          <div className="bar" />
+          <div className="bar" />
+        </button>
+        {}
+        {burgerMenuOpen && (
+          <div className="burger-menu-content">
+            <button onClick={handleUpdate}>Update</button>
+            <button onClick={handleDeleteUser}>Delete</button>
+          </div>
+        )}
+      </div>
             <h2 className="donation-posts-heading">Donation Posts</h2>
             <div className="category-dropdown">
                 <label htmlFor="category">Select Category:</label>
