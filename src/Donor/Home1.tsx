@@ -18,6 +18,7 @@ const Home1: React.FC = () => {
     const [donationPosts, setDonationPosts] = useState<DonationPost[]>([]);
     const [details, setDetails] = useState<any>({});
     const [burgerMenuOpen, setBurgerMenuOpen] = useState<boolean>(false);
+    const [showUpdateForm, setShowUpdateForm] = useState<boolean>(false);
     const navigate = useNavigate();
     useEffect(() => {
         const fetchDonationPosts = async () => {
@@ -227,8 +228,8 @@ const Home1: React.FC = () => {
     };
 
     const handleUpdate = () => {
-      navigate('/update');
-    };
+      setShowUpdateForm(true);
+  };
   
     const handleDeleteUser = async () => {
       try {
@@ -256,6 +257,7 @@ const Home1: React.FC = () => {
 
     return (
         <div className="home1">
+        
           <div className="burger-menu">
         {}
         <button className={`burger-icon ${burgerMenuOpen ? 'active' : ''}`} onClick={() => setBurgerMenuOpen(!burgerMenuOpen)}>
