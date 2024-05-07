@@ -25,6 +25,7 @@ interface View_Medical {
     Weight: string;
     CaseDescription: string;
     Governate: string;
+    Area: string;
 }
 
 
@@ -79,13 +80,13 @@ const View_Medical: React.FC = () => {
         if (Governate !== '') {
             const filtered = Object.values(data!).filter(item => {
                 const GovernateMatch = Governate === '' || item.Governate === Governate;
-                const searchMatch = search === '' || item.Location.toLowerCase().includes(search.toLowerCase()) || item.OrgName.toLowerCase().includes(search.toLowerCase()) ;
+                const searchMatch = search === '' || item.Location.toLowerCase().includes(search.toLowerCase()) || item.OrgName.toLowerCase().includes(search.toLowerCase()) || item.Area.toLowerCase().includes(search.toLowerCase()) || item.MedicalSpeciality.toLowerCase().includes(search.toLowerCase());
                 return GovernateMatch && searchMatch;
             });
             setFilteredData(filtered);
         } else {
             const filtered = Object.values(data!).filter(item => search === '' ||
-                item.Location.toLowerCase().includes(search.toLowerCase()) || item.OrgName.toLowerCase().includes(search.toLowerCase()));
+                item.Location.toLowerCase().includes(search.toLowerCase()) || item.OrgName.toLowerCase().includes(search.toLowerCase()) || item.Area.toLowerCase().includes(search.toLowerCase()) || item.MedicalSpeciality.toLowerCase().includes(search.toLowerCase()));
             setFilteredData(filtered);
         }
     };
@@ -114,7 +115,7 @@ const View_Medical: React.FC = () => {
                 <InputGroup>
                     <Form.Control
                         onChange={(e) => setSearch(e.target.value)}
-                        placeholder="search Organization names"
+                        placeholder="search Organization names or Area or Location or Medical Speciality"
                     />
                 </InputGroup>
             </Form>
@@ -143,6 +144,7 @@ const View_Medical: React.FC = () => {
                         <th style={{width: '10%'}}>Gender</th>
                         <th>Governate</th>
                         <th>Location</th>
+                        <th>Area</th>
                         <th>Weight</th>
                         <th>Organization name</th>
                         <th>Medical Speciality</th>
@@ -160,6 +162,7 @@ const View_Medical: React.FC = () => {
                                     <td style={{width: '10%'}}>{item.Gender}</td>
                                     <td style={{width: '10%'}}>{item.Governate}</td>
                                     <td style={{width: '10%'}}>{item.Location}</td>
+                                    <td style={{width: '10%'}}>{item.Area}</td>
                                     <td style={{width: '10%'}}>{item.Weight}</td>
                                     <td style={{width: '15%'}}>{item.OrgName}</td>
                                     <td style={{width: '15%'}}>{item.MedicalSpeciality}</td>
@@ -185,6 +188,7 @@ const View_Medical: React.FC = () => {
                                     <td style={{width: '10%'}}>{item.Gender}</td>
                                     <td style={{width: '10%'}}>{item.Governate}</td>
                                     <td style={{width: '10%'}}>{item.Location}</td>
+                                    <td style={{width: '10%'}}>{item.Area}</td>
                                     <td style={{width: '10%'}}>{item.Weight}</td>
                                     <td style={{width: '15%'}}>{item.OrgName}</td>
                                     <td style={{width: '15%'}}>{item.MedicalSpeciality}</td>

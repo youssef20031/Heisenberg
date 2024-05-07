@@ -75,12 +75,12 @@ const View_Teaching: React.FC = () => {
         if (Governate !== '') {
             const filtered = Object.values(data!).filter(item => {
                 const specialityMatch = Governate === '' || item.Governate === Governate;
-                const searchMatch = search === '' || item.OrgName.toLowerCase().includes(search.toLowerCase()) || item.Location.toLowerCase().includes(search.toLowerCase());
+                const searchMatch = search === '' || item.OrgName.toLowerCase().includes(search.toLowerCase()) || item.Location.toLowerCase().includes(search.toLowerCase()) || item.Area.toLowerCase().includes(search.toLowerCase());
                 return specialityMatch && searchMatch;
             });
             setFilteredData(filtered);
         } else {
-            const filtered = Object.values(data!).filter(item => search === '' || item.Location.toLowerCase().includes(search.toLowerCase()) || item.OrgName.toLowerCase().includes(search.toLowerCase()));
+            const filtered = Object.values(data!).filter(item => search === '' || item.Location.toLowerCase().includes(search.toLowerCase()) || item.OrgName.toLowerCase().includes(search.toLowerCase()) || item.Area.toLowerCase().includes(search.toLowerCase()));
             setFilteredData(filtered);
         }
     };
@@ -109,7 +109,7 @@ const View_Teaching: React.FC = () => {
                 <InputGroup>
                     <Form.Control
                         onChange={(e) => setSearch(e.target.value)}
-                        placeholder="search Organization names"
+                        placeholder="search Organization names or Area or Location"
                     />
                 </InputGroup>
             </Form>
