@@ -236,7 +236,6 @@ const Home1: React.FC = () => {
                     <option value="medical">Medical Supplies</option>
                     <option value="school">School Supplies</option>
                     <option value="blood">Blood Donations</option>
-                    <option value="teaching">Teaching Posts</option>
                 </select>
             </div>
             {renderDetailFields()}

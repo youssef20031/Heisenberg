@@ -2,11 +2,11 @@ import React, { useState, useEffect } from "react";
 import { ref, push, remove, update, onValue, get } from "firebase/database";
 import { db } from "@/firebase";
 import "./Home2.css";
-import {useParams} from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 type DonationPost = {
   id: string;
-  email:string;
+  email: string;
   category: string;
   content: string;
   details: any;
@@ -28,6 +28,9 @@ const Home2: React.FC = () => {
   const [displayOption, setDisplayOption] = useState<string>("pending");
   const { email } = useParams<{ email: string }>();
   const [deliveryDate, setDeliveryDate] = useState<string>("");
+  const [selectedCategory, setSelectedCategory] = useState<string>("");
+  const [value, setValue] = useState('');
+  const [error, setError] = useState('');
 
   useEffect(() => {
     const fetchDonationPosts = async () => {
@@ -37,7 +40,7 @@ const Home2: React.FC = () => {
           if (snapshot.exists()) {
             const donationPostsData: Record<string, any> = snapshot.val();
             const donationPostsArray: DonationPost[] = Object.entries(
-              donationPostsData
+                donationPostsData
             ).map(([id, value]) => ({
               id,
               ...value,
@@ -73,19 +76,22 @@ const Home2: React.FC = () => {
     fetchDonationPosts();
   }, []);
 
-  const handleDeliveryDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleDeliveryDateChange = (
+      e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     setDeliveryDate(e.target.value);
   };
   const handleCategoryChange = (
-    e: React.ChangeEvent<HTMLSelectElement>
+      e: React.ChangeEvent<HTMLSelectElement>
   ) => {
     const selectedCategory = e.target.value;
+    setSelectedCategory(selectedCategory);
     setCategory(selectedCategory);
     setDetails({});
   };
 
   const handleDonationPostChange = (
-    e: React.ChangeEvent<HTMLTextAreaElement>
+      e: React.ChangeEvent<HTMLTextAreaElement>
   ) => {
     setDonationPost(e.target.value);
   };
@@ -95,10 +101,10 @@ const Home2: React.FC = () => {
   ) => {
     const { name, value } = e.target;
     // Parse the value to a number, or use 0 as default if parsing fails
-    const amount = name === 'quantity' || name === 'amount' ? parseInt(value) || 0 : value;
+    const amount =
+        name === "quantity" || name === "amount" ? parseInt(value) || 0 : value;
     setDetails({ ...details, [name]: amount });
   };
-
 
   const handleViewDonorDetails = async (id: string) => {
     try {
@@ -107,14 +113,16 @@ const Home2: React.FC = () => {
       if (snapshot.exists()) {
         const donationPostData = snapshot.val();
         const donorEmail = donationPostData.donorDetails.email;
-        console.log('Donor Email:', donorEmail);
+        console.log("Donor Email:", donorEmail);
         // You can now display donor email in your organization page UI
       } else {
-        console.log('Donor details not available.');
+        console.log("Donor details not available.");
       }
     } catch (error) {
-      console.error('Error fetching donor details:', error);
-      alert('An error occurred while fetching donor details. Please try again later.');
+      console.error("Error fetching donor details:", error);
+      alert(
+          "An error occurred while fetching donor details. Please try again later."
+      );
     }
   };
 
@@ -131,9 +139,8 @@ const Home2: React.FC = () => {
     }
     try {
       const donationPostsRef = ref(db, "donationPosts");
-
       push(donationPostsRef, {
-        email:email,
+        email: email,
         category: category,
         content: donationPost,
         details: details,
@@ -150,7 +157,7 @@ const Home2: React.FC = () => {
     } catch (error) {
       console.error("Error submitting donation post:", error);
       alert(
-        "An error occurred while submitting the donation post. Please try again later."
+          "An error occurred while submitting the donation post. Please try again later."
       );
     }
   };
@@ -183,7 +190,7 @@ const Home2: React.FC = () => {
     } catch (error) {
       console.error("Error updating donation post:", error);
       alert(
-        "An error occurred while updating the donation post. Please try again later."
+          "An error occurred while updating the donation post. Please try again later."
       );
     }
   };
@@ -193,204 +200,163 @@ const Home2: React.FC = () => {
       const donationPostRef = ref(db, `donationPosts/${id}`);
       remove(donationPostRef);
       const updatedDonationPosts = donationPosts.filter(
-        (post) => post.id !== id
+          (post) => post.id !== id
       );
       setDonationPosts(updatedDonationPosts);
       alert("Donation post deleted successfully!");
     } catch (error) {
       console.error("Error deleting donation post:", error);
       alert(
-        "An error occurred while deleting the donation post. Please try again later."
+          "An error occurred while deleting the donation post. Please try again later."
       );
     }
   };
 
   const renderDetailFields = () => {
-    switch (category) {
+    switch (selectedCategory) {
       case "food":
         return (
-          <>
-            <label htmlFor="foodType">Type of Food:</label>
-            <input
-              type="text"
-              id="foodType"
-              name="foodType"
-              value={details.foodType || ""}
-              onChange={handleDetailChange}
-            />
-            <label htmlFor="quantity">Quantity:</label>
-            <input
-              type="number"
-              id="quantity"
-              name="quantity"
-              value={details.quantity || ""}
-              onChange={handleDetailChange}
-            />
-          </>
-        );
-      case "clothes":
-        return (
-          <>
-            <label htmlFor="type">type of clothing:</label>
-            <input
-              type="text"
-              id="type"
-              name="type"
-              value={details.type || ""}
-              onChange={handleDetailChange}
-            />
-            <label htmlFor="age">age:</label>
-            <input
-              type="text"
-              id="age"
-              name="age"
-              value={details.age || ""}
-              onChange={handleDetailChange}
-            />
-            <label htmlFor="gender">gender:</label>
-            <input
-              type="text"
-              id="gender"
-              name="gender"
-              value={details.gender || ""}
-              onChange={handleDetailChange}
-            />
-            <label htmlFor="season">season:</label>
-            <input
-              type="text"
-              id="season"
-              name="season"
-              value={details.season || ""}
-              onChange={handleDetailChange}
-            />
-            <label htmlFor="material">material:</label>
-            <input
-              type="text"
-              id="material"
-              name="material"
-              value={details.material || ""}
-              onChange={handleDetailChange}
-            />
-            <label htmlFor="quality">quality:</label>
-            <input
-              type="text"
-              id="quality"
-              name="quality"
-              value={details.quality || ""}
-              onChange={handleDetailChange}
-            />
-          </>
-        );
-      case "toys":
-        return (
-          <>
-            <label htmlFor="amount">Amount:</label>
-            <input
-              type="number"
-              id="amount"
-              name="amount"
-              value={details.amount || ""}
-              onChange={handleDetailChange}
-            />
-          </>
+            <>
+              <label htmlFor="Type">Type of Food:</label>
+              <select
+                  id="Type"
+                  name="Type"
+                  value={details.Type || ""}
+                  onChange={(e) => setDetails({ ...details, Type: e.target.value })}
+              >
+                <option value="">Select Food Type</option>
+                <option value="Fruits_and_Vegetables">Fruit and Vegetables</option>
+                <option value="Canned_Foods">Canned Foods</option>
+                <option value="Fresh_Meals">Fresh Meals</option>
+                <option value="Baked_Goods">Baked Goods</option>
+                <option value="Drinks">Drinks</option>
+              </select>
+            </>
         );
       case "medical":
         return (
-          <>
-            <label htmlFor="type">Type:</label>
-            <input
-              type="text"
-              id="type"
-              name="type"
-              value={details.type || ""}
-              onChange={handleDetailChange}
-            />
-            <label htmlFor="amount">Amount:</label>
-            <input
-              type="number"
-              id="amount"
-              name="amount"
-              value={details.amount || ""}
-              onChange={handleDetailChange}
-            />
-          </>
-        );
-      case "school":
-        return (
-          <>
-            <label htmlFor="type">Type:</label>
-            <input
-              type="text"
-              id="type"
-              name="type"
-              value={details.type || ""}
-              onChange={handleDetailChange}
-            />
-            <label htmlFor="amount">Amount:</label>
-            <input
-              type="number"
-              id="amount"
-              name="amount"
-              value={details.amount || ""}
-              onChange={handleDetailChange}
-            />
-          </>
+            <>
+              <label htmlFor="Medical_Supplies">Medical Supplies:</label>
+              <select
+                  id="Medical_Supplies"
+                  name="Medical_Supplies"
+                  value={details.Medical_Supplies || ""}
+                  onChange={(e) => setDetails({ ...details, Medical_Supplies: e.target.value })}
+              >
+                <option value="">Select Medical Supplies</option>
+                <option value="Syringe">Syringe</option>
+                <option value="Spatula">Spatula</option>
+                <option value="First_Aid_Kit">First Aid Kits</option>
+                <option value="Bandage">Bandages</option>
+                <option value="Oxygen_Masks">Oxygen Masks</option>
+                <option value="Wheels_Chairs">Wheelchairs</option>
+                <option value="Blood_Pressure_Moniters">Blood Pressure Monitors</option>
+              </select>
+            </>
         );
       case "blood":
         return (
-          <>
-            <label htmlFor="bloodType">Blood Type:</label>
-            <select
-              id="bloodType"
-              name="bloodType"
-              value={details.bloodType || ""}
-              onChange={handleDetailChange}
-            >
-              <option value="">Select Blood Type</option>
-              <option value="A+">A+</option>
-              <option value="A-">A-</option>
-              <option value="B+">B+</option>
-              <option value="B-">B-</option>
-              <option value="AB+">AB+</option>
-              <option value="AB-">AB-</option>
-              <option value="O+">O+</option>
-              <option value="O-">O-</option>
-            </select>
-          </>
+            <>
+              <label htmlFor="Blood_Type">Blood Type:</label>
+              <select
+                  id="Blood_Type"
+                  name="Blood_Type"
+                  value={details.Blood_Type || ""}
+                  onChange={(e) => setDetails({ ...details, Blood_Type: e.target.value })}
+              >
+                <option value="">Select Blood Type</option>
+                <option value="A+">A+</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B-">B-</option>
+                <option value="AB+">AB+</option>
+                <option value="AB-">AB-</option>
+                <option value="O+">O+</option>
+                <option value="O-">O-</option>
+              </select>
+            </>
         );
-      case "teaching":
+      case "toys":
         return (
-          <>
-            <label htmlFor="NumberOfStudent">Number Of Student:</label>
-            <input
-              type="text"
-              id="NumberOfStudent"
-              name="NumberOfStudent"
-              value={details.NumberOfStudent || ""}
-              onChange={handleDetailChange}
-            />
-            <label htmlFor="addess">Address:</label>
-            <input
-              type="text"
-              id="addess"
-              name="addess"
-              value={details.addess || ""}
-              onChange={handleDetailChange}
-            />
-            <label htmlFor="subjects">Subjects:</label>
-            <input
-              type="text"
-              id="subjects"
-              name="subjects"
-              value={details.subjects || ""}
-              onChange={handleDetailChange}
-            />
-          </>
+            <>
+              <label htmlFor="Toys">Toys:</label>
+              <select
+                  id="Toys"
+                  name="Toys"
+                  value={details.Toys || ""}
+                  onChange={(e) => setDetails({ ...details, Toys: e.target.value })}
+              >
+                <option value="">Select Toys</option>
+                <option value="Barbie">Barbie</option>
+                <option value="Hot_Wheels">Hot Wheels</option>
+                <option value="Nerf_Guns">Nerf Guns</option>
+                <option value="Lego">Lego</option>
+                <option value="Dolls">Dolls</option>
+                <option value="Rubix_Cube">Rubix Cube</option>
+              </select>
+            </>
+        );
+      case "school":
+        return (
+            <>
+              <label htmlFor="School_Supplies">School Supplies:</label>
+              <select
+                  id="School_Supplies"
+                  name="School_Supplies"
+                  value={details.School_Supplies || ""}
+                  onChange={(e) => setDetails({ ...details, School_Supplies: e.target.value })}
+              >
+                <option value="">Select School Supplies</option>
+                <option value="Books">Books</option>
+                <option value="Pencils">Pencils</option>
+                <option value="Pens">Pens</option>
+                <option value="Notebooks">Notebooks</option>
+                <option value="Erasers">Erasers</option>
+                <option value="Sharpener">Sharpener</option>
+                <option value="Rules">Ruler</option>
+              </select>
+            </>
+        );
+      case "clothes":
+        return (
+            <>
+              <label htmlFor="Clothes">Pieces of Clothes:</label>
+              <select
+                  id="Clothes"
+                  name="Clothes"
+                  value={details.Clothes || ""}
+                  onChange={(e) => setDetails({ ...details, Clothes: e.target.value })}
+              >
+                <option value="">Select Clothes</option>
+                <option value="Pants">Pants</option>
+                <option value="T_shirt">T-shirt</option>
+                <option value="Shorts">Shorts</option>
+                <option value="Skirts">Skirts</option>
+                <option value="Sweaters">Sweaters</option>
+                <option value="Jackets">Jackets</option>
+                <option value="Hijab">Hijab</option>
+                <option value="Shoes">Shoes</option>
+                <option value="Socks">Socks</option>
+              </select>
+            </>
         );
       default:
         return null;
     }
   };
+
+    const handleQuantityChange = (e) => {
+        const inputValue = e.target.value;
+
+        // Allow the input to be empty or match the regex for digits
+        if (inputValue === '' || /^\d+$/.test(inputValue)) {
+            setValue(inputValue);
+            setError('');
+            handleDetailChange({ target: { name: 'amount', value: inputValue } } as React.ChangeEvent<HTMLInputElement>);
+        } else {
+            setError('Please enter a valid positive number.');
+        }
+    };
 
   const handleUpdateUserInfo = () => {
     // Add logic to update user information
@@ -408,58 +374,70 @@ const Home2: React.FC = () => {
           <h1>{editMode ? "Edit Donation Post" : "Create Donation Post"}</h1>
         </div>
         <div className="form-container">
-          <form>
-            <label htmlFor="category">Category:</label>
-            <select id="category" value={category} onChange={handleCategoryChange}>
-              <option value="">Select Category</option>
-              <option value="clothes">Clothes</option>
-              <option value="toys">Toys</option>
-              <option value="food">Food</option>
-              <option value="medical">Medical Supplies</option>
-              <option value="school">School Supplies</option>
-              <option value="blood">Blood Donations</option>
-              <option value="teaching">Teaching Posts</option>
-            </select>
+            <form>
+                <label htmlFor="category">Category:</label>
+                <select
+                    id="category"
+                    value={category}
+                    onChange={handleCategoryChange}
+                >
+                    <option value="">Select Category</option>
+                    <option value="clothes">Clothes</option>
+                    <option value="toys">Toys</option>
+                    <option value="food">Food</option>
+                    <option value="medical">Medical Supplies</option>
+                    <option value="school">School Supplies</option>
+                    <option value="blood">Blood Donations</option>
+                </select>
 
-            {renderDetailFields()}
+                {renderDetailFields()}
+                <label htmlFor="amount">Amount:</label>
+                <input
+                    type="text"
+                    id="amount"
+                    value={value}
+                    onChange={handleQuantityChange}
+                    placeholder="Enter a positive number"
+                />
+                <label htmlFor="donation-post">Details:</label>
+                <textarea
+                    id="donation-post"
+                    value={donationPost}
+                    onChange={handleDonationPostChange}
+                ></textarea>
 
-            <label htmlFor="donation-post">Details:</label>
-            <textarea
-                id="donation-post"
-                value={donationPost}
-                onChange={handleDonationPostChange}
-            ></textarea>
+                <label htmlFor="delivery-date">Delivery Date:</label>
+                <input
+                    type="date"
+                    id="delivery-date"
+                    name="deliveryDate"
+                    value={deliveryDate}
+                    onChange={handleDeliveryDateChange}
+                />
 
-            <label htmlFor="delivery-date">Delivery Date:</label>
-            <input
-                type="date"
-                id="delivery-date"
-                name="deliveryDate"
-                value={deliveryDate}
-                onChange={handleDeliveryDateChange}
-            />
-
-            {editMode ? (
-                <>
-                  <button type="button" onClick={handleUpdateDonationPost}>
-                    Update Donation Post
-                  </button>
-                  <button type="button" onClick={handleUpdateUserInfo}>Update Account</button>
-                  <button type="button" onClick={handleDeleteUserInfo}>Delete Account</button>
-                </>
-            ) : (
-                <button type="button" onClick={handleSubmitDonationPost}>
-                  Create Donation Post
-                </button>
-            )}
-          </form>
+                {editMode ? (
+                    <>
+                        <button type="button" onClick={handleUpdateDonationPost}>
+                            Update Donation Post
+                        </button>
+                        <button type="button" onClick={handleUpdateUserInfo}>
+                            Update Account
+                        </button>
+                        <button type="button" onClick={handleDeleteUserInfo}>
+                            Delete Account
+                        </button>
+                    </>
+                ) : (
+                    <button type="button" onClick={handleSubmitDonationPost}>
+                        Submit Donation Post
+                    </button>
+                )}
+            </form>
         </div>
-        <div className="donation-posts">
-          <h2>Donation Posts</h2>
-          <div className="display-options">
-            <label htmlFor="displayOption">Display Option:</label>
+          <div className="posts-container">
+              <div className="posts-header">
+                  <h2>My Donation Posts</h2>
             <select
-                id="displayOption"
                 value={displayOption}
                 onChange={(e) => setDisplayOption(e.target.value)}
             >
@@ -467,35 +445,31 @@ const Home2: React.FC = () => {
               <option value="donated">Donated</option>
             </select>
           </div>
-          <ul>
-            {displayOption === "pending"
-                ? pendingPosts.map((post) => (
-                    <li key={post.id}>
-                      <div>
-                        <h3>{post.category}</h3>
-                        <p>{post.content}</p>
-                        <p>{JSON.stringify(post.details).replace(/[{"}]/g, " ")}</p>
-                        <p>{new Date(post.timestamp).toLocaleDateString()}</p>
-                        <p>Status: {post.status}</p>
-                        <button onClick={() => handleEdit(post.id)}>Edit</button>
-                        <button onClick={() => handleDelete(post.id)}>Delete</button>
-                      </div>
-                    </li>
-                ))
-                : donatedPosts.map((post) => (
-                    <li key={post.id}>
-                      <div>
-                        <h3>{post.category}</h3>
-                        <p>{post.content}</p>
-                        <p>{JSON.stringify(post.details).replace(/[{"}]/g, " ")}</p>
-                        <p>{new Date(post.timestamp).toLocaleDateString()}</p>
-                        <p>Status: {post.status}</p>
-                        <button onClick={() => handleEdit(post.id)}>Edit</button>
-                        <button onClick={() => handleDelete(post.id)}>Delete</button>
-                      </div>
-                    </li>
+          <div className="posts-list">
+            {displayOption === "pending" &&
+                pendingPosts.map((post) => (
+                    <div key={post.id} className="post">
+                      <p>{post.category}</p>
+                      <p>{post.content}</p>
+                      <p>{post.status}</p>
+                      <p>{post.deliveryDate}</p>
+                      <button onClick={() => handleEdit(post.id)}>Edit</button>
+                      <button onClick={() => handleDelete(post.id)}>Delete</button>
+                    </div>
                 ))}
-          </ul>
+            {displayOption === "donated" &&
+                donatedPosts.map((post) => (
+                    <div key={post.id} className="post">
+                        <p>{post.category}</p>
+                        <p>{post.content}</p>
+                        <p>{post.status}</p>
+                        <p>{post.deliveryDate}</p>
+                        <button onClick={() => handleViewDonorDetails(post.id)}>
+                            View Donor Details
+                        </button>
+                    </div>
+                ))}
+          </div>
         </div>
       </div>
   );
