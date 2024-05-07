@@ -276,34 +276,53 @@ const Home2: React.FC = () => {
               </select>
             </>
         );
-      case "toys":
-        return (
-            <>
-                <label htmlFor="Toys">Toys:</label>
-                <select
-                    id="Toys"
-                    name="Toys"
-                    value={details.Toys || ""}
-                    onChange={(e) => setDetails({...details, Toys: e.target.value})}
-                >
-                    <option value="">Select Toys</option>
-                    <option value="Barbie">Barbie</option>
-                    <option value="Hot_Wheels">Hot Wheels</option>
-                    <option value="Nerf_Guns">Nerf Guns</option>
-                    <option value="Lego">Lego</option>
-                    <option value="Dolls">Dolls</option>
-                    <option value="Rubix_Cube">Rubix Cube</option>
-                </select>
-                <label htmlFor="Gender">Gender:</label>
-                <input
-                    type="text"
-                    id="amount"
-                    value={value}
-                    onChange={handleQuantityChange}
-                    placeholder="Enter a positive number"
-                />
-            </>
-        );
+        case "toys":
+            return (
+                <>
+                    <label htmlFor="Toys">Toys:</label>
+                    <select
+                        id="Toys"
+                        name="Toys"
+                        value={details.Toys || ""}
+                        onChange={(e) => setDetails({ ...details, Toys: e.target.value })}
+                    >
+                        <option value="">Select Toys</option>
+                        <option value="Board_Games">Board Games</option>
+                        <option value="Stuffed_toys">Stuffed toys</option>
+                        <option value="Dolls">Dolls</option>
+                        <option value="Sports">Sports</option>
+                        <option value="Cars">Cars</option>
+                        <option value="Outdoors">Outdoors</option>
+                    </select>
+                    <label htmlFor="Gender">Gender:</label>
+                    <select
+                        id="Gender"
+                        name="Gender"
+                        value={details.Gender || ""}
+                        onChange={(e) => setDetails({ ...details, Gender: e.target.value })}
+                    >
+                        <option value="">Select Gender</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Other">Other</option>
+                    </select>
+                    <label htmlFor="Age">Age:</label>
+                    <input
+                        type="text"
+                        id="Age"
+                        name="Age"
+                        value={details.Age || ""}
+                        onChange={(e) => setDetails({ ...details, Age: e.target.value })}
+                    />
+                    <label htmlFor="Toy_Picture">Toy Picture:</label>
+                    <input
+                        type="file"
+                        id="Toy_Picture"
+                        name="Toy_Picture"
+                        onChange={(e) => setDetails({ ...details, Toy_Picture: e.target.files[0] })}
+                    />
+                </>
+            );
         case "school":
             return (
                 <>
