@@ -47,7 +47,7 @@ const NavigationButton = () => {
             <div className="section" style={{backgroundImage: `url('/src/Donor/volunteerSeif.jpg')`}} onClick={handleNavigateVolunteer}>
                 <h1 style={{  color: 'white' }}>Volunteer</h1>
             </div>
-            <div className="section" style={{backgroundImage: `url('/src/Donor/donations.jpg')`}} onClick={handleNavigateDonate}>
+            <div className="section" style={{backgroundImage: `url('/src/Donor/lovedonors.jpg')`}} onClick={handleNavigateDonate}>
                 <h1 style={{  color: 'white' }}>Donate</h1>
             </div>
         </div>
