@@ -276,70 +276,117 @@ const Home2: React.FC = () => {
               </select>
             </>
         );
-      case "toys":
-        return (
-            <>
-              <label htmlFor="Toys">Toys:</label>
-              <select
-                  id="Toys"
-                  name="Toys"
-                  value={details.Toys || ""}
-                  onChange={(e) => setDetails({ ...details, Toys: e.target.value })}
-              >
-                <option value="">Select Toys</option>
-                <option value="Barbie">Barbie</option>
-                <option value="Hot_Wheels">Hot Wheels</option>
-                <option value="Nerf_Guns">Nerf Guns</option>
-                <option value="Lego">Lego</option>
-                <option value="Dolls">Dolls</option>
-                <option value="Rubix_Cube">Rubix Cube</option>
-              </select>
-            </>
-        );
-      case "school":
-        return (
-            <>
-              <label htmlFor="School_Supplies">School Supplies:</label>
-              <select
-                  id="School_Supplies"
-                  name="School_Supplies"
-                  value={details.School_Supplies || ""}
-                  onChange={(e) => setDetails({ ...details, School_Supplies: e.target.value })}
-              >
-                <option value="">Select School Supplies</option>
-                <option value="Books">Books</option>
-                <option value="Pencils">Pencils</option>
-                <option value="Pens">Pens</option>
-                <option value="Notebooks">Notebooks</option>
-                <option value="Erasers">Erasers</option>
-                <option value="Sharpener">Sharpener</option>
-                <option value="Rules">Ruler</option>
-              </select>
-            </>
-        );
-      case "clothes":
-        return (
-            <>
-              <label htmlFor="Clothes">Pieces of Clothes:</label>
-              <select
-                  id="Clothes"
-                  name="Clothes"
-                  value={details.Clothes || ""}
-                  onChange={(e) => setDetails({ ...details, Clothes: e.target.value })}
-              >
-                <option value="">Select Clothes</option>
-                <option value="Pants">Pants</option>
-                <option value="T_shirt">T-shirt</option>
-                <option value="Shorts">Shorts</option>
-                <option value="Skirts">Skirts</option>
-                <option value="Sweaters">Sweaters</option>
-                <option value="Jackets">Jackets</option>
-                <option value="Hijab">Hijab</option>
-                <option value="Shoes">Shoes</option>
-                <option value="Socks">Socks</option>
-              </select>
-            </>
-        );
+        case "toys":
+            return (
+                <>
+                    <label htmlFor="Toys">Toys:</label>
+                    <select
+                        id="Toys"
+                        name="Toys"
+                        value={details.Toys || ""}
+                        onChange={(e) => setDetails({ ...details, Toys: e.target.value })}
+                    >
+                        <option value="">Select Toys</option>
+                        <option value="Board_Games">Board Games</option>
+                        <option value="Stuffed_toys">Stuffed toys</option>
+                        <option value="Dolls">Dolls</option>
+                        <option value="Sports">Sports</option>
+                        <option value="Cars">Cars</option>
+                        <option value="Outdoors">Outdoors</option>
+                    </select>
+                    <label htmlFor="Gender">Gender:</label>
+                    <select
+                        id="Gender"
+                        name="Gender"
+                        value={details.Gender || ""}
+                        onChange={(e) => setDetails({ ...details, Gender: e.target.value })}
+                    >
+                        <option value="">Select Gender</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Other">Other</option>
+                    </select>
+                    <label htmlFor="Age">Age:</label>
+                    <input
+                        type="text"
+                        id="Age"
+                        name="Age"
+                        value={details.Age || ""}
+                        onChange={(e) => setDetails({ ...details, Age: e.target.value })}
+                    />
+                    <label htmlFor="Toy_Picture">Toy Picture:</label>
+                    <input
+                        type="file"
+                        id="Toy_Picture"
+                        name="Toy_Picture"
+                        onChange={(e) => setDetails({ ...details, Toy_Picture: e.target.files[0] })}
+                    />
+                </>
+            );
+        case "school":
+            return (
+                <>
+                    <label htmlFor="School_Supplies">School Supplies:</label>
+                    <select
+                        id="School_Supplies"
+                        name="School_Supplies"
+                        value={details.School_Supplies || ""}
+                        onChange={(e) => setDetails({ ...details, School_Supplies: e.target.value })}
+                    >
+                        <option value="">Select School Supplies</option>
+                        <option value="Books">Books</option>
+                        <option value="Pencils">Pencils</option>
+                        <option value="Pens">Pens</option>
+                        <option value="Notebooks">Notebooks</option>
+                        <option value="Erasers">Erasers</option>
+                        <option value="Sharpener">Sharpener</option>
+                        <option value="Rules">Ruler</option>
+                    </select>
+                    {details.School_Supplies === "Books" && (
+                        <>
+                            <label htmlFor="ISBN">ISBN:</label>
+                            <input
+                                type="text"
+                                id="ISBN"
+                                name="ISBN"
+                                value={details.ISBN || ""}
+                                onChange={handleDetailChange}
+                            />
+                            <label htmlFor="Book_Name">Book Name:</label>
+                            <input
+                                type="text"
+                                id="Book_Name"
+                                name="Book_Name"
+                                value={details.Book_Name || ""}
+                                onChange={handleDetailChange}
+                            />
+                            <label htmlFor="Author">Author:</label>
+                            <input
+                                type="text"
+                                id="Author"
+                                name="Author"
+                                value={details.Author || ""}
+                                onChange={handleDetailChange}
+                            />
+                            <label htmlFor="Language">Language:</label>
+                            <input
+                                type="text"
+                                id="Language"
+                                name="Language"
+                                value={details.Language || ""}
+                                onChange={handleDetailChange}
+                            />
+                            <label htmlFor="Book_Picture">Book Picture:</label>
+                            <input
+                                type="file"
+                                id="Book_Picture"
+                                name="Book_Picture"
+                                onChange={handleDetailChange}
+                            />
+                        </>
+                    )}
+                </>
+            );
       default:
         return null;
     }
