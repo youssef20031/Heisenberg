@@ -180,22 +180,70 @@ const Home1: React.FC = () => {
             case "school":
                 return (
                     <>
-                        <label htmlFor="School_Supplies">School Supplies:</label>
+                        <label htmlFor="School_Supplies">
+                            <b>School Supplies:</b>
+                        </label>
                         <select
                             id="School_Supplies"
                             name="School_Supplies"
                             value={details.School_Supplies || ""}
                             onChange={(e) => setDetails({ ...details, School_Supplies: e.target.value })}
                         >
-                            <option value="">Select School Supplies</option>
-                            <option value="Books">Books</option>
-                            <option value="Pencils">Pencils</option>
-                            <option value="Pens">Pens</option>
-                            <option value="Notebooks">Notebooks</option>
-                            <option value="Erasers">Erasers</option>
-                            <option value="Sharpener">Sharpener</option>
-                            <option value="Rules">Ruler</option>
+                            {/* Options for school supplies */}
                         </select>
+                        {details.School_Supplies === "Books" && (
+                            <>
+                                <div>
+                                    <b>ISBN:</b><br />
+                                    <input
+                                        type="text"
+                                        id="ISBN"
+                                        name="ISBN"
+                                        value={details.ISBN || ""}
+                                        onChange={(e) => setDetails({ ...details, ISBN: e.target.value })}
+                                    />
+                                </div>
+                                <div>
+                                    <b>Book Name:</b><br />
+                                    <input
+                                        type="text"
+                                        id="Book_Name"
+                                        name="Book_Name"
+                                        value={details.Book_Name || ""}
+                                        onChange={(e) => setDetails({ ...details, Book_Name: e.target.value })}
+                                    />
+                                </div>
+                                <div>
+                                    <b>Author:</b><br />
+                                    <input
+                                        type="text"
+                                        id="Author"
+                                        name="Author"
+                                        value={details.Author || ""}
+                                        onChange={(e) => setDetails({ ...details, Author: e.target.value })}
+                                    />
+                                </div>
+                                <div>
+                                    <b>Language:</b><br />
+                                    <input
+                                        type="text"
+                                        id="Language"
+                                        name="Language"
+                                        value={details.Language || ""}
+                                        onChange={(e) => setDetails({ ...details, Language: e.target.value })}
+                                    />
+                                </div>
+                                <div>
+                                    <b>Book Picture:</b><br />
+                                    <input
+                                        type="file"
+                                        id="Book_Picture"
+                                        name="Book_Picture"
+                                        onChange={(e) => setDetails({ ...details, Book_Picture: e.target.files[0] })}
+                                    />
+                                </div>
+                            </>
+                        )}
                     </>
                 );
             case "clothes":
