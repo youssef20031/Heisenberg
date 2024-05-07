@@ -345,6 +345,19 @@ const Home2: React.FC = () => {
     }
   };
 
+    const handleQuantityChange = (e: { target: { value: any; }; }) => {
+        const inputValue = e.target.value;
+
+        // Allow the input to be empty or match the regex for digits
+        if (inputValue === '' || /^\d+$/.test(inputValue)) {
+            setValue(inputValue);
+            setError('');
+            handleDetailChange({ target: { name: 'amount', value: inputValue } } as React.ChangeEvent<HTMLInputElement>);
+        } else {
+            setError('Please enter a valid positive number.');
+        }
+    };
+
   const handleUpdateUserInfo = () => {
     // Add logic to update user information
     alert("User information updated successfully!");

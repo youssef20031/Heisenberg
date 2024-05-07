@@ -124,13 +124,3 @@
     font-family: 'Material Icons', sans-serif; /* Use Material Design icon font */
     font-weight: 900;
 }
-/*.signupOrg html, body {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    justify-content: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-height: 100vh;
-}*/
