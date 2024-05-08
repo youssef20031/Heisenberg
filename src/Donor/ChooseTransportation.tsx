@@ -40,7 +40,7 @@ const ChooseTransportation: React.FC = () => {
 
             alert(etaMessage);
             console.log('Data saved successfully!');
-            navigate('/home1');
+            navigate(`/Home1/${email}`);
         }).catch((error) => {
             // Handle error scenario
             console.error('Error saving data: ', error);
