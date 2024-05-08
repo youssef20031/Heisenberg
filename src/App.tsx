@@ -52,7 +52,7 @@ export const App = () => {
             <Route path="/donor" element={<Donor />} />
             <Route path="/Sign_in1" element={<Sign_in1 />} />
             <Route path="/SignUpForm1" element={<SignUpFormDonor />} />
-            <Route path="/Home1" element={<Home1 />} />
+            <Route path="/Home1/:email" element={<Home1 />} />
             <Route path="/doctor" element={<Doctor />} />
             <Route path="/teacher" element={<Teacher />} />
             <Route path="/SignUpForm2" element={<SignUpFormOrg />} />

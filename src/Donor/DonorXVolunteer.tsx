@@ -9,7 +9,7 @@ const NavigationButton = () => {
     const { email } = useParams<{ email: string }>();
 
     const handleNavigateDonate =  () => {
-        navigate('/Home1');
+        navigate(`/Home1/${email}`);
     };
 
     const handleNavigateVolunteer = async (e: React.FormEvent) => {

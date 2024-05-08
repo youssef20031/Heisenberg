@@ -2,7 +2,7 @@ import './Home1.css';
 import React, { useEffect, useState } from 'react';
 import { ref, onValue, update,get, remove } from 'firebase/database';
 import { auth, db } from '@/firebase';
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 
 type DonationPost = {
     id: string;
@@ -20,6 +20,7 @@ const Home1: React.FC = () => {
     const [burgerMenuOpen, setBurgerMenuOpen] = useState<boolean>(false);
     const [showUpdateForm, setShowUpdateForm] = useState<boolean>(false);
     const navigate = useNavigate();
+    const { email } = useParams<{ email: string }>();
     useEffect(() => {
         const fetchDonationPosts = async () => {
             try {
@@ -73,7 +74,7 @@ const Home1: React.FC = () => {
                     update(donationPostRef2, {
                         amount: updatedQuantity,
                     });
-                    navigate('/ChooseTransportation');
+                    navigate(`/ChooseTransportation/${email}`);
                 } else {
                     alert('Invalid quantity. Please enter a valid quantity to donate.');
                 }
