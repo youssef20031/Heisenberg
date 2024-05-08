@@ -73,7 +73,7 @@ export const App = () => {
             <Route path="/locationMapsetter3/:CaseNum" element={<Mapsetter3 />} />
             <Route path ="/DonorXVolunteer/:email" element={<NavigationButton />} />
             <Route path ="/notverified" element={<Notverified />} />
-            <Route path ="/ChooseTransportation" element={<ChooseTransportation />} />
+            <Route path ="/ChooseTransportation/:email" element={<ChooseTransportation />} />
           </Routes>
         </main>
       </>

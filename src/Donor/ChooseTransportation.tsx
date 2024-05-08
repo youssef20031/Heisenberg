@@ -3,12 +3,13 @@ import { ref, set } from 'firebase/database';
 import { db } from '@/firebase';
 import { Form, Button, Container, Row, Col } from 'react-bootstrap';
 import './ChooseTransportation.css';
-import {useNavigate} from "react-router-dom"; // Assuming you have a CSS file for custom styles
+import {useNavigate, useParams} from "react-router-dom"; // Assuming you have a CSS file for custom styles
 
 const ChooseTransportation: React.FC = () => {
     const [date, setDate] = useState('');
     const [type, setType] = useState('');
     const navigate = useNavigate();
+    const { email } = useParams<{ email: string }>();
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
@@ -17,6 +18,7 @@ const ChooseTransportation: React.FC = () => {
         set(transportationRef, {
             Type: type,
             Date: date,
+            DonorEmail: email,
         }).then(() => {
             // Handle success scenario (e.g., showing a success message or redirecting)
 
