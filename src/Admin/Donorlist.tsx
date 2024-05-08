@@ -126,7 +126,7 @@ const DonorList: React.FC = () => {
 
   return (
       <div>
-        <h2>Realtime Database Data:</h2>
+        <h2 className="h2">Realtime Database Data:</h2>
 
         {data && Object.keys(data).length > 0 ? (
             <Table striped bordered hover>
