@@ -73,7 +73,6 @@ const Home1: React.FC = () => {
                     update(donationPostRef2, {
                         amount: updatedQuantity,
                     });
-                    alert('Donation successful!');
                     navigate('/ChooseTransportation');
                 } else {
                     alert('Invalid quantity. Please enter a valid quantity to donate.');
@@ -113,6 +112,7 @@ const Home1: React.FC = () => {
                             <option value="Baked_Goods">Baked Goods</option>
                             <option value="Drinks">Drinks</option>
                         </select>
+
                     </>
                 );
             case "medical":
@@ -278,7 +278,7 @@ const Home1: React.FC = () => {
     const handleUpdate = () => {
       setShowUpdateForm(true);
   };
-  
+
     const handleDeleteUser = async () => {
       try {
         const user = auth.currentUser;

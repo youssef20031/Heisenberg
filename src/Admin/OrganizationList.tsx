@@ -7,6 +7,7 @@ import { getAuth, deleteUser, User } from "firebase/auth";
 import { getDownloadURL, deleteObject } from 'firebase/storage';
 import { ref as Ref2 } from 'firebase/storage';
 import {useNavigate} from "react-router-dom";
+import './OrganizationList.css';
 
 interface OrganizationData {
   email: string;
@@ -130,8 +131,8 @@ const OrganizationList: React.FC = () => {
 
 
   return (
-      <div className="container" style={{ marginTop: '50px', marginBottom: '50px' }}>
-        <h2 className="text-center" style={{ marginBottom: '30px' }}>Realtime Database Data:</h2>
+      <div style={{ marginTop: '50px', marginBottom: '50px' }}>
+        <h2 className="text-center" style={{ margin: '30px' }}>Realtime Database Data:</h2>
 
         <Form>
           <InputGroup>
