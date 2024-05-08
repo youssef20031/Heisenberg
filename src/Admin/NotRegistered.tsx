@@ -121,7 +121,7 @@ const NotRegisteredOrg: React.FC = () => {
     }, []);
 
     return (
-        <div className="container" style={{ marginTop: '50px', marginBottom: '50px' }}>
+        <div style={{ marginTop: '50px', marginBottom: '50px' }}>
             <h2 className="text-center" style={{ marginBottom: '30px' }}>Realtime Database Data:</h2>
 
             {data && Object.keys(data).length > 0 ? (
