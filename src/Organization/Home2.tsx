@@ -52,7 +52,6 @@ const Home2: React.FC = () => {
             );
 
             setDonationPosts(filteredDonationPosts);
-            // Separate posts based on status
             const pending: DonationPost[] = [];
             const donated: DonationPost[] = [];
             filteredDonationPosts.forEach((post) => {
@@ -100,7 +99,6 @@ const Home2: React.FC = () => {
       e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
-    // Parse the value to a number, or use 0 as default if parsing fails
     const amount =
         name === "quantity" || name === "amount" ? parseInt(value) || 0 : value;
     setDetails({ ...details, [name]: amount });
@@ -114,7 +112,6 @@ const Home2: React.FC = () => {
         const donationPostData = snapshot.val();
         const donorEmail = donationPostData.donorDetails.email;
         console.log("Donor Email:", donorEmail);
-        // You can now display donor email in your organization page UI
       } else {
         console.log("Donor details not available.");
       }
@@ -411,7 +408,6 @@ const Home2: React.FC = () => {
   };
 
   const handleDeleteUserInfo = () => {
-    // Add logic to delete user information
     alert("User information deleted successfully!");
   };
 

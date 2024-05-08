@@ -3,6 +3,7 @@ import { ref, get, remove, update } from 'firebase/database';
 import { db, storage } from '@/firebase';
 import { Button, Form, Table,Row,Col } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './Donorlist.css';
 import { getAuth, deleteUser, User } from "firebase/auth";
 import { getDownloadURL, deleteObject } from 'firebase/storage';
 import { ref as Ref2 } from 'firebase/storage';

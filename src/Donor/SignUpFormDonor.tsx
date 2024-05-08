@@ -2,11 +2,10 @@ import React, {useState} from "react";
 import { useNavigate } from "react-router-dom";
 import { storage } from "../firebase.tsx";
 import { ref } from "firebase/storage";
-
 import { Form } from 'react-bootstrap';
 import { Button } from "../components/ui/button.tsx";
 import { uploadBytes } from "firebase/storage";
-import './SignUpFormDonor.css';
+import '@/Designs/SignUpFormShared.css';
 
 
 
@@ -66,91 +65,148 @@ const SignUpFormDonor =() => {
     };
 
     return (
-        <div className="signup-wrapper">
-
-            <form onSubmit={handleSubmit} className="signup-form">
-                <div className="banner">
-                    <h1>Sign Up</h1>
-                </div>
-                <div className="form-group">
-                    <label htmlFor="email" className="form-label">Email</label>
-                    <input type="text" id="email" onChange={(e) => setEmail(e.target.value)} className="form-control"
-                           required/>
-                </div>
-                <div className="form-group">
-                    <label htmlFor="password" className="form-label">Password</label>
-                    <input type="password" id="password" onChange={(e) => setPassword(e.target.value)}
-                           className="form-control" required/>
-                </div>
-                <div className="form-group">
-                    <label htmlFor="firstname" className="form-label">First name</label>
-                    <input type="text" id="firstname" onChange={(e) => setfirstname(e.target.value)}
-                           className="form-control" required/>
-                </div>
-                <div className="form-group">
-                    <label htmlFor="lastname" className="form-label">Lastname</label>
-                    <input type="text" id="lastname" onChange={(e) => setlastname(e.target.value)}
-                           className="form-control" required/>
-                </div>
-                <div className="form-group">
-                    <label htmlFor="Number" className="form-label">Number</label>
-                    <input type="text" id="Number" onChange={(e) => setnumber(e.target.value)} className="form-control"
-                           required/>
-                </div>
-                <div className="form-group">
-                    <Form.Label className="form-label">Gender</Form.Label>
-                    <Form.Select id="gender" value={gender} onChange={(e) => setGender(e.target.value)}
-                                 className="form-control">
-                        <option value="">Select Gender</option>
-                        <option value="Male">Male</option>
-                        <option value="Female">Female</option>
-                        <option value="Other">Other</option>
-                    </Form.Select>
-                </div>
-                <div className="form-group">
-                    <Form.Label className="form-label">Governate</Form.Label>
-                    <Form.Select id="governate" value={governate} onChange={(e) => setGovernate(e.target.value)}
-                                 className="form-control">
-                        <option value="">Choose a governate</option>
-                        <option value="Cairo">Cairo</option>
-                        <option value="Alexandria">Alexandria</option>
-                        <option value="Al Dakahlia">Al Dakahlia</option>
-                        <option value="Matrouh">Matrouh</option>
-                    </Form.Select>
-                </div>
-                <div className="form-group">
-                    <Form.Label className="form-label">Type of Donor</Form.Label>
-                    <Form.Select id="user" value={user} onChange={(e) => setUser(e.target.value)}
-                                 className="form-control">
-                        <option value="">Select a donor type</option>
-                        <option value="Doctor">Doctor</option>
-                        <option value="Teacher">Teacher</option>
-                        <option value="regular donor">regular donor</option>
-
-                    </Form.Select>
-                </div>
-                <div className="form-group">
-                    <label htmlFor="address" className="form-label">Address</label>
-                    <input type="text" id="address" value={address} onChange={(e) => setaddress(e.target.value)}
-                           className="form-control" required/>
-                </div>
-                <div className="form-group">
-                    <label htmlFor="area" className="form-label">Area</label>
-                    <input type="text" id="area" value={area} onChange={(e) => setarea(e.target.value)}
-                           className="form-control" required/>
-                </div>
-                <div className="form-group file-upload">
-                    <label htmlFor="file" className="form-label">Upload File:</label>
-                    <input type="file" id="file" onChange={handleFileChange} className="form-control" required/>
-                </div>
-                <Button type="submit" className="submit-btn">Sign Up</Button>
-                {error && <div className="error-message">{error}</div>}
-                <p className="login-prompt">Already Registered? <span className="login-link"
-                                                                      onClick={() => navigate("/Sign_in1")}>Login</span>
-                </p>
-            </form>
+        <div className="dark-theme-wrapper">
+          <form onSubmit={handleSubmit} className="dark-theme-form">
+            <div className="dark-theme-banner">
+              <h1>Sign Up</h1>
+            </div>
+            <div className="dark-theme-group">
+              <label htmlFor="email" className="dark-theme-label">Email</label>
+              <input
+                type="text"
+                id="email"
+                onChange={(e) => setEmail(e.target.value)}
+                className="dark-theme-control"
+                required
+              />
+            </div>
+            <div className="dark-theme-group">
+              <label htmlFor="password" className="dark-theme-label">Password</label>
+              <input
+                type="password"
+                id="password"
+                onChange={(e) => setPassword(e.target.value)}
+                className="dark-theme-control"
+                required
+              />
+            </div>
+            <div className="dark-theme-group">
+              <label htmlFor="firstname" className="dark-theme-label">First name</label>
+              <input
+                type="text"
+                id="firstname"
+                onChange={(e) => setfirstname(e.target.value)}
+                className="dark-theme-control"
+                required
+              />
+            </div>
+            <div className="dark-theme-group">
+              <label htmlFor="lastname" className="dark-theme-label">Lastname</label>
+              <input
+                type="text"
+                id="lastname"
+                onChange={(e) => setlastname(e.target.value)}
+                className="dark-theme-control"
+                required
+              />
+            </div>
+            <div className="dark-theme-group">
+              <label htmlFor="Number" className="dark-theme-label">Number</label>
+              <input
+                type="text"
+                id="Number"
+                onChange={(e) => setnumber(e.target.value)}
+                className="dark-theme-control"
+                required
+              />
+            </div>
+            <div className="dark-theme-group">
+              <Form.Label htmlFor="gender" className="dark-theme-label">Gender</Form.Label>
+              <Form.Select
+                id="gender"
+                value={gender}
+                onChange={(e) => setGender(e.target.value)}
+                className="dark-theme-control"
+              >
+                <option value="">Select Gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+              </Form.Select>
+            </div>
+            <div className="dark-theme-group">
+              <Form.Label htmlFor="governate" className="dark-theme-label">Governate</Form.Label>
+              <Form.Select
+                id="governate"
+                value={governate}
+                onChange={(e) => setGovernate(e.target.value)}
+                className="dark-theme-control"
+              >
+                <option value="">Choose a governate</option>
+                <option value="Cairo">Cairo</option>
+                <option value="Alexandria">Alexandria</option>
+                <option value="Al Dakahlia">Al Dakahlia</option>
+                <option value="Matrouh">Matrouh</option>
+              </Form.Select>
+            </div>
+            <div className="dark-theme-group">
+              <Form.Label htmlFor="user" className="dark-theme-label">Type of Donor</Form.Label>
+              <Form.Select
+                id="user"
+                value={user}
+                onChange={(e) => setUser(e.target.value)}
+                className="dark-theme-control"
+              >
+                <option value="">Select a donor type</option>
+                <option value="Doctor">Doctor</option>
+                <option value="Teacher">Teacher</option>
+                <option value="regular donor">regular donor</option>
+              </Form.Select>
+            </div>
+            <div className="dark-theme-group">
+              <label htmlFor="address" className="dark-theme-label">Address</label>
+              <input
+                type="text"
+                id="address"
+                value={address}
+                onChange={(e) => setaddress(e.target.value)}
+                className="dark-theme-control"
+                required
+              />
+            </div>
+            <div className="dark-theme-group">
+              <label htmlFor="area" className="dark-theme-label">Area</label>
+              <input
+                type="text"
+                id="area"
+                value={area}
+                onChange={(e) => setarea(e.target.value)}
+                className="dark-theme-control"
+                required
+              />
+            </div>
+            <div className="dark-theme-group file-upload">
+              <label htmlFor="file" className="dark-theme-label">Upload File:</label>
+              <input
+                type="file"
+                id="file"
+                onChange={handleFileChange}
+                className="dark-theme-control"
+                required
+              />
+            </div>
+            <Button type="submit" className="dark-theme-submit">Sign Up</Button>
+            {error && <div className="dark-theme-error">{error}</div>}
+            <p className="dark-theme-prompt">
+              Already Registered?{' '}
+              <span className="dark-theme-link" onClick={() => navigate('/Sign_in1')}>
+                Login
+              </span>
+            </p>
+          </form>
         </div>
-    );
+      );
+      
 };
 
 export default SignUpFormDonor;

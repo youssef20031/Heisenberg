@@ -4,10 +4,9 @@ import { useNavigate } from "react-router-dom";
 import { storage } from "../firebase.tsx";
 import { Form } from 'react-bootstrap';
 import { Button } from "../components/ui/button.tsx";
-import "./SignUpOrg.css";
 import { uploadBytes } from "firebase/storage";
 import { ref as Ref2 } from 'firebase/storage';
-
+import '@/Designs/SignUpFormShared.css';
 
 const SignUpFormOrg =() => {
     const navigate = useNavigate();
@@ -62,90 +61,90 @@ const SignUpFormOrg =() => {
 
         } catch (error) {
             console.log(error);
-            // setError(error.message); // Set error message state
           }
     };
 
 
     return (
-        <div className="signup-wrapper" >
-            <Form onSubmit={handleSubmit} className="signup-form">
-                <div className="banner">
-                    <h1>Organization Registration</h1>
-                </div>
-                <Form.Group className="form-group">
-                    <Form.Label>Email</Form.Label>
-                    <Form.Control type="text" onChange={(e) => setEmail(e.target.value)} required/>
-                </Form.Group>
-                <Form.Group className="form-group">
-                    <Form.Label>Password</Form.Label>
-                    <Form.Control type="password" onChange={(e) => setPassword(e.target.value)} required/>
-                </Form.Group>
-                <Form.Group className="form-group">
-                    <Form.Label>First Name</Form.Label>
-                    <Form.Control type="text" onChange={(e) => setfirstname(e.target.value)} required/>
-                </Form.Group>
-                <Form.Group className="form-group">
-                    <Form.Label>Last Name</Form.Label>
-                    <Form.Control type="text" onChange={(e) => setlastname(e.target.value)} required/>
-                </Form.Group>
-                <Form.Group className="form-group">
-                    <Form.Label>Contact Number</Form.Label>
-                    <Form.Control type="text" onChange={(e) => setnumber(e.target.value)} required/>
-                </Form.Group>
-                <Form.Group className="form-group">
-                    <Form.Label>Gender</Form.Label>
-                    <Form.Select onChange={(e) => setGender(e.target.value)} required>
-                        <option value="Male">Male</option>
-                        <option value="Female">Female</option>
-                        <option value="Other">Other</option>
-                    </Form.Select>
-                </Form.Group>
-                <Form.Group className="form-group">
-                    <Form.Label>Governate</Form.Label>
-                    <Form.Select onChange={(e) => setgovernate(e.target.value)} required>
-                        <option value="Cairo">Cairo</option>
-                        <option value="Alexandria">Alexandria</option>
-                        <option value="Al Dakahlia">Al Dakahlia</option>
-                        <option value="Matrouh">Matrouh</option>
-                    </Form.Select>
-                </Form.Group>
-                <Form.Group className="form-group">
-                    <Form.Label>Address</Form.Label>
-                    <Form.Control type="text" onChange={(e) => setaddress(e.target.value)} required/>
-                </Form.Group>
-                <Form.Group className="form-group">
-                    <Form.Label>Area</Form.Label>
-                    <Form.Control type="text" onChange={(e) => setarea(e.target.value)} required/>
-                </Form.Group>
-                <Form.Group className="form-group">
-                    <Form.Label>Organization Name</Form.Label>
-                    <Form.Control type="text" onChange={(e) => setorganizationname(e.target.value)} required/>
-                </Form.Group>
-                <Form.Group className="form-group">
-                    <Form.Label>Charity Organization</Form.Label>
-                    <Form.Select onChange={(e) => setorganizationtype(e.target.value)} required>
-                        <option value="Hospital">Hospital</option>
-                        <option value="Orphanage">Orphanage</option>
-                        <option value="School">School</option>
-                        <option value="Refugees">Refugee and people in need</option>
-                    </Form.Select>
-                </Form.Group>
-
-                <div className="form-group file-upload">
-                    <label htmlFor="file" className="form-label">Upload File:</label>
-                    <input type="file" id="file" className="form-control" onChange={handleFileChange} required />
-                </div>
-
-                <Button type="submit"
-                        className="submit-btn">Sign Up</Button>
-                {error && <h1>{error}</h1>} {/* Render error message if exists */}
-                <p className="login-prompt">Already Registered? <span className="login-link"
-                                                                      onClick={() => navigate("/SigninOrg")}>Login</span>
-                </p>
-            </Form>
+        <div className="dark-theme-wrapper">
+          <Form onSubmit={handleSubmit} className="dark-theme-form">
+            <div className="dark-theme-banner">
+              <h1>Organization Registration</h1>
+            </div>
+            <Form.Group className="dark-theme-group">
+              <Form.Label className="dark-theme-label">Email</Form.Label>
+              <Form.Control className="dark-theme-control" type="text" onChange={(e) => setEmail(e.target.value)} required/>
+            </Form.Group>
+            <Form.Group className="dark-theme-group">
+              <Form.Label className="dark-theme-label">Password</Form.Label>
+              <Form.Control className="dark-theme-control" type="password" onChange={(e) => setPassword(e.target.value)} required/>
+            </Form.Group>
+            <Form.Group className="dark-theme-group">
+              <Form.Label className="dark-theme-label">First Name</Form.Label>
+              <Form.Control className="dark-theme-control" type="text" onChange={(e) => setfirstname(e.target.value)} required/>
+            </Form.Group>
+            <Form.Group className="dark-theme-group">
+              <Form.Label className="dark-theme-label">Last Name</Form.Label>
+              <Form.Control className="dark-theme-control" type="text" onChange={(e) => setlastname(e.target.value)} required/>
+            </Form.Group>
+            <Form.Group className="dark-theme-group">
+              <Form.Label className="dark-theme-label">Contact Number</Form.Label>
+              <Form.Control className="dark-theme-control" type="text" onChange={(e) => setnumber(e.target.value)} required/>
+            </Form.Group>
+            <Form.Group className="dark-theme-group">
+              <Form.Label className="dark-theme-label">Gender</Form.Label>
+              <Form.Select className="dark-theme-control" onChange={(e) => setGender(e.target.value)} required>
+                <option value="">Select Gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+              </Form.Select>
+            </Form.Group>
+            <Form.Group className="dark-theme-group">
+              <Form.Label className="dark-theme-label">Governate</Form.Label>
+              <Form.Select className="dark-theme-control" onChange={(e) => setgovernate(e.target.value)} required>
+                <option value="">Choose a governate</option>
+                <option value="Cairo">Cairo</option>
+                <option value="Alexandria">Alexandria</option>
+                <option value="Al Dakahlia">Al Dakahlia</option>
+                <option value="Matrouh">Matrouh</option>
+              </Form.Select>
+            </Form.Group>
+            <Form.Group className="dark-theme-group">
+              <Form.Label className="dark-theme-label">Address</Form.Label>
+              <Form.Control className="dark-theme-control" type="text" onChange={(e) => setaddress(e.target.value)} required/>
+            </Form.Group>
+            <Form.Group className="dark-theme-group">
+              <Form.Label className="dark-theme-label">Area</Form.Label>
+              <Form.Control className="dark-theme-control" type="text" onChange={(e) => setarea(e.target.value)} required/>
+            </Form.Group>
+            <Form.Group className="dark-theme-group">
+              <Form.Label className="dark-theme-label">Organization Name</Form.Label>
+              <Form.Control className="dark-theme-control" type="text" onChange={(e) => setorganizationname(e.target.value)} required/>
+            </Form.Group>
+            <Form.Group className="dark-theme-group">
+              <Form.Label className="dark-theme-label">Charity Organization</Form.Label>
+              <Form.Select className="dark-theme-control" onChange={(e) => setorganizationtype(e.target.value)} required>
+                <option value="">Select Organization Type</option>
+                <option value="Hospital">Hospital</option>
+                <option value="Orphanage">Orphanage</option>
+                <option value="School">School</option>
+                <option value="Refugees">Refugee and people in need</option>
+              </Form.Select>
+            </Form.Group>
+            <div className="dark-theme-group file-upload">
+              <label htmlFor="file" className="dark-theme-label">Upload File:</label>
+              <input type="file" id="file" className="dark-theme-control" onChange={handleFileChange} required />
+            </div>
+            <Button type="submit" className="dark-theme-submit">Sign Up</Button>
+            {error && <div className="dark-theme-error">{error}</div>}
+            <p className="dark-theme-prompt">
+              Already Registered?{' '}
+              <span className="dark-theme-link" onClick={() => navigate("/SigninOrg")}>Login</span>
+            </p>
+          </Form>
         </div>
-    );
+      );
 };
 
 export default SignUpFormOrg;

@@ -3,6 +3,7 @@ import { getDatabase, ref, get } from 'firebase/database';
 import { db } from '../firebase.tsx';
 import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './LoginAdmin.css';
 import { Button, Form, Container, Alert } from 'react-bootstrap';
 
 const LoginAdmin = () => {

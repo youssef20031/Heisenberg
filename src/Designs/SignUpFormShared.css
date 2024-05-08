@@ -1,0 +1,123 @@
+.dark-theme-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #121212; 
+  }
+  
+  .dark-theme-form {
+    width: 100%;
+    max-width: 500px;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+  }
+  
+  .dark-theme-banner {
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 10px 20px;
+    margin-bottom: 30px;
+    text-align: center;
+    border-radius: 5px;
+  }
+  
+  .dark-theme-banner h1 {
+    color: #f0f0f0;
+    margin: 0;
+  }
+  
+  .dark-theme-group {
+    margin-bottom: 20px;
+  }
+  
+  .dark-theme-label {
+    display: block;
+    color: #f0f0f0;
+    margin-bottom: 5px;
+  }
+  
+  .dark-theme-control, .dark-theme-control:focus {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #f0f0f0;
+  }
+  
+  .dark-theme-control:focus {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+  
+  .dark-theme-submit {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+  
+  .dark-theme-submit:hover {
+    background-color: #45a049;
+    transform: translateY(-3px); 
+  }
+  
+  .dark-theme-error {
+    color: #ff3860;
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .dark-theme-prompt {
+    color: #f0f0f0;
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .dark-theme-link {
+    color: #4CAF50;
+    cursor: pointer;
+  }
+  
+  .file-upload {
+    padding: 6px;
+    margin-top: 10px;
+  }
+  
+  .file-upload input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #f0f0f0;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .file-upload input[type="file"]:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+  
+  .dark-theme-control select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #f0f0f0;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .dark-theme-control select:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+  

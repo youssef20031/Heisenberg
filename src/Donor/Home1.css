@@ -1,117 +1,126 @@
 .home1 {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .donation-posts {
-    flex-grow: 1;
-  }
-  
-  .donation-posts h2 {
-    font-size: 24px;
-    margin-bottom: 20px;
-    padding: 10px 20px;
-    background-color: #6e8efb;
-    color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  }
-  
-  .category-dropdown {
-    margin-bottom: 20px;
-  }
-  
-  .category-dropdown label {
-    display: block;
-    margin-bottom: 5px;
-  }
-  
-  .category-dropdown select {
-    width: 100%;
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    background-color: #fff;
-  }
-  
-  .donation-list {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  .donation-list-item {
-    margin-bottom: 15px;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    border: 1px solid #ddd;
-  }
-  
-  .donation-list-item p {
-    margin: 0;
-  }
-  
-  .donation-list-item:hover {
-    background-color: #f8f9fa;
-  }
-  
-  @media (max-width: 768px) {
-    .home1 {
-      padding: 10px;
-    }
-  
-    .category-dropdown select {
-      font-size: 14px;
-    }
-  
-    .donation-list-item {
-      padding: 15px;
-    }
-  }
+  font-family: 'Arial', sans-serif;
+  color: #f0f0f0;
+  background-color: #121212;
+  min-height: 100vh;
+}
 
 .burger-menu {
-  position: fixed;
-  top: 20px;
-  right: 20px; 
-  z-index: 1000; 
+  position: relative;
 }
 
 .burger-icon {
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  width: 30px;
-  height: 30px;
-  padding: 0;
-  outline: none;
-}
-
-.bar {
-  width: 100%;
-  height: 4px;
   background-color: #333;
-  transition: all 0.3s ease;
+  padding: 5px;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
-.burger-icon.active .bar:nth-child(1) {
-  transform: translateY(10px) rotate(45deg);
+.burger-icon .bar {
+  display: block;
+  width: 25px;
+  height: 3px;
+  margin: 5px auto;
+  transition: all 0.3s ease;
+  background-color: #f0f0f0;
 }
 
 .burger-icon.active .bar:nth-child(2) {
   opacity: 0;
 }
 
-.burger-icon.active .bar:nth-child(3) {
-  transform: translateY(-10px) rotate(-45deg);
+.burger-icon.active .bar:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
 }
 
-.burger-icon:hover {
-  background-color: transparent;
+.burger-icon.active .bar:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
+}
+
+.burger-menu-content {
+  position: absolute;
+  top: 35px;
+  right: 0;
+  background-color: #333;
+  border-radius: 5px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.burger-menu-content button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 5px 10px;
+  margin: 5px 0;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.donation-posts-heading {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.category-dropdown {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.category-select {
+  padding: 10px;
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #f0f0f0;
+  border: none;
+}
+
+.donation-list {
+  list-style: none;
+  padding: 0;
+}
+
+.donation-list-item {
+  background: rgba(255, 255, 255, 0.05);
+  margin-bottom: 10px;
+  padding: 15px;
+  border-radius: 5px;
+}
+
+.donation-header {
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.donation-details {
+  margin-top: 10px;
+}
+
+.donation-details input[type="number"] {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 5px;
+  border: none;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #f0f0f0;
+}
+
+.donation-details button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.no-posts-message {
+  text-align: center;
+  margin-top: 20px;
 }

@@ -1,8 +1,5 @@
-import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Button } from '@/components/ui/button';
 import '@/Designs/EntryPage.css';
-import Organization from '@/Organization/Organization';
 const NavigationButtons = () => {
   const navigate = useNavigate();
 
@@ -20,14 +17,26 @@ const NavigationButtons = () => {
 
   return (
     <div className="entry-page">
-      <div className="section" style={{backgroundImage: `url('/src/volunteer.jpg')`}} onClick={handleNavigateDonor}>
-        <h1 style={{  color: 'white' }}>Donor</h1>
+      <div
+        className="section donor"
+        onClick={() => handleNavigateDonor()}
+        style={{ backgroundImage: "url('/src/volunteer.jpg')" }}
+      >
+        <h1>Donor</h1>
       </div>
-      <div className="section" style={{backgroundImage: `url('/src/charity.png')`}} onClick={handleNavigateOrg}>
-        <h1 style={{  color: 'white' }}>Organization</h1>
+      <div
+        className="section organization"
+        onClick={() => handleNavigateOrg()}
+        style={{ backgroundImage: "url('/src/charity.png')" }}
+      >
+        <h1>Organization</h1>
       </div>
-      <div className="section" style={{backgroundImage: `url('/src/Admin.jpg')`}} onClick={handleNavigateAdmin}>
-      <h1 style={{  color: 'black' }}>Admin</h1>
+      <div
+        className="section admin"
+        onClick={() => handleNavigateAdmin()}
+        style={{ backgroundImage: "url('/src/Admin.jpg')" }}
+      >
+        <h1>Admin</h1>
       </div>
     </div>
   );

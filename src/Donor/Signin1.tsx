@@ -2,11 +2,10 @@ import { useState } from "react";
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { auth, db } from "../firebase";
-
 import { ref, get } from 'firebase/database';
 import { Button } from "../components/ui/button";
 import { Form } from "react-bootstrap";
-import "./Sign_in.css";
+import '@/Designs/SignUpFormShared.css';
 
 const Signin1 = () => {
     const [email, setEmail] = useState('');
@@ -40,25 +39,28 @@ const Signin1 = () => {
     };
 
     return (
-        <div className="sign-in-wrapper">
-            <Form onSubmit={handleSubmit} className="sign-in-form">
-                <div className="banner">
-                    <h1>Sign In</h1>
-                </div>
-                <Form.Group className="form-group">
-                    <Form.Label>Email</Form.Label>
-                    <Form.Control type="text" onChange={(e) => setEmail(e.target.value)} required/>
-                </Form.Group>
-                <Form.Group className="form-group">
-                    <Form.Label>Password</Form.Label>
-                    <Form.Control type="password" onChange={(e) => setPassword(e.target.value)} required/>
-                </Form.Group>
-                <Button type="submit" id="submit" className="submit-btn">Login</Button>
-                {error && <p className="error-message">{error}</p>}
-                <p className="sign-up-prompt">Don't have an account?<Link to="/SignUpForm1" className="sign-up-link">Sign Up</Link></p>
-            </Form>
+        <div className="dark-theme-wrapper">
+          <Form onSubmit={handleSubmit} className="dark-theme-form">
+            <div className="dark-theme-banner">
+              <h1>Sign In</h1>
+            </div>
+            <Form.Group className="dark-theme-group">
+              <Form.Label className="dark-theme-label">Email</Form.Label>
+              <Form.Control className="dark-theme-control" type="text" onChange={(e) => setEmail(e.target.value)} required/>
+            </Form.Group>
+            <Form.Group className="dark-theme-group">
+              <Form.Label className="dark-theme-label">Password</Form.Label>
+              <Form.Control className="dark-theme-control" type="password" onChange={(e) => setPassword(e.target.value)} required/>
+            </Form.Group>
+            <Button type="submit" className="dark-theme-submit">Login</Button>
+            {error && <div className="dark-theme-error">{error}</div>}
+            <p className="dark-theme-prompt">
+              Don't have an account?
+              <Link to="/SignUpFormDonor" className="dark-theme-link">Sign Up</Link>
+            </p>
+          </Form>
         </div>
-    );
+      );
 };
 
 export default Signin1;

@@ -1,4 +1,4 @@
-import "./SigninOrg.css";
+import '@/Designs/SignUpFormShared.css';
 import { useState } from "react";
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -33,29 +33,34 @@ const SigninOrg = () => {
     };
 
     return (
-        <div className="sign-in-wrapper">
-            <div className="sign-in-form">
-                <form onSubmit={handleSubmit}>
-                    <h2>Login</h2>
-                    <div className="form-group">
-                        <label htmlFor="email" className="form-label">
-                            Email
-                            <input type="text" onChange={(e) => setEmail(e.target.value)} className="inputfields"/>
-                        </label>
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="password" className="form-label">
-                            Password
-                            <input type="password" onChange={(e) => setPassword(e.target.value)} className="inputfields"/>
-                        </label>
-                    </div>
-                    <Button type="submit" id="submit" className="submit-btn">Login</Button>
-                    {error && <p className="error-message">{error}</p>}
-                    <p className="login-prompt">Don't have an account? <Link to="/SignUpForm2" className="login-link">Sign Up</Link></p>
-                </form>
-            </div>
+        <div className="dark-theme-wrapper">
+          <div className="dark-theme-form">
+            <form onSubmit={handleSubmit}>
+              <div className="dark-theme-banner">
+                <h1>Login</h1>
+              </div>
+              <div className="dark-theme-group">
+                <label htmlFor="email" className="dark-theme-label">
+                  Email
+                  <input type="text" id="email" onChange={(e) => setEmail(e.target.value)} className="dark-theme-control" required/>
+                </label>
+              </div>
+              <div className="dark-theme-group">
+                <label htmlFor="password" className="dark-theme-label">
+                  Password
+                  <input type="password" id="password" onChange={(e) => setPassword(e.target.value)} className="dark-theme-control" required/>
+                </label>
+              </div>
+              <Button type="submit" className="dark-theme-submit">Login</Button>
+              {error && <div className="dark-theme-error">{error}</div>}
+              <p className="dark-theme-prompt">
+                Don't have an account?{' '}
+                <Link to="/SignUpOrg" className="dark-theme-link">Sign Up</Link>
+              </p>
+            </form>
+          </div>
         </div>
-    );
+      );
 };
 
 export default SigninOrg;

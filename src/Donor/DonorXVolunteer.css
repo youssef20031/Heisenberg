@@ -1,25 +1,32 @@
 .entry-page {
-    text-align: center;
-}
-
-.section {
-    display: inline-block;
-    width: 50%; /* Set the width to 50% to display the sections next to each other */
-    box-sizing: border-box; /* Include padding and border in the width */
+    display: flex; 
+    background-color: #100e0e;
+  }
+  
+  .container {
+    display: flex;
+    width: 100%;
+  }
+  
+  .section {
+    flex: 1;
+    box-sizing: border-box;
     cursor: pointer;
     position: relative;
     overflow: hidden;
-    height: 300px; /* Set the height of the sections */
     background-size: cover;
     background-position: center;
-    margin: 0;
+    margin: 0 10px; 
     padding: 0;
-}
-
-.section h1 {
+    border: solid 1px black;
+    border-radius: 7.5%;
+  }
+  
+  .section h1 {
     position: absolute;
     bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
     font-size: 24px;
-}
+  }
+  
