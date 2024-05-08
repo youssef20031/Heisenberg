@@ -6,8 +6,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { getAuth, deleteUser, User } from "firebase/auth";
 import { getDownloadURL,deleteObject} from 'firebase/storage';
 import { ref as Ref2 } from 'firebase/storage';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import {useNavigate} from "react-router-dom";
+import "./View_Medical_Teaching.css";
 // eslint-disable-next-line react-hooks/rules-of-hooks
 
 
@@ -109,8 +109,9 @@ const View_Medical: React.FC = () => {
     }, []);
 
     return (
-        <div className="container" style={{ marginTop: '50px', marginBottom: '50px' }}>
+        <div className="View_Medical" style={{ marginTop: '50px', marginBottom: '50px' }}>
             <h2 className="text-center" style={{ marginBottom: '30px' }}>Realtime Database Data:</h2>
+            <div className="g-1">
             <Form>
                 <InputGroup>
                     <Form.Control
@@ -119,7 +120,9 @@ const View_Medical: React.FC = () => {
                     />
                 </InputGroup>
             </Form>
-            <Row className="g-2">
+            </div>
+            <div className="g-1">
+            <Row>
                 <Col md>
                     <Form>
                         <Form.Select onChange={handleSpecialityChange} value={Governate}>
@@ -133,7 +136,10 @@ const View_Medical: React.FC = () => {
                     </Form>
                 </Col>
             </Row>
-            <Button onClick={handleButton}>Submit</Button>
+            </div>
+            <div className="g-2">
+                <Button className="Button" onClick={handleButton}>Submit</Button>
+            </div>
             {data && Object.keys(data).length > 0 ? (
                 <Table striped bordered hover responsive>
                     <thead>
@@ -150,6 +156,7 @@ const View_Medical: React.FC = () => {
                         <th>Medical Speciality</th>
                         <th>Case Description</th>
                         <th>Control Center</th>
+                        <th>Fulfill</th>
                     </tr>
                     </thead>
                     <tbody>
