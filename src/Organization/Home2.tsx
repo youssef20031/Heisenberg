@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { ref, push, remove, update, onValue, get } from "firebase/database";
-import { db } from "@/firebase";
+import { auth, db } from "@/firebase";
 import "./Home2.css";
-import { useParams } from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
+import { deleteUser } from "firebase/auth";
 
 type DonationPost = {
   id: string;
@@ -26,6 +27,9 @@ const Home2: React.FC = () => {
   const [pendingPosts, setPendingPosts] = useState<DonationPost[]>([]);
   const [donatedPosts, setDonatedPosts] = useState<DonationPost[]>([]);
   const [displayOption, setDisplayOption] = useState<string>("pending");
+  const [burgerMenuOpen, setBurgerMenuOpen] = useState<boolean>(false);
+  const [showUpdateForm, setShowUpdateForm] = useState<boolean>(false);
+  const navigate = useNavigate();
   const { email } = useParams<{ email: string }>();
   const [deliveryDate, setDeliveryDate] = useState<string>("");
   const [selectedCategory, setSelectedCategory] = useState<string>("");
@@ -392,7 +396,6 @@ const Home2: React.FC = () => {
     const handleQuantityChange = (e: { target: { value: any; }; }) => {
         const inputValue = e.target.value;
 
-        // Allow the input to be empty or match the regex for digits
         if (inputValue === '' || /^\d+$/.test(inputValue)) {
             setValue(inputValue);
             setError('');
@@ -402,120 +405,164 @@ const Home2: React.FC = () => {
         }
     };
 
-  const handleUpdateUserInfo = () => {
-    // Add logic to update user information
-    alert("User information updated successfully!");
+    const handleBurgerMenuClick = () => {
+      const burgerIcon = document.querySelector(".burger-icon");
+      if (burgerIcon) {
+        burgerIcon.classList.toggle("active");
+      }
+    };
+
+    const handleUpdate = () => {
+      setShowUpdateForm(true);
   };
 
-  const handleDeleteUserInfo = () => {
-    alert("User information deleted successfully!");
+  const handleDeleteUser = async () => {
+    try {
+      const user = auth.currentUser;
+      if (user) {
+        // Delete user data from the Realtime Database
+        const userId = user.uid;
+        const userDataRef = ref(db, `UserData/${userId}`);
+        await remove(userDataRef);
+  
+        // Delete the user's authentication record
+        await deleteUser(user);
+  
+        // Redirect to SigninOrg page
+        navigate('/SigninOrg');
+        alert('User deleted successfully!');
+      } else {
+        console.log('No user signed in');
+        alert('No user signed in.');
+      }
+    } catch (error) {
+      console.error('Error deleting user:', error);
+      alert('An error occurred while deleting user. Please try again later.');
+    }
   };
 
   return (
-      <div className="home2">
-        <div className="header">
-          <h1>{editMode ? "Edit Donation Post" : "Create Donation Post"}</h1>
+    <div className="home2">
+      <div className="burger-menu">
+      <button className={`burger-icon ${burgerMenuOpen ? 'active' : ''}`} onClick={() => setBurgerMenuOpen(!burgerMenuOpen)}>
+        <div className="bar" ></div>
+        <div className="bar" ></div>
+        <div className="bar" ></div>
+      </button>
+      {burgerMenuOpen && (
+        <div className="burger-menu-content">
+          <button onClick={handleUpdate}>Update</button>
+          <button onClick={handleDeleteUser}>Delete</button>
         </div>
-        <div className="form-container">
-            <form>
-                <label htmlFor="category">Category:</label>
-                <select
-                    id="category"
-                    value={category}
-                    onChange={handleCategoryChange}
-                >
-                    <option value="">Select Category</option>
-                    <option value="clothes">Clothes</option>
-                    <option value="toys">Toys</option>
-                    <option value="food">Food</option>
-                    <option value="medical">Medical Supplies</option>
-                    <option value="school">School Supplies</option>
-                    <option value="blood">Blood Donations</option>
-                </select>
-
-                {renderDetailFields()}
-                <label htmlFor="amount">Amount:</label>
-                <input
-                    type="text"
-                    id="amount"
-                    value={value}
-                    onChange={handleQuantityChange}
-                    placeholder="Enter a positive number"
-                />
-                <label htmlFor="donation-post">Details:</label>
-                <textarea
-                    id="donation-post"
-                    value={donationPost}
-                    onChange={handleDonationPostChange}
-                ></textarea>
-
-                <label htmlFor="delivery-date">Delivery Date:</label>
-                <input
-                    type="date"
-                    id="delivery-date"
-                    name="deliveryDate"
-                    value={deliveryDate}
-                    onChange={handleDeliveryDateChange}
-                />
-
-                {editMode ? (
-                    <>
-                        <button type="button" onClick={handleUpdateDonationPost}>
-                            Update Donation Post
-                        </button>
-                        <button type="button" onClick={handleUpdateUserInfo}>
-                            Update Account
-                        </button>
-                        <button type="button" onClick={handleDeleteUserInfo}>
-                            Delete Account
-                        </button>
-                    </>
-                ) : (
-                    <button type="button" onClick={handleSubmitDonationPost}>
-                        Submit Donation Post
-                    </button>
-                )}
-            </form>
+      )}
+    </div>
+      <div className="header">
+        <h1>{editMode ? "Edit Donation Post" : "Create Donation Post"}</h1>
+      </div>
+      <div className="form-container">
+        <form>
+          {/* Category Selection */}
+          <label htmlFor="category">Category:</label>
+          <select
+            id="category"
+            value={category}
+            onChange={handleCategoryChange}
+          >
+            <option value="">Select Category</option>
+            <option value="clothes">Clothes</option>
+            <option value="toys">Toys</option>
+            <option value="food">Food</option>
+            <option value="medical">Medical Supplies</option>
+            <option value="school">School Supplies</option>
+            <option value="blood">Blood Donations</option>
+          </select>
+  
+          {/* Dynamic Detail Fields */}
+          {renderDetailFields()}
+  
+          {/* Amount Input */}
+          <label htmlFor="amount">Amount:</label>
+          <input
+            type="text"
+            id="amount"
+            value={value}
+            onChange={handleQuantityChange}
+            placeholder="Enter a positive number"
+          />
+  
+          {/* Donation Post Details */}
+          <label htmlFor="donation-post">Details:</label>
+          <textarea
+            id="donation-post"
+            value={donationPost}
+            onChange={handleDonationPostChange}
+          ></textarea>
+  
+          {/* Delivery Date Input */}
+          <label htmlFor="delivery-date">Delivery Date:</label>
+          <input
+            type="date"
+            id="delivery-date"
+            name="deliveryDate"
+            value={deliveryDate}
+            onChange={handleDeliveryDateChange}
+          />
+  
+          {/* Conditional Rendering for Edit Mode */}
+          {editMode ? (
+            <button type="button" onClick={handleUpdateDonationPost}>
+              Update Donation Post
+            </button>
+          ) : (
+            <button type="button" onClick={handleSubmitDonationPost}>
+              Submit Donation Post
+            </button>
+          )}
+        </form>
+      </div>
+      <div className="posts-container">
+        <div className="posts-header">
+          <h2>My Donation Posts</h2>
+          <select
+            value={displayOption}
+            onChange={(e) => setDisplayOption(e.target.value)}
+          >
+            <option value="pending">Pending</option>
+            <option value="donated">Donated</option>
+          </select>
         </div>
-          <div className="posts-container">
-              <div className="posts-header">
-                  <h2>My Donation Posts</h2>
-            <select
-                value={displayOption}
-                onChange={(e) => setDisplayOption(e.target.value)}
-            >
-              <option value="pending">Pending</option>
-              <option value="donated">Donated</option>
-            </select>
-          </div>
-          <div className="posts-list">
-            {displayOption === "pending" &&
-                pendingPosts.map((post) => (
-                    <div key={post.id} className="post">
-                      <p>{post.category}</p>
-                      <p>{post.content}</p>
-                      <p>{post.status}</p>
-                      <p>{post.deliveryDate}</p>
-                      <button onClick={() => handleEdit(post.id)}>Edit</button>
-                      <button onClick={() => handleDelete(post.id)}>Delete</button>
-                    </div>
-                ))}
-            {displayOption === "donated" &&
-                donatedPosts.map((post) => (
-                    <div key={post.id} className="post">
-                        <p>{post.category}</p>
-                        <p>{post.content}</p>
-                        <p>{post.status}</p>
-                        <p>{post.deliveryDate}</p>
-                        <button onClick={() => handleViewDonorDetails(post.id)}>
-                            View Donor Details
-                        </button>
-                    </div>
-                ))}
-          </div>
+        <div className="posts-list">
+          {/* Pending Posts */}
+          {displayOption === "pending" &&
+            pendingPosts.map((post) => (
+              <div key={post.id} className="post">
+                <p>{post.category}</p>
+                <p>{post.content}</p>
+                <p>{post.status}</p>
+                <p>{post.deliveryDate}</p>
+                <button onClick={() => handleEdit(post.id)}>Edit</button>
+                <button onClick={() => handleDelete(post.id)}>Delete</button>
+              </div>
+            ))}
+          {/* Donated Posts */}
+          {displayOption === "donated" &&
+            donatedPosts.map((post) => (
+              <div key={post.id} className="post">
+                <p>{post.category}</p>
+                <p>{post.content}</p>
+                <p>{post.status}</p>
+                <p>{post.deliveryDate}</p>
+                <button onClick={() => handleViewDonorDetails(post.id)}>
+                  View Donor Details
+                </button>
+                <button onClick={() => handleDelete(post.id)}>Delete</button>
+              </div>
+            ))}
         </div>
       </div>
+    </div>
   );
+  
 };
 
 export default Home2;

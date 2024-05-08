@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import Donor from './Donor/Donor';
 import Organization from './Organization/Organization';
@@ -28,11 +28,14 @@ import Notverified from '@/Donor/notverified';
 import NavigationButton from "@/Donor/DonorXVolunteer.tsx";
 import View_Teaching from './Donor/View_Teaching.tsx';
 import ChooseTransportation from '@/Donor/ChooseTransportation.tsx';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 
 
 
 export const App = () => {
   const location = useLocation();
+  const [currentUser, setCurrentUser] = useState(null);
+  const auth = getAuth();
 
   // Check if the current route is the initial page ("/")
   const isInitialPage = location.pathname === '/';
@@ -49,6 +52,8 @@ export const App = () => {
         )}
         <main>
           <Routes>
+            <Route path="/signinorg" element={<SigninOrg />} />
+            <Route path="/" element={currentUser ? <Home2 /> : <SigninOrg />} />
             <Route path="/donor" element={<Donor />} />
             <Route path="/Sign_in1" element={<Sign_in1 />} />
             <Route path="/SignUpForm1" element={<SignUpFormDonor />} />
