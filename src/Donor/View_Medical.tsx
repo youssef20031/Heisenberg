@@ -120,8 +120,6 @@ const View_Medical: React.FC = () => {
                     />
                 </InputGroup>
             </Form>
-            </div>
-            <div className="g-1">
             <Row>
                 <Col md>
                     <Form>
@@ -136,10 +134,9 @@ const View_Medical: React.FC = () => {
                     </Form>
                 </Col>
             </Row>
-            </div>
-            <div className="g-2">
                 <Button className="Button" onClick={handleButton}>Submit</Button>
             </div>
+
             {data && Object.keys(data).length > 0 ? (
                 <Table striped bordered hover responsive>
                     <thead>

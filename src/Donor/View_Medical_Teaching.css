@@ -122,10 +122,19 @@
     background-color: #f2f2f2;
 }
 .View_Medical .g-1 {
+    display: flex;
     justify-content: center;
     margin-bottom: 5px;
     padding: 10px;
     background-color: #f2f2f2;
+    border-radius: 10px;
+}
+.View_Medical .g-1 button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 5px;
+    padding: 10px;
     border-radius: 10px;
 }
 .View_Medical .g-1:nth-child(odd) {
