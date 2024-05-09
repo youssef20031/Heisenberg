@@ -44,7 +44,6 @@ export const App = () => {
       <>
         {isInitialPage && (
             <header>
-              <h1>Choose an Option:</h1>
               <nav>
                 <NavigationButtons />
               </nav>
