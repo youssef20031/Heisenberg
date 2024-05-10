@@ -11,7 +11,7 @@ import Dashboard1 from './Admin/Dashboard1.tsx';
 import SignUpFormOrg from './Organization/SignUpOrg.tsx';
 import OrganizationList from './Admin/OrganizationList';
 import DonorList from './Admin/Donorlist';
-import './App.css'; // Import the CSS file
+import './App.css';
 import Mapsetter from "@/Admin/Mapsetter.tsx";
 import PasswordModification from './Admin/passwordmodif.tsx';
 import Sign_in1 from './Donor/Signin1.tsx';
