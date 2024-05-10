@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
+import {get, ref, update} from "firebase/database";
+import {db} from "@/firebase.tsx";
 
 
 
@@ -14,18 +16,25 @@ const TeacherLogin = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     // Here you can handle the form submission, such as sending the data to a server or processing it in some way
-    const options={
-        method:'Post',
-        header:{
-            'Content-Type':'application/json'
-        },
-        body:JSON.stringify({email,specialty,probonoCases})
+    const dbRef = ref(db, '/UserData');
+    const snapshot = await get(dbRef);
+try{
+    if (snapshot.exists()) {
+      const userData = snapshot.val();
+      const userId = Object.keys(userData).find(key => userData[key].email === email);
+
+      if (userId) {
+        await update(ref(db, `UserData/${userId}`), { Speciality: specialty ,ProbonoCase: probonoCases });
+        navigate('/Sign_in1');
+      } else {
+        console.log('No user found with email:', email);
+      }
+    } else {
+      console.log('No data available');
     }
-    const res= await fetch('https://se-project-951b4-default-rtdb.firebaseio.com/teacherinfo.json' , options)
-    console.log("Specialty:", specialty);
-    console.log("Probono Cases:", probonoCases);
-    // After handling submission, you might navigate to another page
-    navigate("/Sign_in1"); // Example navigation
+  } catch (error) {
+    console.error('Error updating verification status:', error);
+  }
   };
 
   return (
