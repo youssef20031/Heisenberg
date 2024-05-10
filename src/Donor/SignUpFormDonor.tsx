@@ -53,7 +53,15 @@ const SignUpFormDonor =() => {
             }
             if(res){
                 alert("You got registered now login");
+              //   if (user === "Teacher") {
+              //     navigate(`/teacherlogin/${email}`);
+              // } else if (user === "Doctor") {
+              //     navigate(`/doctorlogin/${email}`);
+              // } else {
+              //     navigate('/Sign_in1');
+              // }
             }
+            
             else{
                 alert("Error Occured");
             }
@@ -204,7 +212,7 @@ const SignUpFormDonor =() => {
         if (user === "Teacher") {
             navigate(`/teacherlogin/${email}`);
         } else if (user === "Doctor") {
-            navigate('/doctorlogin');
+            navigate(`/doctorlogin/${email}`);
         } else {
             navigate('/Sign_in1');
         }
