@@ -55,6 +55,7 @@ const View_Teaching: React.FC = () => {
                         newData[userId].Fulfilled = "True";
                         return newData;
                     });
+                    alert('Record has been fulfilled');
                 } else {
                     console.log('No user found with caseNu,:', teachingNum);
                 }
@@ -103,7 +104,7 @@ const View_Teaching: React.FC = () => {
     }, []);
 
     return (
-        <div className="View_Medical" style={{ marginTop: '50px', marginBottom: '50px' }}>
+        <div className="View_Teaching" style={{ marginTop: '50px', marginBottom: '50px' }}>
             <h2 className="text-center" style={{ marginBottom: '30px' }}>Realtime Database Data:</h2>
             <div className="g-1">
             <Form>
@@ -131,9 +132,9 @@ const View_Teaching: React.FC = () => {
                 <Button className="Button" onClick={handleButton}>Submit</Button>
             </div>
             {data && Object.keys(data).length > 0 ? (
-                <Table striped bordered hover responsive>
+                <Table striped bordered hover responsive >
                     <thead>
-                    <tr style={{marginTop: '20px', marginBottom: '20px', marginLeft: '20px', marginRight: '20px'}}>
+                    <tr style={{marginTop: '20px', marginBottom: '20px', marginLeft: '20px', marginRight: '20px', borderRadius: '10px'}}>
                         <th>TeachingNum</th>
                         <th>Number Of Students</th>
                         <th>Location</th>
@@ -149,6 +150,7 @@ const View_Teaching: React.FC = () => {
                     <tbody>
                     {isClicked ? (
                         filteredData.map((item: View_Teaching, index: number) => (
+                            item.Fulfilled !== "True" && (
                                 <tr key={index}>
                                     <td style={{width: '15%'}}>{item.TeachingNum}</td>
                                     <td style={{width: '15%'}}>{item.NumOfStudents}</td>
@@ -168,11 +170,13 @@ const View_Teaching: React.FC = () => {
                                     </td>
                                 </tr>
                             )
+                            )
                         )
                     ) : (
 
                         Object.values(data).map((item: View_Teaching, index: number) => (
-                                <tr key={index}>
+                            item.Fulfilled !== "True" && (
+                            <tr key={index}>
                                     <td style={{width: '15%'}}>{item.TeachingNum}</td>
                                     <td style={{width: '15%'}}>{item.NumOfStudents}</td>
                                     <td style={{width: '10%'}}>{item.Location}</td>
@@ -190,6 +194,7 @@ const View_Teaching: React.FC = () => {
                                                 onClick={() => handleFulfill(item.TeachingNum)}>Fulfill</Button>
                                     </td>
                                 </tr>
+                            )
                             )
                         )
                     )}

@@ -60,6 +60,7 @@ const View_Medical: React.FC = () => {
                         newData[userId].Case = "True";
                         return newData;
                     });
+                    alert('Record has been fulfilled');
                 } else {
                     console.log('No user found with caseNu,:', caseNum);
                 }
@@ -159,6 +160,7 @@ const View_Medical: React.FC = () => {
                     <tbody>
                     {isClicked ? (
                         filteredData.map((item: View_Medical, index: number) => (
+                            item.Case !== "True" && (
                                 <tr key={index}>
                                     <td style={{width: '15%'}}>{item.CaseNum}</td>
                                     <td style={{width: '15%'}}>{item.Name}</td>
@@ -181,11 +183,13 @@ const View_Medical: React.FC = () => {
                                     </td>
                                 </tr>
                             )
+                            )
                         )
                     ) : (
 
                         Object.values(data).map((item: View_Medical, index: number) => (
-                                <tr key={index}>
+                            item.Case !== "True" && (
+                            <tr key={index}>
                                     <td style={{width: '15%'}}>{item.CaseNum}</td>
                                     <td style={{width: '15%'}}>{item.Name}</td>
                                     <td style={{width: '10%'}}>{item.Age}</td>
@@ -206,6 +210,7 @@ const View_Medical: React.FC = () => {
                                                 onClick={() => handleFulfill(item.CaseNum)}>Fulfill</Button>
                                     </td>
                                 </tr>
+                            )
                             )
                         )
                     )}
