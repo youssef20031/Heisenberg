@@ -195,7 +195,24 @@ const SignUpFormDonor =() => {
                 required
               />
             </div>
-            <Button type="submit" className="dark-theme-submit">Sign Up</Button>
+            
+            {/* <Button type="submit" className="dark-theme-submit">Sign Up</Button> */}
+            <Button 
+    type="submit" 
+    className="dark-theme-submit" 
+    onClick={() => {
+        if (user === "Teacher") {
+            navigate(`/teacherlogin/${email}`);
+        } else if (user === "Doctor") {
+            navigate('/doctorlogin');
+        } else {
+            navigate('/Sign_in1');
+        }
+    }}
+>
+    Sign Up
+</Button>
+
             {error && <div className="dark-theme-error">{error}</div>}
             <p className="dark-theme-prompt">
               Already Registered?{' '}

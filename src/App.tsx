@@ -29,6 +29,8 @@ import NavigationButton from "@/Donor/DonorXVolunteer.tsx";
 import View_Teaching from './Donor/View_Teaching.tsx';
 import ChooseTransportation from '@/Donor/ChooseTransportation.tsx';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import TeacherLogin from './Donor/teacherlogin.tsx';
+import DoctorLogin from './Donor/doctorlogin.tsx';
 
 
 
@@ -65,6 +67,9 @@ export const App = () => {
             <Route path="/organization" element={<Organization />} />
             <Route path="/location/:email" element={<LocationComponent />} />
             <Route path="/locationMapsetter/:email" element={<Mapsetter />} />
+            <Route path="/teacherlogin/:email" element={<TeacherLogin />} />
+            <Route path="/doctorlogin/:email" element={<DoctorLogin />} />
+
             <Route path="/admin" element={<Admin />} />
             <Route path="/dashboard1" element={<Dashboard1 />} />
             <Route path="/organizationlist" element={<OrganizationList />} />
