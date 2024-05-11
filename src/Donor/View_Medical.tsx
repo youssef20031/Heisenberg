@@ -118,7 +118,21 @@ const View_Medical: React.FC = () => {
         <div className="View_Medical" style={{ marginTop: '50px', marginBottom: '50px' }}>
             <h2 className="text-center" style={{ marginBottom: '30px' }}>Realtime Database Data:</h2>
             <div className="g-1">
-                <Form>
+                <Button
+                    variant="danger"
+                    onClick={handleLogout}
+                    className="btn-sm"
+                    style={{
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        margin: '10px',
+                        width: '40px',  // Adjust width as desired (in pixels)
+                        height: '10px'   // Adjust height as desired (in pixels)
+                    }}
+                >
+                    Logout
+                </Button>                <Form>
                     <InputGroup>
                         <Form.Control
                             onChange={(e) => setSearch(e.target.value)}
@@ -139,7 +153,6 @@ const View_Medical: React.FC = () => {
                         </Form>
                     </Col>
                 </Row>
-                <Button variant="danger" onClick={handleLogout}>Logout</Button>
             </div>
 
             {filteredData && filteredData.length > 0 ? (

@@ -35,43 +35,37 @@ const SignUpFormDonor =() => {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            <h1>You go registered now Login</h1>
             console.log("Account created");
-            const options={
-                method:'Post',
-                header:{
-                    'Content-Type':'application/json'
+            const options = {
+                method: 'Post',
+                headers: {
+                    'Content-Type': 'application/json'
                 },
-                body:JSON.stringify({email,firstname,lastname,password,gender,number,area,address,governate,user,Organization,verified})
+                body: JSON.stringify({ email, firstname, lastname, password, gender, number, area, address, governate, user, Organization, verified })
             }
-            const res= await fetch('https://se-project-951b4-default-rtdb.firebaseio.com/UserData.json' , options)
+            const res = await fetch('https://se-project-951b4-default-rtdb.firebaseio.com/UserData.json', options);
             console.log(res);
 
-            if (file) {
-                const storageRef = ref(storage, `${email}`);
-                await uploadBytes(storageRef, file);
-            }
-            if(res){
+            if (res.ok) {
                 alert("You got registered now login");
 
-                 if (user === "Teacher") {
-                   navigate(`/teacherlogin/${email}`);
-              } else if (user === "Doctor") {
-                   navigate(`/doctorlogin/${email}`);
-               } else {
-                   navigate('/Sign_in1');
-               }
-            }
-            
-            else{
-                alert("Error Occured");
+                if (user === "Teacher") {
+                    navigate(`/teacherlogin/${email}`);
+                } else if (user === "Doctor") {
+                    navigate(`/doctorlogin/${email}`);
+                } else {
+                    navigate('/Sign_in1');
+                }
+            } else {
+                alert("Error Occurred");
             }
 
         } catch (error) {
             console.log(error);
             // setError(error.message); // Set error message state
-          }
+        }
     };
+
 
     return (
         <div className="dark-theme-wrapper">
