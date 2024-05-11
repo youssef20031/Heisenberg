@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { ref, get, remove,update } from 'firebase/database';
-import { db,storage } from '@/firebase';
-import {Button, Col, Form, InputGroup, Row, Table} from 'react-bootstrap';
+import { ref, get, update } from 'firebase/database';
+import { db } from '@/firebase';
+import { Button, Col, Form, InputGroup, Row, Card } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { getAuth, deleteUser, User } from "firebase/auth";
-import { getDownloadURL,deleteObject} from 'firebase/storage';
-import { ref as Ref2 } from 'firebase/storage';
-import {useNavigate} from "react-router-dom";
+import medicalImage from './medical.jpg';
+import { useNavigate } from "react-router-dom";
 import "./View_Medical_Teaching.css";
 // eslint-disable-next-line react-hooks/rules-of-hooks
 
@@ -76,21 +74,6 @@ const View_Medical: React.FC = () => {
         setGovernateChange(event.target.value);
     };
 
-    const handleButton = () => {
-        setIsClicked(true);
-        if (Governate !== '') {
-            const filtered = Object.values(data!).filter(item => {
-                const GovernateMatch = Governate === '' || item.Governate === Governate;
-                const searchMatch = search === '' || item.Location.toLowerCase().includes(search.toLowerCase()) || item.OrgName.toLowerCase().includes(search.toLowerCase()) || item.Area.toLowerCase().includes(search.toLowerCase()) || item.MedicalSpeciality.toLowerCase().includes(search.toLowerCase());
-                return GovernateMatch && searchMatch;
-            });
-            setFilteredData(filtered);
-        } else {
-            const filtered = Object.values(data!).filter(item => search === '' ||
-                item.Location.toLowerCase().includes(search.toLowerCase()) || item.OrgName.toLowerCase().includes(search.toLowerCase()) || item.Area.toLowerCase().includes(search.toLowerCase()) || item.MedicalSpeciality.toLowerCase().includes(search.toLowerCase()));
-            setFilteredData(filtered);
-        }
-    };
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -109,115 +92,75 @@ const View_Medical: React.FC = () => {
         fetchData();
     }, []);
 
+    useEffect(() => {
+        if (data) {
+            if (Governate !== '' || search !== '') {
+                const filtered = Object.values(data).filter(item => {
+                    const GovernateMatch = Governate === '' || item.Governate === Governate;
+                    const searchMatch = search === '' || item.Location.toLowerCase().includes(search.toLowerCase()) || item.OrgName.toLowerCase().includes(search.toLowerCase()) || item.Area.toLowerCase().includes(search.toLowerCase()) || item.MedicalSpeciality.toLowerCase().includes(search.toLowerCase());
+                    return GovernateMatch && searchMatch;
+                });
+                setFilteredData(filtered);
+            } else {
+                setFilteredData(Object.values(data));
+            }
+        }
+    }, [Governate, search, data]);
     return (
         <div className="View_Medical" style={{ marginTop: '50px', marginBottom: '50px' }}>
             <h2 className="text-center" style={{ marginBottom: '30px' }}>Realtime Database Data:</h2>
             <div className="g-1">
-            <Form>
-                <InputGroup>
-                    <Form.Control
-                        onChange={(e) => setSearch(e.target.value)}
-                        placeholder="search Organization names or Area or Location or Medical Speciality"
-                    />
-                </InputGroup>
-            </Form>
-            <Row>
-                <Col md>
-                    <Form>
-                        <Form.Select onChange={handleSpecialityChange} value={Governate}>
-                            <option value="">Select Governate</option>
-                            <option value="Cairo">Cairo</option>
-                            <option value="Alexandria">Alexandria</option>
-                            <option value="Al Dakahlia">Al Dakahlia</option>
-                            <option value="Matrouh">Matrouh</option>
-
-                        </Form.Select>
-                    </Form>
-                </Col>
-            </Row>
-                <Button className="Button" onClick={handleButton}>Submit</Button>
+                <Form>
+                    <InputGroup>
+                        <Form.Control
+                            onChange={(e) => setSearch(e.target.value)}
+                            placeholder="search Organization names or Area or Location or Medical Speciality"
+                        />
+                    </InputGroup>
+                </Form>
+                <Row>
+                    <Col md>
+                        <Form>
+                            <Form.Select onChange={handleSpecialityChange} value={Governate}>
+                                <option value="">Select Governate</option>
+                                <option value="Cairo">Cairo</option>
+                                <option value="Alexandria">Alexandria</option>
+                                <option value="Al Dakahlia">Al Dakahlia</option>
+                                <option value="Matrouh">Matrouh</option>
+                            </Form.Select>
+                        </Form>
+                    </Col>
+                </Row>
             </div>
 
-            {data && Object.keys(data).length > 0 ? (
-                <Table striped bordered hover responsive>
-                    <thead>
-                    <tr style={{marginTop: '20px', marginBottom: '20px', marginLeft: '20px', marginRight: '20px'}}>
-                        <th style={{width: '10%'}}>Case Number</th>
-                        <th style={{width: '10%'}}>Name</th>
-                        <th style={{width: '10%'}}>Age</th>
-                        <th style={{width: '10%'}}>Gender</th>
-                        <th>Governate</th>
-                        <th>Location</th>
-                        <th>Area</th>
-                        <th>Weight</th>
-                        <th>Organization name</th>
-                        <th>Medical Speciality</th>
-                        <th>Case Description</th>
-                        <th>Control Center</th>
-                        <th>Fulfill</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {isClicked ? (
-                        filteredData.map((item: View_Medical, index: number) => (
-                            item.Case !== "True" && (
-                                <tr key={index}>
-                                    <td style={{width: '15%'}}>{item.CaseNum}</td>
-                                    <td style={{width: '15%'}}>{item.Name}</td>
-                                    <td style={{width: '10%'}}>{item.Age}</td>
-                                    <td style={{width: '10%'}}>{item.Gender}</td>
-                                    <td style={{width: '10%'}}>{item.Governate}</td>
-                                    <td style={{width: '10%'}}>{item.Location}</td>
-                                    <td style={{width: '10%'}}>{item.Area}</td>
-                                    <td style={{width: '10%'}}>{item.Weight}</td>
-                                    <td style={{width: '15%'}}>{item.OrgName}</td>
-                                    <td style={{width: '15%'}}>{item.MedicalSpeciality}</td>
-                                    <td style={{width: '15%'}}>{item.CaseDescription}</td>
-                                    <td style={{width: '15%'}}>
-                                        <Button variant="primary"
-                                                onClick={() => handleViewloc(item.CaseNum)}>Location</Button>
-                                    </td>
-                                    <td style={{width: '15%'}}>
-                                        <Button variant="primary"
-                                                onClick={() => handleFulfill(item.CaseNum)}>Fulfill</Button>
-                                    </td>
-                                </tr>
-                            )
-                            )
-                        )
-                    ) : (
-
-                        Object.values(data).map((item: View_Medical, index: number) => (
-                            item.Case !== "True" && (
-                            <tr key={index}>
-                                    <td style={{width: '15%'}}>{item.CaseNum}</td>
-                                    <td style={{width: '15%'}}>{item.Name}</td>
-                                    <td style={{width: '10%'}}>{item.Age}</td>
-                                    <td style={{width: '10%'}}>{item.Gender}</td>
-                                    <td style={{width: '10%'}}>{item.Governate}</td>
-                                    <td style={{width: '10%'}}>{item.Location}</td>
-                                    <td style={{width: '10%'}}>{item.Area}</td>
-                                    <td style={{width: '10%'}}>{item.Weight}</td>
-                                    <td style={{width: '15%'}}>{item.OrgName}</td>
-                                    <td style={{width: '15%'}}>{item.MedicalSpeciality}</td>
-                                    <td style={{width: '15%'}}>{item.CaseDescription}</td>
-                                    <td style={{width: '15%'}}>
-                                        <Button variant="primary"
-                                                onClick={() => handleViewloc(item.CaseNum)}>Location</Button>
-                                    </td>
-                                    <td style={{width: '15%'}}>
-                                        <Button variant="primary"
-                                                onClick={() => handleFulfill(item.CaseNum)}>Fulfill</Button>
-                                    </td>
-                                </tr>
-                            )
-                            )
-                        )
-                    )}
-                    </tbody>
-                </Table>
+            {filteredData && filteredData.length > 0 ? (
+                filteredData.map((item: View_Medical, index: number) => (
+                    <div key={index}>
+                        <Card className="carousel" style={{ width: '18rem' }}>
+                            <Card.Img variant="top" src={medicalImage} />
+                            <Card.Body>
+                                <Card.Title>{item.CaseNum}</Card.Title>
+                                <Card.Text>
+                                    Name: {item.Name} <br />
+                                    Age: {item.Age} <br />
+                                    Gender: {item.Gender} <br />
+                                    Case: {item.Case} <br />
+                                    Case Description: {item.CaseDescription} <br />
+                                    Medical Speciality: {item.MedicalSpeciality} <br />
+                                    Weight: {item.Weight} <br />
+                                    OrgName: {item.OrgName} <br />
+                                    Location: {item.Location} <br />
+                                    Governate: {item.Governate} <br />
+                                    Area: {item.Area} <br />
+                                </Card.Text>
+                                <Button variant="primary" onClick={() => handleViewloc(item.CaseNum)}>Location</Button>
+                                <Button variant="primary" onClick={() => handleFulfill(item.CaseNum)}>Fulfill</Button>
+                            </Card.Body>
+                        </Card>
+                    </div>
+                ))
             ) : (
-                <p className="text-center" style={{marginTop: '50px', marginBottom: '50px'}}>No records found.</p>
+                <div className="text-center">No data available</div>
             )}
         </div>
     );

@@ -1,14 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { ref, get, remove,update } from 'firebase/database';
-import { db,storage } from '@/firebase';
-import {Button, Col, Form, InputGroup, Row, Table} from 'react-bootstrap';
+import { ref, get, update } from 'firebase/database';
+import { db } from '@/firebase';
+import { Button, Col, Form, InputGroup, Row, Card } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { getAuth, deleteUser, User } from "firebase/auth";
-import { getDownloadURL,deleteObject} from 'firebase/storage';
-import { ref as Ref2 } from 'firebase/storage';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./View_Medical_Teaching.css";
+import teaching from "./teaching.jpg";
 
 
 
@@ -103,105 +100,71 @@ const View_Teaching: React.FC = () => {
         fetchData();
     }, []);
 
+    useEffect(() => {
+        if (data) {
+            if (Governate !== '' || search !== '') {
+                const filtered = Object.values(data).filter(item => {
+                    const GovernateMatch = Governate === '' || item.Governate === Governate;
+                    const searchMatch = search === '' || item.Location.toLowerCase().includes(search.toLowerCase()) || item.OrgName.toLowerCase().includes(search.toLowerCase()) || item.Area.toLowerCase().includes(search.toLowerCase());
+                    return GovernateMatch && searchMatch;
+                });
+                setFilteredData(filtered);
+            } else {
+                setFilteredData(Object.values(data));
+            }
+        }
+    }, [Governate, search, data]);
+
     return (
         <div className="View_Teaching" style={{ marginTop: '50px', marginBottom: '50px' }}>
             <h2 className="text-center" style={{ marginBottom: '30px' }}>Realtime Database Data:</h2>
             <div className="g-1">
-            <Form>
-                <InputGroup>
-                    <Form.Control
-                        onChange={(e) => setSearch(e.target.value)}
-                        placeholder="search Organization names or Area or Location"
-                    />
-                </InputGroup>
-            </Form>
-            <Row>
-                <Col md>
-                    <Form>
-                        <Form.Select onChange={handleSpecialityChange} value={Governate}>
-                            <option value="">Select Governate</option>
-                            <option value="Cairo">Cairo</option>
-                            <option value="Alexandria">Alexandria</option>
-                            <option value="Al Dakahlia">Al Dakahlia</option>
-                            <option value="Matrouh">Matrouh</option>
-
-                        </Form.Select>
-                    </Form>
-                </Col>
-            </Row>
-                <Button className="Button" onClick={handleButton}>Submit</Button>
+                <Form>
+                    <InputGroup>
+                        <Form.Control
+                            onChange={(e) => setSearch(e.target.value)}
+                            placeholder="search Organization names or Area or Location"
+                        />
+                    </InputGroup>
+                </Form>
+                <Row>
+                    <Col md>
+                        <Form>
+                            <Form.Select onChange={handleSpecialityChange} value={Governate}>
+                                <option value="">Select Governate</option>
+                                <option value="Cairo">Cairo</option>
+                                <option value="Alexandria">Alexandria</option>
+                                <option value="Al Dakahlia">Al Dakahlia</option>
+                                <option value="Matrouh">Matrouh</option>
+                            </Form.Select>
+                        </Form>
+                    </Col>
+                </Row>
             </div>
-            {data && Object.keys(data).length > 0 ? (
-                <Table striped bordered hover responsive >
-                    <thead>
-                    <tr style={{marginTop: '20px', marginBottom: '20px', marginLeft: '20px', marginRight: '20px', borderRadius: '10px'}}>
-                        <th>TeachingNum</th>
-                        <th>Number Of Students</th>
-                        <th>Location</th>
-                        <th>Subjects</th>
-                        <th>Fulfilled</th>
-                        <th>Organization Name</th>
-                        <th>Area</th>
-                        <th>Governate</th>
-                        <th>Control Center</th>
-                        <th>Fulfill</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {isClicked ? (
-                        filteredData.map((item: View_Teaching, index: number) => (
-                            item.Fulfilled !== "True" && (
-                                <tr key={index}>
-                                    <td style={{width: '15%'}}>{item.TeachingNum}</td>
-                                    <td style={{width: '15%'}}>{item.NumOfStudents}</td>
-                                    <td style={{width: '10%'}}>{item.Location}</td>
-                                    <td style={{width: '10%'}}>{item.Subjects}</td>
-                                    <td style={{width: '10%'}}>{item.Fulfilled}</td>
-                                    <td style={{width: '10%'}}>{item.OrgName}</td>
-                                    <td style={{width: '10%'}}>{item.Area}</td>
-                                    <td style={{width: '15%'}}>{item.Governate}</td>
-                                    <td style={{width: '15%'}}>
-                                        <Button variant="primary"
-                                                onClick={() => handleViewloc(item.TeachingNum)}>Location</Button>
-                                    </td>
-                                    <td style={{width: '15%'}}>
-                                        <Button variant="primary"
-                                                onClick={() => handleFulfill(item.TeachingNum)}>Fulfill</Button>
-                                    </td>
-                                </tr>
-                            )
-                            )
-                        )
-                    ) : (
-
-                        Object.values(data).map((item: View_Teaching, index: number) => (
-                            item.Fulfilled !== "True" && (
-                            <tr key={index}>
-                                    <td style={{width: '15%'}}>{item.TeachingNum}</td>
-                                    <td style={{width: '15%'}}>{item.NumOfStudents}</td>
-                                    <td style={{width: '10%'}}>{item.Location}</td>
-                                    <td style={{width: '10%'}}>{item.Subjects}</td>
-                                    <td style={{width: '10%'}}>{item.Fulfilled}</td>
-                                    <td style={{width: '10%'}}>{item.OrgName}</td>
-                                    <td style={{width: '10%'}}>{item.Area}</td>
-                                    <td style={{width: '15%'}}>{item.Governate}</td>
-                                    <td style={{width: '15%'}}>
-                                        <Button variant="primary"
-                                                onClick={() => handleViewloc(item.TeachingNum)}>Location</Button>
-                                    </td>
-                                    <td style={{width: '15%'}}>
-                                        <Button variant="primary"
-                                                onClick={() => handleFulfill(item.TeachingNum)}>Fulfill</Button>
-                                    </td>
-                                </tr>
-                            )
-                            )
-                        )
-                    )}
-                    </tbody>
-                </Table>
+            {filteredData && filteredData.length > 0 ? (
+                filteredData.map((item: View_Teaching, index: number) => (
+                    <div key={index}>
+                        <Card className="carousel" style={{ width: '18rem' }}>
+                            <Card.Body>
+                                <Card.Img variant="top" src={teaching} />
+                                <Card.Title>{item.TeachingNum}</Card.Title>
+                                <Card.Text>
+                                    Number Of Students: {item.NumOfStudents} <br />
+                                    Location: {item.Location} <br />
+                                    Subjects: {item.Subjects} <br />
+                                    Fulfilled: {item.Fulfilled} <br />
+                                    Organization Name: {item.OrgName} <br />
+                                    Area: {item.Area} <br />
+                                    Governate: {item.Governate} <br />
+                                </Card.Text>
+                                <Button variant="primary" onClick={() => handleViewloc(item.TeachingNum)}>Location</Button>
+                                <Button variant="primary" onClick={() => handleFulfill(item.TeachingNum)}>Fulfill</Button>
+                            </Card.Body>
+                        </Card>
+                    </div>
+                ))
             ) : (
-                <p className="text-center" style={{marginTop: '50px', marginBottom: '50px'}}>No records found.</p>
+                <div className="text-center">No data available</div>
             )}
         </div>
     );

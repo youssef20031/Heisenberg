@@ -1,0 +1,31 @@
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 250px; /* Adjust this value to set the width of your sidebar */
+    background-color: #333;
+    padding: 10px 0;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+    box-shadow: 2px 0 4px 0 rgba(0,0,0,0.2);
+}
+
+.navbar__home-link {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.2em;
+    margin: 20px;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+    width: 100%;
+    padding: 0 20px;
+}

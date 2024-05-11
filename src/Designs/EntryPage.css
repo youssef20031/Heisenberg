@@ -34,3 +34,62 @@
   padding: 10px 20px;
   border-radius: 5px;
 }
+.sidebar {
+  width: 250px;
+  background-color: #1c1c1c;
+  padding: 20px;
+}
+.dashboard-container {
+  display: flex;
+  min-height: 100vh;
+  font-family: 'Arial', sans-serif;
+  color: #f0f0f0;
+  background-color: #121212;
+}
+
+
+.menu-item {
+  display: block;
+  padding: 10px;
+  color: #f0f0f0;
+  text-decoration: none;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.menu-item:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.content {
+  flex-grow: 1;
+  padding: 20px;
+}
+
+.header h1 {
+  margin-bottom: 20px;
+}
+
+.welcome-message h2 {
+  margin-bottom: 10px;
+}
+
+.welcome-message p {
+  margin-bottom: 20px;
+}
+
+.btn {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+  background-color: #45a049;
+}
