@@ -54,7 +54,6 @@ export const App = () => {
         <main>
           <Routes>
             <Route path="/signinorg" element={<SigninOrg />} />
-            <Route path="/" element={currentUser ? <Home2 /> : <SigninOrg />} />
             <Route path="/donor" element={<Donor />} />
             <Route path="/Sign_in1" element={<Sign_in1 />} />
             <Route path="/SignUpForm1" element={<SignUpFormDonor />} />
