@@ -73,7 +73,7 @@ const SignUpFormDonor =() => {
 
             <form onSubmit={handleSubmit} className="dark-theme-form">
                 <div className="dark-theme-banner">
-                    <h1>Sign Up</h1>
+                    <h1>Donor Registration</h1>
                 </div>
                 <div className="dark-theme-group">
                     <label htmlFor="email" className="dark-theme-label">Email</label>

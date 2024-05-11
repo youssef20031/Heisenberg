@@ -6,6 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './LoginAdmin.css';
 import { Button, Form, Container, Alert } from 'react-bootstrap';
 
+
 const LoginAdmin = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState('');
@@ -20,7 +21,7 @@ const LoginAdmin = () => {
       if (snapshot.exists()) {
         const userData = snapshot.val();
         const userExists = Object.values(userData).some((user: any) =>{
-           return user.username === username && user.password === password;
+          return user.username === username && user.password === password;
         });
         setIsValidCredentials(userExists);
         if (userExists) {
@@ -40,39 +41,45 @@ const LoginAdmin = () => {
   };
 
   return (
-      <Container className="mt-5">
-        <Form onSubmit={handleSubmit} className="w-50 mx-auto">
-          <Form.Group className="mb-3" controlId="username">
-            <Form.Label>Enter Username:</Form.Label>
-            <Form.Control
-                type="text"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                placeholder="Username"
-            />
-          </Form.Group>
+      <div className="dark-theme-wrapper">
 
-          <Form.Group className="mb-3" controlId="password">
-            <Form.Label>Enter Password:</Form.Label>
-            <Form.Control
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="Password"
-            />
-          </Form.Group>
+          <Form onSubmit={handleSubmit} className="dark-theme-form">
+            <div className="dark-theme-banner">
+              <h1>Sign In</h1>
+            </div>
+            <Form.Group className="mb-3" controlId="username">
+              <Form.Label>Enter Username:</Form.Label>
+              <Form.Control
+                  type="text"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  placeholder="Username"
+              />
+            </Form.Group>
 
-          <Button variant="primary" type="submit">
-            Login
-          </Button>
-        </Form>
+            <Form.Group className="mb-3" controlId="password">
+              <Form.Label>Enter Password:</Form.Label>
+              <Form.Control
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="Password"
+              />
+            </Form.Group>
 
-        {isValidCredentials !== null && (
-            <Alert variant={isValidCredentials ? "success" : "danger"} className="mt-3 w-50 mx-auto">
-              {isValidCredentials ? "Username and password are correct" : "Username or password is incorrect"}
-            </Alert>
-        )}
-      </Container>
+            <Button variant="primary" type="submit">
+              Login
+            </Button>
+          </Form>
+
+          {isValidCredentials !== null && (
+              <Alert variant={isValidCredentials ? "success" : "danger"} className="mt-3 w-50 mx-auto">
+                {isValidCredentials ? "Username and password are correct" : "Username or password is incorrect"}
+              </Alert>
+          )}
+      </div>
+
+
   );
 };
 
