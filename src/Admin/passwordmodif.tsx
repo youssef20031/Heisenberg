@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { ref, get, update } from 'firebase/database';
 import { db } from '@/firebase';
 import { Button, Alert } from 'react-bootstrap';
+import './passwordmodif.css';
 
 const PasswordModification: React.FC = () => {
     const [newPassword, setNewPassword] = useState('');
