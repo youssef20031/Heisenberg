@@ -4,10 +4,9 @@ import { useNavigate, useParams } from "react-router-dom";
 
 const DoctorLogin = () => {
   const navigate = useNavigate();
-  const [address, setAddress] = useState("");
-  const [area, setArea] = useState("");
-  const [governate, setGovernate] = useState("");
-  const [googleMarker, setGoogleMarker] = useState("");
+  const [clinicAddress, setClinicAddress] = useState("");
+  const [clinicArea, setClinicArea] = useState("");
+  const [clinicGovernate, setClinicGovernate] = useState("");
   const [specialty, setSpecialty] = useState("");
   const [probonoCases, setProbonoCases] = useState("");
   const { email } = useParams<{ email: string }>();
@@ -15,18 +14,17 @@ const DoctorLogin = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     // Here you can handle the form submission, such as sending the data to a server or processing it in some way
-    const options={
-        method:'Post',
-        header:{
-            'Content-Type':'application/json'
-        },
-        body:JSON.stringify({email,address, area, governate, googleMarker, specialty, probonoCases})
+    const options = {
+      method: 'Post',
+      header: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ email, clinicAddress, clinicArea, clinicGovernate, specialty, probonoCases })
     }
-    const res= await fetch('https://se-project-951b4-default-rtdb.firebaseio.com/doctorinfo.json' , options)
-    console.log("Address:", address);
-    console.log("Area:", area);
-    console.log("Governate:", governate);
-    console.log("Google Marker:", googleMarker);
+    const res = await fetch('https://se-project-951b4-default-rtdb.firebaseio.com/doctorinfo.json', options)
+    console.log("Clinic Address:", clinicAddress);
+    console.log("Clinic Area:", clinicArea);
+    console.log("Clinic Governate:", clinicGovernate);
     console.log("Specialty:", specialty);
     console.log("Probono Cases:", probonoCases);
     // After handling submission, you might navigate to another page
@@ -40,53 +38,40 @@ const DoctorLogin = () => {
           <h1>Doctor Login</h1>
         </div>
         <div className="dark-theme-group">
-          <label htmlFor="address" className="dark-theme-label">
-            Address
+          <label htmlFor="clinicAddress" className="dark-theme-label">
+            Clinic Address
           </label>
           <input
             type="text"
-            id="address"
-            value={address}
-            onChange={(e) => setAddress(e.target.value)}
+            id="clinicAddress"
+            value={clinicAddress}
+            onChange={(e) => setClinicAddress(e.target.value)}
             className="dark-theme-control"
             required
           />
         </div>
         <div className="dark-theme-group">
-          <label htmlFor="area" className="dark-theme-label">
-            Area
+          <label htmlFor="clinicArea" className="dark-theme-label">
+            Clinic Area
           </label>
           <input
             type="text"
-            id="area"
-            value={area}
-            onChange={(e) => setArea(e.target.value)}
+            id="clinicArea"
+            value={clinicArea}
+            onChange={(e) => setClinicArea(e.target.value)}
             className="dark-theme-control"
             required
           />
         </div>
         <div className="dark-theme-group">
-          <label htmlFor="governate" className="dark-theme-label">
-            Governate
+          <label htmlFor="clinicGovernate" className="dark-theme-label">
+            Clinic Governate
           </label>
           <input
             type="text"
-            id="governate"
-            value={governate}
-            onChange={(e) => setGovernate(e.target.value)}
-            className="dark-theme-control"
-            required
-          />
-        </div>
-        <div className="dark-theme-group">
-          <label htmlFor="googleMarker" className="dark-theme-label">
-            Google Marker
-          </label>
-          <input
-            type="text"
-            id="googleMarker"
-            value={googleMarker}
-            onChange={(e) => setGoogleMarker(e.target.value)}
+            id="clinicGovernate"
+            value={clinicGovernate}
+            onChange={(e) => setClinicGovernate(e.target.value)}
             className="dark-theme-control"
             required
           />
