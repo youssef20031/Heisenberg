@@ -33,6 +33,8 @@ import TeacherLogin from './Donor/teacherlogin.tsx';
 import DoctorLogin from './Donor/doctorlogin.tsx';
 import About from "@/Donor/About.tsx";
 import FAQ from "@/FAQ.tsx";
+import Locationdoctor from './Donor/locationdoctor.tsx';
+
 
 export const App = () => {
   const location = useLocation();
@@ -66,6 +68,7 @@ export const App = () => {
             <Route path="/Home2/:email" element={<Home2 />} />
             <Route path="/organization" element={<Organization />} />
             <Route path="/location/:email" element={<LocationComponent />} />
+            <Route path="/locationdoctor/:email" element={<Locationdoctor />} />
             <Route path="/locationMapsetter/:email" element={<Mapsetter />} />
             <Route path="/teacherlogin/:email" element={<TeacherLogin />} />
             <Route path="/doctorlogin/:email" element={<DoctorLogin />} />
