@@ -1,9 +1,11 @@
 import React, {useEffect} from 'react';
-import {useNavigate, useParams} from 'react-router-dom';
+import {Link, NavLink, useNavigate, useParams} from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import '@/Designs/EntryPage.css';
 import {get, ref} from "firebase/database";
 import {db} from "@/firebase.tsx";
+import "@/Designs/EntryPage.css";
+
 const NavigationButton = () => {
     const navigate = useNavigate();
     const { email } = useParams<{ email: string }>();
@@ -81,17 +83,32 @@ const NavigationButton = () => {
         checkNotification();
     }, []);
 
-    return (
-        <div className="entry-page">
-        <div className="container">
+    const Navbar = () => {
+        return (
+            <nav className="navbar">
+                <Link to="/" className="navbar__home-link">Home</Link>
+            </nav>
+        );
+    };
 
-            <div className="section" style={{backgroundImage: `url('/src/Donor/volunteerSeif.jpg')`}} onClick={handleNavigateVolunteer}>
-                <h1 style={{  color: 'white' }}>Volunteer</h1>
+    return (
+        <div>
+            <div className="dashboard-container">
+                <div className="sidebar">
+                    <NavLink to="/" className="menu-item">Sign Out</NavLink>
+                    {}
+                </div>
+                <div className="content">
+                    <div className="section" style={{backgroundImage: `url('/src/Donor/volunteerSeif.jpg')`}}
+                         onClick={handleNavigateVolunteer}>
+                        <h1 style={{color: 'white'}}>Volunteer</h1>
+                    </div>
+                    <div className="section" style={{backgroundImage: `url('/src/Donor/lovedonors.jpg')`}}
+                         onClick={handleNavigateDonate}>
+                        <h1 style={{color: 'white'}}>Donate</h1>
+                    </div>
+                </div>
             </div>
-            <div className="section" style={{backgroundImage: `url('/src/Donor/lovedonors.jpg')`}} onClick={handleNavigateDonate}>
-                <h1 style={{  color: 'white' }}>Donate</h1>
-            </div>
-        </div>
         </div>
     );
 };

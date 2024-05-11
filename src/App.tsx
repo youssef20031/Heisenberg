@@ -67,7 +67,6 @@ export const App = () => {
             <Route path="/locationMapsetter/:email" element={<Mapsetter />} />
             <Route path="/teacherlogin/:email" element={<TeacherLogin />} />
             <Route path="/doctorlogin/:email" element={<DoctorLogin />} />
-
             <Route path="/admin" element={<Admin />} />
             <Route path="/dashboard1" element={<Dashboard1 />} />
             <Route path="/organizationlist" element={<OrganizationList />} />

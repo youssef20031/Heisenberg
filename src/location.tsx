@@ -37,6 +37,7 @@ const LocationComponent = () => {
         console.log(res);
         if (res) {
           alert("Data inserted");
+          navigate('/SigninOrg');
         } else {
           alert("Error Occurred");
         }

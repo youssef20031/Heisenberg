@@ -29,6 +29,7 @@
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.51.3",
     "react-leaflet": "^4.2.1",
+    "react-responsive-carousel": "^3.2.23",
     "react-router-dom": "^6.23.0",
     "sass": "^1.75.0",
     "styled-components": "^6.1.11",
