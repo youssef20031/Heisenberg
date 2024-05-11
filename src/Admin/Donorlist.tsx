@@ -53,6 +53,7 @@ const DonorList: React.FC = () => {
         if (userId) {
           await update(ref(db, `UserData/${userId}`), { verified: "True" });
           setData((prevData: any) => {
+            alert("Donor certificate has been accepted.");
             const newData = { ...prevData };
             newData[userId].verified = "True";
             return newData;

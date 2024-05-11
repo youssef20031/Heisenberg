@@ -47,13 +47,14 @@ const SignUpFormDonor =() => {
             console.log(res);
 
             if (res.ok) {
-                alert("You got registered now login");
 
                 if (user === "Teacher") {
+                    alert("Now write your profession and probono cases");
                     navigate(`/teacherlogin/${email}`);
                 } else if (user === "Doctor") {
                     navigate(`/doctorlogin/${email}`);
                 } else {
+                    alert("You got registered now login");
                     navigate('/Sign_in1');
                 }
             } else {
