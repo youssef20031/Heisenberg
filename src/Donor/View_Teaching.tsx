@@ -87,6 +87,7 @@ const View_Teaching: React.FC = () => {
             try {
                 const dbRef = ref(db, '/TeachingPosts');
                 const snapshot = await get(dbRef);
+                alert("Warning: for Security Reasons, you have to log out after donating");
                 if (snapshot.exists()) {
                     setData(snapshot.val());
                 } else {
@@ -114,7 +115,10 @@ const View_Teaching: React.FC = () => {
             }
         }
     }, [Governate, search, data]);
+    const handleLogout = () => {
+        navigate('/');
 
+    };
     return (
         <div className="View_Teaching" style={{ marginTop: '50px', marginBottom: '50px' }}>
             <h2 className="text-center" style={{ marginBottom: '30px' }}>Realtime Database Data:</h2>
@@ -140,6 +144,7 @@ const View_Teaching: React.FC = () => {
                         </Form>
                     </Col>
                 </Row>
+                <Button variant="danger" onClick={handleLogout}>Logout</Button>
             </div>
             {filteredData && filteredData.length > 0 ? (
                 filteredData.map((item: View_Teaching, index: number) => (

@@ -6,6 +6,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import medicalImage from './medical.jpg';
 import { useNavigate } from "react-router-dom";
 import "./View_Medical_Teaching.css";
+import { getAuth, signOut } from "firebase/auth";
+
+
 // eslint-disable-next-line react-hooks/rules-of-hooks
 
 
@@ -79,6 +82,7 @@ const View_Medical: React.FC = () => {
             try {
                 const dbRef = ref(db, '/MedicaCase');
                 const snapshot = await get(dbRef);
+                alert("Warning: for Security Reasons, you have to log out after donating");
                 if (snapshot.exists()) {
                     setData(snapshot.val());
                 } else {
@@ -106,6 +110,10 @@ const View_Medical: React.FC = () => {
             }
         }
     }, [Governate, search, data]);
+    const handleLogout = () => {
+        navigate('/');
+
+    };
     return (
         <div className="View_Medical" style={{ marginTop: '50px', marginBottom: '50px' }}>
             <h2 className="text-center" style={{ marginBottom: '30px' }}>Realtime Database Data:</h2>
@@ -131,6 +139,7 @@ const View_Medical: React.FC = () => {
                         </Form>
                     </Col>
                 </Row>
+                <Button variant="danger" onClick={handleLogout}>Logout</Button>
             </div>
 
             {filteredData && filteredData.length > 0 ? (
