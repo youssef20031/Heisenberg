@@ -31,8 +31,8 @@ import ChooseTransportation from '@/Donor/ChooseTransportation.tsx';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import TeacherLogin from './Donor/teacherlogin.tsx';
 import DoctorLogin from './Donor/doctorlogin.tsx';
-
-
+import About from "@/Donor/About.tsx";
+import FAQ from "@/FAQ.tsx";
 
 export const App = () => {
   const location = useLocation();
@@ -52,6 +52,8 @@ export const App = () => {
         )}
         <main>
           <Routes>
+            <Route path="/faq" element={<FAQ />} />
+            <Route path="/about" element={<About />} />
             <Route path="/signinorg" element={<SigninOrg />} />
             <Route path="/donor" element={<Donor />} />
             <Route path="/Sign_in1" element={<Sign_in1 />} />
