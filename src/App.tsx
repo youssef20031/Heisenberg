@@ -39,7 +39,6 @@ export const App = () => {
   const [currentUser, setCurrentUser] = useState(null);
   const auth = getAuth();
 
-  // Check if the current route is the initial page ("/")
   const isInitialPage = location.pathname === '/';
 
   return (
