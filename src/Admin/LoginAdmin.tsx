@@ -47,7 +47,7 @@ const LoginAdmin = () => {
             <div className="dark-theme-banner">
               <h1>Sign In</h1>
             </div>
-            <Form.Group className="mb-3" controlId="username">
+            <Form.Group style={{color:"white"}} className="mb-3" controlId="username">
               <Form.Label>Enter Username:</Form.Label>
               <Form.Control
                   type="text"
@@ -57,7 +57,7 @@ const LoginAdmin = () => {
               />
             </Form.Group>
 
-            <Form.Group className="mb-3" controlId="password">
+            <Form.Group style={{color:"white"}} className="mb-3" controlId="password">
               <Form.Label>Enter Password:</Form.Label>
               <Form.Control
                   type="password"

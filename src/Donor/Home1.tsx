@@ -336,7 +336,7 @@ const Home1: React.FC = () => {
     };
 
     const handleShowMap = () => {
-        navigate('/Mapsetter'); // Navigate to LocationSetterForMedical component
+        navigate('/MapSetterDonor');
     };
 
     const handleDeleteUser = async () => {
@@ -431,7 +431,7 @@ const Home1: React.FC = () => {
                                             setDetails({...details, quantity});
                                         }}
                                     />
-                                    <button disabled={!details.quantity} onClick={() => handleDonate(post.id)}>Donate
+                                    <button style={{marginRight:"10px"}} disabled={!details.quantity} onClick={() => handleDonate(post.id)}>Donate
                                     </button>
                                     <button onClick={handleShowMap}>View Location</button>
                                 </div>
