@@ -313,7 +313,7 @@ const Home1: React.FC = () => {
   };
 
     const handleShowMap = () => {
-        navigate('/Mapsetter'); // Navigate to LocationSetterForMedical component
+        navigate('/MapSetterDonor');
     };
 
     const handleDeleteUser = async () => {

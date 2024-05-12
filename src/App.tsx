@@ -34,6 +34,7 @@ import DoctorLogin from './Donor/doctorlogin.tsx';
 import About from "@/Donor/About.tsx";
 import FAQ from "@/FAQ.tsx";
 import Locationdoctor from './Donor/locationdoctor.tsx';
+import MapSetterDonor from "@/Admin/MapSetterDonor.tsx";
 
 
 export const App = () => {
@@ -65,6 +66,7 @@ export const App = () => {
             <Route path="/teacher" element={<Teacher />} />
             <Route path="/SignUpForm2" element={<SignUpFormOrg />} />
             <Route path="/SigninOrg" element={<SigninOrg />} />
+            <Route path="/MapSetterDonor" element={<MapSetterDonor />} />
             <Route path="/Home2/:email" element={<Home2 />} />
             <Route path="/organization" element={<Organization />} />
             <Route path="/location/:email" element={<LocationComponent />} />
