@@ -384,6 +384,11 @@ const Home1: React.FC = () => {
                 if (!Type || post.details.Type === Type) {
                     return true;
                 }
+            } else if (selectedCategory === 'medical') {
+                const { Medical_Supplies } = details;
+                if (!Medical_Supplies || post.details.Medical_Supplies === Medical_Supplies) {
+                    return true;
+                }
             } else {
                 return true;
             }
@@ -391,6 +396,7 @@ const Home1: React.FC = () => {
         return false;
     })
     : donationPosts.filter(post => !post.details || post.details.amount > 0);
+
 
 
 
