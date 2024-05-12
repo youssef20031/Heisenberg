@@ -3,6 +3,9 @@ import React, { useEffect, useState } from 'react';
 import { ref, onValue, update,get, remove } from 'firebase/database';
 import { auth, db } from '@/firebase';
 import {useNavigate, useParams} from "react-router-dom";
+import HeaderBar from "@/Donor/HeaderBar.tsx";
+import { Row } from 'react-bootstrap';
+import Footer from './footer';
 
 type DonationPost = {
     id: string;
@@ -204,6 +207,7 @@ const Home1: React.FC = () => {
             case "school":
                 return (
                     <>
+
                         <label htmlFor="School_Supplies">
                             <b>School Supplies:</b>
                         </label>
@@ -329,8 +333,11 @@ const Home1: React.FC = () => {
 
 
     return (
+
         <div className="home1">
-        
+            <Row>
+                <HeaderBar/>
+            </Row>
           <div className="burger-menu">
         {}
         <button className={`burger-icon ${burgerMenuOpen ? 'active' : ''}`} onClick={() => setBurgerMenuOpen(!burgerMenuOpen)}>
@@ -389,6 +396,9 @@ const Home1: React.FC = () => {
             ) : (
                 <p className="no-posts-message">No donation posts available for selected category.</p>
             )}
+            <Row>
+                <Footer/>
+            </Row>
         </div>
     );
 };

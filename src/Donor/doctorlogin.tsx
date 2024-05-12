@@ -1,3 +1,5 @@
+import { db } from "@/firebase";
+import { get, ref, update } from "firebase/database";
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
@@ -14,22 +16,42 @@ const DoctorLogin = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     // Here you can handle the form submission, such as sending the data to a server or processing it in some way
-    const options = {
-      method: 'Post',
-      header: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ email, clinicAddress, clinicArea, clinicGovernate, specialty, probonoCases })
+  //   const options = {
+  //     method: 'Post',
+  //     header: {
+  //       'Content-Type': 'application/json'
+  //     },
+  //     body: JSON.stringify({ email, clinicAddress, clinicArea, clinicGovernate, specialty, probonoCases })
+  //   }
+  //   const res = await fetch('https://se-project-951b4-default-rtdb.firebaseio.com/doctorinfo.json', options)
+  //   console.log("Clinic Address:", clinicAddress);
+  //   console.log("Clinic Area:", clinicArea);
+  //   console.log("Clinic Governate:", clinicGovernate);
+  //   console.log("Specialty:", specialty);
+  //   console.log("Probono Cases:", probonoCases);
+  //   // After handling submission, you might navigate to another page
+  //   navigate("/Sign_in1"); // Example navigation
+  // };
+  const dbRef = ref(db, '/UserData');
+  const snapshot = await get(dbRef);
+try{
+  if (snapshot.exists()) {
+    const userData = snapshot.val();
+    const userId = Object.keys(userData).find(key => userData[key].email === email);
+
+    if (userId) {
+      await update(ref(db, `UserData/${userId}`), { Speciality: specialty ,ProbonoCase: probonoCases,ClinicAddress: clinicAddress,  ClinicArea: clinicArea,   ClinicGovernate: clinicGovernate });
+      navigate(`/locationdoctor/${email}`);
+    } else {
+      console.log('No user found with email:', email);
     }
-    const res = await fetch('https://se-project-951b4-default-rtdb.firebaseio.com/doctorinfo.json', options)
-    console.log("Clinic Address:", clinicAddress);
-    console.log("Clinic Area:", clinicArea);
-    console.log("Clinic Governate:", clinicGovernate);
-    console.log("Specialty:", specialty);
-    console.log("Probono Cases:", probonoCases);
-    // After handling submission, you might navigate to another page
-    navigate("/Sign_in1"); // Example navigation
-  };
+  } else {
+    console.log('No data available');
+  }
+} catch (error) {
+  console.error('Error updating verification status:', error);
+}
+};
 
   return (
     <div className="dark-theme-wrapper">

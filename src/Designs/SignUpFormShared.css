@@ -3,20 +3,20 @@
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background-color: #121212;
+    background-color: #f0f0f0;
   }
   
   .dark-theme-form {
     width: 100%;
     max-width: 500px;
-    background: rgba(255, 255, 255, 0.05);
     padding: 40px;
     border-radius: 15px;
     box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+    background-color: #0044cc;
   }
   
   .dark-theme-banner {
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: #2ecc71;
     padding: 10px 20px;
     margin-bottom: 30px;
     text-align: center;
@@ -24,7 +24,7 @@
   }
   
   .dark-theme-banner h1 {
-    color: #f0f0f0;
+    color: #ffffff;
     margin: 0;
   }
   
@@ -34,19 +34,20 @@
   
   .dark-theme-label {
     display: block;
-    color: #f0f0f0;
+    color: #ffffff;
     margin-bottom: 5px;
   }
-  
-  .dark-theme-control, .dark-theme-control:focus {
-    width: 100%;
-    padding: 10px;
-    border-radius: 5px;
-    border: none;
-    background-color: rgba(255, 255, 255, 0.1);
-    color: #000000;
-  }
-  
+
+.dark-theme-control,
+.dark-theme-control:focus {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #000000; /* Add border to the text boxes */
+  background-color: rgba(255, 255, 255, 0.9);
+  color: #000000;
+}
+
   .dark-theme-control:focus {
     background-color: rgba(255, 255, 255, 0.2);
   }
@@ -74,7 +75,7 @@
   }
   
   .dark-theme-prompt {
-    color: #f0f0f0;
+    color: #ffffff;
     text-align: center;
     margin-top: 20px;
   }
@@ -95,7 +96,7 @@
     border-radius: 5px;
     border: none;
     background-color: rgba(255, 255, 255, 0.1);
-    color: #f0f0f0;
+    color: #ffffff;
     cursor: pointer;
     transition: background-color 0.3s ease;
   }
@@ -109,12 +110,13 @@
     -moz-appearance: none;
     appearance: none;
     background-color: rgba(255, 255, 255, 0.1);
-    color: #100e0e;
+    color: #ffffff;
     border: none;
     padding: 10px;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    align-content: space-evenly;
   }
   
   .dark-theme-control select:hover {

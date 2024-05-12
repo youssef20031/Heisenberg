@@ -1,7 +1,7 @@
 .home1 {
   font-family: 'Arial', sans-serif;
-  color: #f0f0f0;
-  background-color: #121212;
+  color: #000000;
+  background-color: #f0f0f0;
   min-height: 100vh;
 }
 
@@ -67,12 +67,13 @@
   display: flex;
   justify-content: center;
   margin-bottom: 20px;
+
 }
 
 .category-select {
   padding: 10px;
   border-radius: 5px;
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: #b9b9d3;
   color: #000000;
   border: none;
 }
@@ -83,7 +84,7 @@
 }
 
 .donation-list-item {
-  background: rgba(255, 255, 255, 0.05);
+  background: #b9b9d3;
   margin-bottom: 10px;
   padding: 15px;
   border-radius: 5px;
@@ -106,8 +107,8 @@
   margin-top: 10px;
   border-radius: 5px;
   border: none;
-  background-color: rgba(255, 255, 255, 0.1);
-  color: #f0f0f0;
+
+  color: #000000;
 }
 
 .donation-details button {
