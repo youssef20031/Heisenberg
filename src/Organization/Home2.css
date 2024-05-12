@@ -66,7 +66,7 @@
   max-width: 600px;
   margin: 20px auto;
   padding: 20px;
-  background: #0044cc;
+  background: #0381db;
   border-radius: 15px;
   box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
 }
@@ -84,8 +84,8 @@ form textarea {
   padding: 10px;
   margin-bottom: 15px;
   border-radius: 5px;
+  background-color: #e2e2e3;
   border: none;
-  background-color: rgba(255, 255, 255, 0.1);
   color: #000000;
 }
 
@@ -117,10 +117,10 @@ form button:hover {
 }
 
 .posts-list .post {
-  background: #0056b3;
+  background: #0381db;
   padding: 15px;
   margin-bottom: 10px;
-  border-radius: 5px;
+  border-radius: 20px; /* Squircle shape */
 }
 
 .posts-list .post p {
