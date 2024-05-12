@@ -74,13 +74,15 @@ const NavigationButtons: React.FC = () => {
                 </Col>
 
             <Col>
-                <div style={{ flex: '1', padding: '20px' }}>
-                <h3>Our app facilitates the seamless connection between donors and organizations by allowing donors to
-                    contribute essential items such as blood, medical supplies, clothes, and food. Organizations can
-                    efficiently collect these donations, ensuring they reach those in need. With our platform, donors
-                    can make a meaningful impact on their communities, while organizations can effectively manage and
-                    distribute donated resources to those who require assistance. Together, we empower individuals and
-                    organizations to make a positive difference in the lives of others.</h3>
+                <div style={{flex: '1', padding: '20px'}}>
+                    <h3 style={{fontFamily: 'carrington', lineHeight: '1.6'}}>
+                        Our app facilitates the seamless connection between donors and organizations by allowing donors
+                        to contribute essential items such as blood, medical supplies, clothes, and food. Organizations
+                        can efficiently collect these donations, ensuring they reach those in need. With our platform,
+                        donors can make a meaningful impact on their communities, while organizations can effectively
+                        manage and distribute donated resources to those who require assistance. Together, we empower
+                        individuals and organizations to make a positive difference in the lives of others.
+                    </h3>
                 </div>
             </Col>
             </Row>
@@ -90,8 +92,7 @@ const NavigationButtons: React.FC = () => {
         </div>
 
 
-
-);
+    );
 };
 
 export default NavigationButtons;
