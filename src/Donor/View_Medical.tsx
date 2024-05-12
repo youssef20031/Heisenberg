@@ -120,10 +120,8 @@ const View_Medical: React.FC = () => {
         <div>
             <HeaderBar/>
         <div className="View_Medical" style={{ marginTop: '50px', marginBottom: '50px' }}>
-
-            <h2 style={{ marginBottom: '30px',color:'Black' }}>Realtime Database Data:</h2>
+            <h2 className="welcome-message" style={{marginBottom: '30px'}}>Realtime Database Data:</h2>
             <div className="g-1" style={{backgroundColor: '#0044cc'}}>
-
                 <Form>
                     <InputGroup>
                         <Form.Control
