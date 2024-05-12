@@ -389,6 +389,22 @@ const Home1: React.FC = () => {
                 if (!Medical_Supplies || post.details.Medical_Supplies === Medical_Supplies) {
                     return true;
                 }
+            } else if (selectedCategory === 'school') {
+                const { School_Supplies, ISBN, Book_Name, Author, Language } = details;
+                if (
+                    (!School_Supplies || post.details.School_Supplies === School_Supplies) &&
+                    (!ISBN || post.details.ISBN === ISBN) &&
+                    (!Book_Name || post.details.Book_Name === Book_Name) &&
+                    (!Author || post.details.Author === Author) &&
+                    (!Language || post.details.Language === Language)
+                ) {
+                    return true;
+                }
+            } else if (selectedCategory === 'blood') {
+                const { Blood_Type } = details;
+                if (!Blood_Type || post.details.Blood_Type === Blood_Type) {
+                    return true;
+                }
             } else {
                 return true;
             }
@@ -396,6 +412,9 @@ const Home1: React.FC = () => {
         return false;
     })
     : donationPosts.filter(post => !post.details || post.details.amount > 0);
+
+
+
 
 
 
