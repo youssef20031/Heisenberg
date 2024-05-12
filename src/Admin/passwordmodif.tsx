@@ -1,8 +1,11 @@
+import HeaderBar from "@/Donor/HeaderBar.tsx";
+
 ``
 import React, { useState } from 'react';
 import { ref, get, update } from 'firebase/database';
 import { db } from '@/firebase';
 import { Button, Alert } from 'react-bootstrap';
+import Footer from "@/Donor/footer";
 
 const PasswordModification: React.FC = () => {
     const [newPassword, setNewPassword] = useState('');
@@ -35,19 +38,28 @@ const PasswordModification: React.FC = () => {
     
     return (
         <div>
-            <label htmlFor="newPassword">
-                New Password:
-                <input
-                    type="password"
-                    value={newPassword}
-                    onChange={(e) => setNewPassword(e.target.value)}
-                    className="inputfields"
-                    required
-                />
-            </label>
-            <Button onClick={handleChange}>Submit</Button>
-            {error && <Alert variant="danger">{error}</Alert>}
-            {success && <Alert variant="success">Password changed successfully</Alert>}
+
+            <HeaderBar/>
+            <div style={{textAlign: 'center'}}>
+                <h2>Password modification</h2>
+            </div>
+            <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', height: '30vh'}}>
+
+                <label htmlFor="newPassword">
+                    New Password:
+                    <input
+                        type="password"
+                        value={newPassword}
+                        onChange={(e) => setNewPassword(e.target.value)}
+                        className="inputfields"
+                        required
+                    />
+                </label>
+                <Button onClick={handleChange}>Submit</Button>
+                {error && <Alert variant="danger">{error}</Alert>}
+                {success && <Alert variant="success">Password changed successfully</Alert>}
+            </div>
+            <Footer/>
         </div>
     );
 }

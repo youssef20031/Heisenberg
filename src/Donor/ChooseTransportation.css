@@ -1,20 +1,30 @@
 body{
-    background-color: #121212
+    background-color: #f0f0f0;
 }
 
 .mt-5 {
     margin-top: 3rem;
 
   }
-  
-  .transportation-form {
-    background-color: #1c1c1c;
+.centered {
+  display: flex;
+  justify-content: center; /* Horizontally center */
+  align-items: center; /* Vertically center */
+  height: 70vh; /* Set height to 70% of the viewport height */
+  margin-top: 5vh; /* Add margin on the top */
+  margin-bottom: 5vh; /* Add margin on the bottom */
+
+
+}
+
+.transportation-form {
+    background-color: #0044cc;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    width: 350%; /* Set a width */
-     /* Set a maximum width */
-    margin: auto; /* Center it */
+    width: 300%; /* Set a width */
+
+    margin: auto;
   }
   
   .transportation-form .form-group {

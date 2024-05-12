@@ -5,10 +5,12 @@ import { Form, Button, Container, Row, Col } from 'react-bootstrap';
 import './ChooseTransportation.css';
 import {useNavigate, useParams} from "react-router-dom"; // Assuming you have a CSS file for custom styles
 import styled from 'styled-components';
+import HeaderBar from "@/Donor/HeaderBar.tsx";
+import Footer from './footer';
 
 const StyledSelect = styled.select`
     color: white;
-    background-color: #353535;
+    
 
     option:checked {
         color: white;
@@ -69,9 +71,12 @@ const ChooseTransportation: React.FC = () => {
         setToday(`${year}-${month}-${day}`);
     }, []);
     return (
-        <Container className="mt-5">
+<div>
+    <HeaderBar/>
+        <div className={"centered"}>
+
             <Row>
-                <Col md={{span: 6, offset: -5}}>
+                <Col md={{span: 6, offset: -6}}>
                     <div>
                         <Form onSubmit={handleSubmit} className="transportation-form">
                             <Form.Group controlId="formDate">
@@ -103,7 +108,9 @@ const ChooseTransportation: React.FC = () => {
                     </div>
                 </Col>
             </Row>
-        </Container>
+        </div>
+    <Footer/>
+</div>
     );
 };
 
