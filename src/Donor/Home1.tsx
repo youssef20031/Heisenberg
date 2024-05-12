@@ -379,6 +379,11 @@ const Home1: React.FC = () => {
                 ) {
                     return true;
                 }
+            } else if (selectedCategory === 'food') {
+                const { Type } = details;
+                if (!Type || post.details.Type === Type) {
+                    return true;
+                }
             } else {
                 return true;
             }
@@ -386,6 +391,7 @@ const Home1: React.FC = () => {
         return false;
     })
     : donationPosts.filter(post => !post.details || post.details.amount > 0);
+
 
 
 
