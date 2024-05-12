@@ -2,8 +2,8 @@
   display: flex;
   min-height: 100vh;
   font-family: 'Arial', sans-serif;
-  color: #f0f0f0;
-  background-color: #121212;
+  color: #000000;
+  background-color: #f0f0f0;
 }
 
 .sidebar {

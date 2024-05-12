@@ -6,6 +6,8 @@ import { ref, get } from 'firebase/database';
 import { Button } from "../components/ui/button";
 import { Form } from "react-bootstrap";
 import '@/Designs/SignUpFormShared.css';
+import HeaderBar from "./HeaderBar";
+import Footer from "@/Donor/footer.tsx";
 
 const Signin1 = () => {
     const [email, setEmail] = useState('');
@@ -39,6 +41,8 @@ const Signin1 = () => {
     };
 
     return (
+    <div>
+        <HeaderBar/>
         <div className="dark-theme-wrapper">
           <Form onSubmit={handleSubmit} className="dark-theme-form">
             <div className="dark-theme-banner">
@@ -60,6 +64,8 @@ const Signin1 = () => {
             </p>
           </Form>
         </div>
+        <Footer/>
+    </div>
       );
 };
 

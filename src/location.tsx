@@ -6,6 +6,8 @@ import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 import { Button } from './components/ui/button';
 import { useNavigate, useParams } from 'react-router-dom';
 import styles from './LocationComponent.module.css';
+import Footer from "@/Donor/footer.tsx";
+import HeaderBar from './Donor/HeaderBar';
 
 const markerIcon = new L.Icon({
   iconUrl: icon,
@@ -86,15 +88,17 @@ const LocationComponent = () => {
   }, []);
 
   return (
-    <div>
-      <div id="map" className={`${styles.mapContainer} ${styles.flexCenter}`}/>
-      <Button
-          className={styles.submitButton}
-        onClick={handleSubmit}
-      >
-        Submit Location
-      </Button>
-    </div>
+      <div style={{backgroundColor: '#f0f0f0'}}>
+          <HeaderBar/>
+          <div id="map" className={`${styles.mapContainer} ${styles.flexCenter}`}/>
+          <Button
+              className={styles.submitButton}
+              onClick={handleSubmit}
+          >
+              Submit Location
+          </Button>
+          <Footer/>
+      </div>
   );
 };
 

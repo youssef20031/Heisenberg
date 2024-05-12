@@ -1,7 +1,7 @@
 .home2 {
   font-family: 'Arial', sans-serif;
-  color: #f0f0f0;
-  background-color: #121212;
+  color: #000000;
+  background-color: #f0f0f0;
 }
 
 .burger-menu {
@@ -66,7 +66,7 @@
   max-width: 600px;
   margin: 20px auto;
   padding: 20px;
-  background: rgba(255, 255, 255, 0.05);
+  background: #0044cc;
   border-radius: 15px;
   box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
 }
@@ -86,7 +86,7 @@ form textarea {
   border-radius: 5px;
   border: none;
   background-color: rgba(255, 255, 255, 0.1);
-  color: #f0f0f0;
+  color: #000000;
 }
 
 form textarea {
@@ -117,7 +117,7 @@ form button:hover {
 }
 
 .posts-list .post {
-  background: rgba(255, 255, 255, 0.05);
+  background: #0056b3;
   padding: 15px;
   margin-bottom: 10px;
   border-radius: 5px;

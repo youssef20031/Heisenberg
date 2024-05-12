@@ -6,6 +6,8 @@ import { auth, db } from "../firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { ref, get } from 'firebase/database';
 import { Button } from "../components/ui/button";
+import HeaderBar from '@/Donor/HeaderBar';
+import Footer from "@/Donor/footer.tsx";
 
 const SigninOrg = () => {
     const [email, setEmail] = useState('');
@@ -33,6 +35,8 @@ const SigninOrg = () => {
     };
 
     return (
+        <div>
+            <HeaderBar/>
         <div className="dark-theme-wrapper">
           <div className="dark-theme-form">
             <form onSubmit={handleSubmit}>
@@ -59,6 +63,8 @@ const SigninOrg = () => {
               </p>
             </form>
           </div>
+        </div>
+            <Footer/>
         </div>
       );
 };
