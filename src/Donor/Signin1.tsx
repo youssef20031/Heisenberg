@@ -60,7 +60,7 @@ const Signin1 = () => {
             {error && <div className="dark-theme-error">{error}</div>}
             <p className="dark-theme-prompt">
               Don't have an account?
-              <Link to="/SignUpFormDonor" className="dark-theme-link">Sign Up</Link>
+              <Link to="/donor" className="dark-theme-link">Sign Up</Link>
             </p>
           </Form>
         </div>
