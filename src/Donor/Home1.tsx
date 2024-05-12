@@ -289,34 +289,50 @@ const Home1: React.FC = () => {
             case "clothes":
                 return (
                     <>
+                        <label htmlFor="Pieces">Pieces of Clothes:</label>
+                        <select
+                            id="Pieces"
+                            name="Pieces"
+                            value={details.Pieces || ""}
+                            onChange={(e) => setDetails({...details, Pieces: e.target.value})}
+                        >
+                            <option value="">All</option>
+                            <option value="Pants">Pants</option>
+                            <option value="T-shirts">T-shirts</option>
+                            <option value="Jackets">Jackets</option>
+                            <option value="Sweaters">Sweaters</option>
+                            <option value="Shorts">Shorts</option>
+                            <option value="Hijab">Hijab</option>
+                            <option value="Caps">Caps</option>
+                        </select>
                         <label htmlFor="Gender">Gender:</label>
                         <select
                             id="Gender"
                             name="Gender"
                             value={details.Gender || ""}
-                            onChange={(e) => setDetails({ ...details, Gender: e.target.value })}
+                            onChange={(e) => setDetails({...details, Gender: e.target.value})}
                         >
                             <option value="">Select Gender</option>
                             <option value="Male">Male</option>
                             <option value="Female">Female</option>
                             <option value="Other">Other</option>
                         </select>
-                
+
                         <label htmlFor="Age">Age:</label>
                         <input
                             type="text"
                             id="Age"
                             name="Age"
                             value={details.Age || ""}
-                            onChange={(e) => setDetails({ ...details, Age: e.target.value })}
+                            onChange={(e) => setDetails({...details, Age: e.target.value})}
                         />
-                
+
                         <label htmlFor="Season">Season:</label>
                         <select
                             id="Season"
                             name="Season"
                             value={details.Season || ""}
-                            onChange={(e) => setDetails({ ...details, Season: e.target.value })}
+                            onChange={(e) => setDetails({...details, Season: e.target.value})}
                         >
                             <option value="">Select Season</option>
                             <option value="Summer">Summer</option>
@@ -362,11 +378,12 @@ const Home1: React.FC = () => {
     ? donationPosts.filter(post => {
         if (post.category === selectedCategory && (!post.details || post.details.amount > 0)) {
             if (selectedCategory === 'clothes') {
-                const { Age, Gender, Season } = details;
+                const { Age, Gender, Season, Pieces} = details;
                 if (
                     (!Age || post.details.Age === Age) &&
                     (!Gender || post.details.Gender === Gender) &&
-                    (!Season || post.details.Season === Season)
+                    (!Season || post.details.Season === Season) &&
+                    (!Pieces || post.details.Pieces === Pieces)
                 ) {
                     return true;
                 }
