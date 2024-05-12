@@ -55,7 +55,7 @@ const NavigationButtons: React.FC = () => {
 
     // Array of image sources and captions
     const images: ImageData[] = [
-        { url: '/src/volunteer.jpg', caption: 'Donor' },
+        { url: '/src/Types/volunteer.jpg', caption: 'Donor' },
         { url: '/src/charity.png', caption: 'Organization' },
         { url: '/src/Admin.jpg', caption: 'Admin' }
     ];
