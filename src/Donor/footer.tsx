@@ -34,7 +34,7 @@ export default function Footer() {
                     <div className="sb__footer-links_div">
                         <h4>Our Team</h4>
                         <p>Omar Walid</p>
-                        <p>Seif Eldin</p>
+                        <p>Seifeldin Mohamed</p>
                         <p>Ahmed Sameh</p>
                         <p>Youssef Maged</p>
                         <p>Omar Elshazly</p>
