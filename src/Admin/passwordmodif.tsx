@@ -4,7 +4,7 @@ import HeaderBar from "@/Donor/HeaderBar.tsx";
 import React, { useState } from 'react';
 import { ref, get, update } from 'firebase/database';
 import { db } from '@/firebase';
-import { Button, Alert } from 'react-bootstrap';
+import {Button, Alert, Row} from 'react-bootstrap';
 import Footer from "@/Donor/footer";
 
 const PasswordModification: React.FC = () => {
@@ -44,7 +44,7 @@ const PasswordModification: React.FC = () => {
                 <h2>Password modification</h2>
             </div>
             <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', height: '30vh'}}>
-
+            <Row>
                 <label htmlFor="newPassword">
                     New Password:
                     <input
@@ -56,8 +56,9 @@ const PasswordModification: React.FC = () => {
                     />
                 </label>
                 <Button onClick={handleChange}>Submit</Button>
-                {error && <Alert variant="danger">{error}</Alert>}
-                {success && <Alert variant="success">Password changed successfully</Alert>}
+            </Row>
+                    {error && <Alert variant="danger" style={{textAlign: "right", color: "red" }}>{error}</Alert>}
+                {success && <Alert variant="success" style={{textIndent: "40px", marginTop: "10px", color: "green", background: "none", border: "none" }}>Password changed successfully</Alert>}
             </div>
             <Footer/>
         </div>
