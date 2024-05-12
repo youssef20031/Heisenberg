@@ -39,13 +39,11 @@
 
 .burger-menu-content {
   position: absolute;
-  top: 35px;
+  top: 100%;
   right: 0;
-  background-color: #333;
-  border-radius: 5px;
+  background-color: #007bff;  border: 1px solid #ccc;
   padding: 10px;
-  display: flex;
-  flex-direction: column;
+  z-index: 1;
 }
 
 .burger-menu-content button {
@@ -106,7 +104,7 @@
   padding: 10px;
   margin-top: 10px;
   border-radius: 5px;
-  border: none;
+  border: 1px solid #000000; /* Thick black border */
 
   color: #000000;
 }

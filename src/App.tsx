@@ -36,7 +36,6 @@ import FAQ from "@/FAQ.tsx";
 import Locationdoctor from './Donor/locationdoctor.tsx';
 import MapSetterDonor from "@/Admin/MapSetterDonor.tsx";
 
-
 export const App = () => {
   const location = useLocation();
   const [currentUser, setCurrentUser] = useState(null);
