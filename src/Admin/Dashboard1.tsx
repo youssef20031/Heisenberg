@@ -17,7 +17,7 @@ const Dashboard1: React.FC = () => {
     return (
         <div className="dashboard-container">
           <div className="sidebar">
-            <NavLink to="/dashboard1" className="menu-item">Dashboard</NavLink>
+            <NavLink to="/" className="menu-item">Home</NavLink>
             <NavLink to="/organizationList" className="menu-item">Organization List</NavLink>
             <NavLink to="/donorlist" className="menu-item">Donor List</NavLink>
             <NavLink to="/notregisteredorganizations" className="menu-item">Pending Organizations</NavLink>
