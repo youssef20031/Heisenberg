@@ -7,6 +7,8 @@ import medicalImage from './medical.jpg';
 import { useNavigate } from "react-router-dom";
 import "./View_Medical_Teaching.css";
 import { getAuth, signOut } from "firebase/auth";
+import Footer from "@/Donor/footer.tsx";
+import HeaderBar from "@/Donor/HeaderBar.tsx";
 
 
 // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -115,9 +117,12 @@ const View_Medical: React.FC = () => {
 
     };
     return (
+        <div>
+
         <div className="View_Medical" style={{ marginTop: '50px', marginBottom: '50px' }}>
-            <h2 className="text-center" style={{ marginBottom: '30px' }}>Realtime Database Data:</h2>
-            <div className="g-1">
+
+            <h2 style={{ marginBottom: '30px',color:'Black' }}>Realtime Database Data:</h2>
+            <div className="g-1" style={{backgroundColor: '#0044cc'}}>
                 <Button
                     variant="danger"
                     onClick={handleLogout}
@@ -132,7 +137,9 @@ const View_Medical: React.FC = () => {
                     }}
                 >
                     Logout
-                </Button>                <Form>
+                </Button>
+
+                <Form>
                     <InputGroup>
                         <Form.Control
                             onChange={(e) => setSearch(e.target.value)}
@@ -182,8 +189,11 @@ const View_Medical: React.FC = () => {
                     </div>
                 ))
             ) : (
-                <div className="text-center">No data available</div>
+                <div style={{ marginBottom: '30px',color:'Black' }}>No data available</div>
             )}
+
+        </div>
+            <Footer/>
         </div>
     );
 }

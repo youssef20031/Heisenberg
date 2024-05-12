@@ -6,6 +6,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { useNavigate } from "react-router-dom";
 import "./View_Medical_Teaching.css";
 import teaching from "./teaching.jpg";
+import Footer from './footer';
+import HeaderBar from './HeaderBar';
 
 
 
@@ -120,9 +122,11 @@ const View_Teaching: React.FC = () => {
 
     };
     return (
+        <div>
+            <HeaderBar/>
         <div className="View_Teaching" style={{ marginTop: '50px', marginBottom: '50px' }}>
             <h2 className="text-center" style={{ marginBottom: '30px' }}>Realtime Database Data:</h2>
-            <div className="g-1">
+            <div className="g-1" style={{backgroundColor: '#0044cc'}}>
                 <Form>
                     <InputGroup>
                         <Form.Control
@@ -171,6 +175,8 @@ const View_Teaching: React.FC = () => {
             ) : (
                 <div className="text-center">No data available</div>
             )}
+        </div>
+            <Footer/>
         </div>
     );
 }

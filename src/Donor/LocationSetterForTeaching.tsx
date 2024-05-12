@@ -3,6 +3,8 @@ import {ref, get} from 'firebase/database';
 import { db } from '@/firebase';
 import MapWithMarker from "@/Admin/MapComp.tsx";
 import {useParams} from "react-router-dom";
+import HeaderBar from "@/Donor/HeaderBar.tsx";
+import Footer from "@/Donor/footer.tsx";
 
 
 const Mapsetter3= () => {
@@ -34,8 +36,12 @@ const Mapsetter3= () => {
 
     return (
         <div>
+            <HeaderBar/>
+            <div style={{textAlign: 'center'}}>
+                <h2>This is the location of the Hospital</h2>
+            </div>
             {lat && lng && <MapWithMarker lat={lat} lng={lng} />}
-
+            <Footer/>
         </div>
     );
 };
