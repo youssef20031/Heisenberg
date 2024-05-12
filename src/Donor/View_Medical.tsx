@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import "./View_Medical_Teaching.css";
 import { getAuth, signOut } from "firebase/auth";
 import Footer from "@/Donor/footer.tsx";
-import HeaderBar from "@/Donor/HeaderBar.tsx";
+import HeaderBar from "@/Donor/Medical_Teaching_Navbar.tsx";
 
 
 // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -118,26 +118,11 @@ const View_Medical: React.FC = () => {
     };
     return (
         <div>
-
+            <HeaderBar/>
         <div className="View_Medical" style={{ marginTop: '50px', marginBottom: '50px' }}>
 
             <h2 style={{ marginBottom: '30px',color:'Black' }}>Realtime Database Data:</h2>
             <div className="g-1" style={{backgroundColor: '#0044cc'}}>
-                <Button
-                    variant="danger"
-                    onClick={handleLogout}
-                    className="btn-sm"
-                    style={{
-                        position: 'absolute',
-                        top: 0,
-                        left: 0,
-                        margin: '10px',
-                        width: '40px',  // Adjust width as desired (in pixels)
-                        height: '10px'   // Adjust height as desired (in pixels)
-                    }}
-                >
-                    Logout
-                </Button>
 
                 <Form>
                     <InputGroup>

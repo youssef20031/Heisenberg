@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import "./View_Medical_Teaching.css";
 import teaching from "./teaching.jpg";
 import Footer from './footer';
-import HeaderBar from './HeaderBar';
+import HeaderBar from './Medical_Teaching_Navbar.tsx';
 
 
 
@@ -125,7 +125,7 @@ const View_Teaching: React.FC = () => {
         <div>
             <HeaderBar/>
         <div className="View_Teaching" style={{ marginTop: '50px', marginBottom: '50px' }}>
-            <h2 className="text-center" style={{ marginBottom: '30px' }}>Realtime Database Data:</h2>
+            <h2 className="text-center" style={{ marginBottom: '30px', color: "black" }}>Realtime Database Data:</h2>
             <div className="g-1" style={{backgroundColor: '#0044cc'}}>
                 <Form>
                     <InputGroup>
