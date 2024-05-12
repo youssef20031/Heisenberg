@@ -399,26 +399,34 @@ const Home2: React.FC = () => {
               return (
                 <>
                   <label htmlFor="Pieces">Pieces of Clothes:</label>
-                  <input
-                    type="text"
-                    id="Pieces"
-                    name="Pieces"
-                    value={details.Pieces || ""}
-                    onChange={(e) => setDetails({ ...details, Pieces: e.target.value })}
-                  />
-                  <label htmlFor="Age">Age:</label>
-                  <input
-                    type="text"
-                    id="Age"
-                    name="Age"
-                    value={details.Age || ""}
-                    onChange={(e) => setDetails({ ...details, Age: e.target.value })}
-                  />
-                  <label htmlFor="Gender">Gender:</label>
-                  <select
-                    id="Gender"
-                    name="Gender"
-                    value={details.Gender || ""}
+                    <select
+                        id="Pieces"
+                        name="Pieces"
+                        value={details.Pieces || ""}
+                        onChange={(e) => setDetails({...details, Pieces: e.target.value})}
+                    >
+                        <option value="">Select Pieces of Clothes</option>
+                        <option value="Pants">Pants</option>
+                        <option value="T-shirts">T-shirts</option>
+                        <option value="Jackets">Jackets</option>
+                        <option value="Sweaters">Sweaters</option>
+                        <option value="Shorts">Shorts</option>
+                        <option value="Hijab">Hijab</option>
+                        <option value="Caps">Caps</option>
+                    </select>
+                    <label htmlFor="Age">Age:</label>
+                    <input
+                        type="text"
+                        id="Age"
+                        name="Age"
+                        value={details.Age || ""}
+                        onChange={(e) => setDetails({...details, Age: e.target.value})}
+                    />
+                    <label htmlFor="Gender">Gender:</label>
+                    <select
+                        id="Gender"
+                        name="Gender"
+                        value={details.Gender || ""}
                     onChange={(e) => setDetails({ ...details, Gender: e.target.value })}
                   >
                     <option value="">Select Gender</option>
