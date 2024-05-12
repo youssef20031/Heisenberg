@@ -7,6 +7,8 @@ import './Donorlist.css';
 import { getAuth, deleteUser, User } from "firebase/auth";
 import { getDownloadURL, deleteObject } from 'firebase/storage';
 import { ref as Ref2 } from 'firebase/storage';
+import HeaderBar from "@/Donor/HeaderBar.tsx";
+import Footer from "@/Donor/footer.tsx";
 
 interface OrganizationData {
     email: string;
@@ -121,9 +123,9 @@ const NotRegisteredOrg: React.FC = () => {
     }, []);
 
     return (
-        <div style={{ marginTop: '50px', marginBottom: '50px' }}>
+        <div style={{ marginTop: '50px', marginBottom: '50px',backgroundColor:'#f0f0f0' }}>
+            <HeaderBar/>
             <h2 className="text-center" style={{ marginBottom: '30px' }}>Realtime Database Data:</h2>
-
             {data && Object.keys(data).length > 0 ? (
                 <Table striped bordered hover responsive>
                     <thead>
@@ -173,6 +175,7 @@ const NotRegisteredOrg: React.FC = () => {
             ) : (
                 <p className="text-center" style={{ marginTop: '50px', marginBottom: '50px' }}>No records found.</p>
             )}
+            <Footer/>
         </div>
     );
 };

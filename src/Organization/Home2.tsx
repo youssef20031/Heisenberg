@@ -4,6 +4,8 @@ import { auth, db } from "@/firebase";
 import "./Home2.css";
 import {useNavigate, useParams} from "react-router-dom";
 import { deleteUser } from "firebase/auth";
+import HeaderBar from "@/Donor/HeaderBar.tsx";
+import Footer from "@/Donor/footer";
 
 type DonationPost = {
   id: string;
@@ -443,6 +445,7 @@ const Home2: React.FC = () => {
 
   return (
     <div className="home2">
+      <HeaderBar/>
       <div className="burger-menu">
       <button className={`burger-icon ${burgerMenuOpen ? 'active' : ''}`} onClick={() => setBurgerMenuOpen(!burgerMenuOpen)}>
         <div className="bar" ></div>
@@ -560,6 +563,7 @@ const Home2: React.FC = () => {
             ))}
         </div>
       </div>
+      <Footer/>
     </div>
   );
   

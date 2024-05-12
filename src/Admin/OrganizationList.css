@@ -1,20 +1,29 @@
 .container {
     margin-top: 50px;
     margin-bottom: 50px;
-    background-color: #ffffff;
+    background-color: #000000;
+    color: #f0f0f0;
   }
 
   .text-center {
     text-align: center;
-    color: #f0f0f0;
+    color: #000000;
     margin-bottom: 30px;
   }
-
+.dark-theme-form {
+  width: 100%;
+  max-width: 500px;
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+  background-color: #0044cc;
+}
   .form-control,
   .input-group,
   .form-select,
   .btn {
-    color: #ff0000;
+
+    color: #000000;
     border: none;
     border-radius: 4px;
   }
@@ -22,8 +31,7 @@
   .form-control:focus,
   .input-group:focus,
   .form-select:focus {
-    background-color: rgba(255, 255, 255, 0.2);
-    box-shadow: none;
+    box-shadow: #007bff;
   }
 
   .btn {

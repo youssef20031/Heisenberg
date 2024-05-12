@@ -7,6 +7,8 @@ import './Donorlist.css';
 import { getAuth, deleteUser, User } from "firebase/auth";
 import { getDownloadURL, deleteObject } from 'firebase/storage';
 import { ref as Ref2 } from 'firebase/storage';
+import HeaderBar from "@/Donor/HeaderBar.tsx";
+import Footer from '@/Donor/footer';
 
 interface UserData {
   email: string;
@@ -128,7 +130,8 @@ const DonorList: React.FC = () => {
 
 
   return (
-      <div>
+      <div style={{backgroundColor: "#f0f0f0"}}>
+        <HeaderBar/>
         <h2 className="h2">Realtime Database Data:</h2>
 
         {data && Object.keys(data).length > 0 ? (
@@ -211,6 +214,7 @@ const DonorList: React.FC = () => {
         ) : (
             <p>No records found.</p>
         )}
+        <Footer/>
       </div>
   );
 };

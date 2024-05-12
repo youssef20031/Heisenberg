@@ -8,6 +8,8 @@ import { getDownloadURL, deleteObject } from 'firebase/storage';
 import { ref as Ref2 } from 'firebase/storage';
 import {useNavigate} from "react-router-dom";
 import './OrganizationList.css';
+import HeaderBar from '@/Donor/HeaderBar';
+import Footer from '@/Donor/footer';
 
 interface OrganizationData {
   email: string;
@@ -131,126 +133,133 @@ const OrganizationList: React.FC = () => {
 
 
   return (
-      <div className= "container" style={{ marginTop: '50px', marginBottom: '50px' }}>
-        <h2 className="text-center" style={{ margin: '30px', color: 'red' }}>Realtime Database Data:</h2>
+  <div style={{backgroundColor:"#f0f0f0"}}>
+    <HeaderBar/>
+        <div style={{marginTop: '50px', marginBottom: '50px'}}>
+          <h2 className="text-center" style={{margin: '30px',color:"#000000"}}>Realtime Database Data:</h2>
 
-        <Form>
-          <InputGroup>
-            <Form.Control
-                onChange={(e) => setSearch(e.target.value)}
-                placeholder="search Organization names"
-            />
-          </InputGroup>
-        </Form>
+          <Form>
+            <InputGroup>
+              <Form.Control
+                  onChange={(e) => setSearch(e.target.value)}
+                  placeholder="search Organization names"
+              />
+            </InputGroup>
+          </Form>
 
-        <Row className="g-2">
-          <Col md>
-            <Form>
-              <Form.Select onChange={handleGovernateChange} value={selectedGovernate}>
-                <option value="">Select Governate</option>
-                <option value="Cairo">Cairo</option>
-                <option value="Alexandria">Alexandria</option>
-                <option value="Al Dakahlia">Al Dakahlia</option>
-                <option value="Matrouh">Matrouh</option>
+          <Row className="g-2">
+            <Col md>
+              <Form>
+                <Form.Select onChange={handleGovernateChange} value={selectedGovernate}>
+                  <option value="">Select Governate</option>
+                  <option value="Cairo">Cairo</option>
+                  <option value="Alexandria">Alexandria</option>
+                  <option value="Al Dakahlia">Al Dakahlia</option>
+                  <option value="Matrouh">Matrouh</option>
 
-              </Form.Select>
-            </Form>
-          </Col>
+                </Form.Select>
+              </Form>
+            </Col>
 
-          <Col md>
-            <Form>
-              <Form.Select onChange={handleOrganizationtype} value={Organizationtype}>
-                <option value="">Select Governate</option>
-                <option value="Hospital">Hospital</option>
-                <option value="Orgpahanage">Orphanage</option>
-                <option value="School">School</option>
-                <option value="Refugees">Refugee and people in need</option>
+            <Col md>
+              <Form>
+                <Form.Select onChange={handleOrganizationtype} value={Organizationtype}>
+                  <option value="">Select Governate</option>
+                  <option value="Hospital">Hospital</option>
+                  <option value="Orgpahanage">Orphanage</option>
+                  <option value="School">School</option>
+                  <option value="Refugees">Refugee and people in need</option>
 
-              </Form.Select>
-            </Form>
-          </Col>
+                </Form.Select>
+              </Form>
+            </Col>
 
-        </Row>
+          </Row>
 
-        <Button onClick={handleButton}>Submit</Button>
+          <Button onClick={handleButton}>Submit</Button>
 
-        {data && Object.keys(data).length > 0 ? (
-            <Table striped bordered hover responsive>
-              <thead>
-              <tr style={{ marginTop: '20px', marginBottom: '20px', marginLeft: '20px', marginRight: '20px' }}>
-                <th style={{ width: '10%' }}>Email</th>
-                <th style={{ width: '10%' }}>Password</th>
-                <th style={{ width: '10%' }}>First Name</th>
-                <th>Last Name</th>
-                <th>Address</th>
-                <th>gender</th>
-                <th>Area</th>
-                <th>Number</th>
-                <th>Governate</th>
-                <th>Verified</th>
-                <th>Organization Name</th>
-                <th>Organization Type</th>
-                <th>Control Center</th>
-              </tr>
-              </thead>
-              <tbody>
 
-              {isClicked ? (
-                  filteredData.map((item: OrganizationData, index: number) => (
-                      item.verification === "True" && (
-                      <tr key={index}>
-                        <td style={{ width: '15%' }}>{item.email}</td>
-                        <td style={{ width: '15%' }}>{item.password}</td>
-                        <td style={{ width: '10%' }}>{item.firstname}</td>
-                        <td style={{ width: '10%' }}>{item.lastname}</td>
-                        <td style={{ width: '10%' }}>{item.address}</td>
-                        <td>{item.gender}</td>
-                        <td style={{ width: '10%' }}>{item.area}</td>
-                        <td style={{ width: '10%' }}>{item.number}</td>
-                        <td style={{ width: '10%' }}>{item.governate}</td>
-                        <td style={{ width: '15%' }}>{item.verification}</td>
-                        <td style={{ width: '15%' }}>{item.organizationname}</td>
-                        <td style={{ width: '15%' }}>{item.organizationtype}</td>
-                        <td style={{ display: 'flex', gap: '8px' }}>
-                          <Button variant="danger" id="rejectbutton" onClick={() => handleReject(item.email)}>Remove Account</Button>
-                          <Button onClick={() => handleView(item.email)}>View Organization document</Button>
-                          <Button onClick={() => handleViewloc(item.email)}>View Location</Button>
-                        </td>
-                      </tr>
-                      )
-                  ))
-              ) : (
+          {data && Object.keys(data).length > 0 ? (
+              <Table striped bordered hover responsive>
+                <thead>
+                <tr style={{marginTop: '20px', marginBottom: '20px', marginLeft: '20px', marginRight: '20px'}}>
+                  <th style={{width: '10%'}}>Email</th>
+                  <th style={{width: '10%'}}>Password</th>
+                  <th style={{width: '10%'}}>First Name</th>
+                  <th>Last Name</th>
+                  <th>Address</th>
+                  <th>gender</th>
+                  <th>Area</th>
+                  <th>Number</th>
+                  <th>Governate</th>
+                  <th>Verified</th>
+                  <th>Organization Name</th>
+                  <th>Organization Type</th>
+                  <th>Control Center</th>
+                </tr>
+                </thead>
+                <tbody>
 
-                  Object.values(data).map((item: OrganizationData, index: number) => (
-                      item.verification === "True" && (
-                      <tr key={index}>
-                        <td style={{ width: '15%' }}>{item.email}</td>
-                        <td style={{ width: '15%' }}>{item.password}</td>
-                        <td style={{ width: '10%' }}>{item.firstname}</td>
-                        <td style={{ width: '10%' }}>{item.lastname}</td>
-                        <td style={{ width: '10%' }}>{item.address}</td>
-                        <td>{item.gender}</td>
-                        <td style={{ width: '10%' }}>{item.area}</td>
-                        <td style={{ width: '10%' }}>{item.number}</td>
-                        <td style={{ width: '10%' }}>{item.governate}</td>
-                        <td style={{ width: '15%' }}>{item.verification}</td>
-                        <td style={{ width: '15%' }}>{item.organizationname}</td>
-                        <td style={{ width: '15%' }}>{item.organizationtype}</td>
-                        <td style={{ display: 'flex', gap: '8px' }}>
-                          <Button variant="danger" id="rejectbutton" onClick={() => handleReject(item.email)}>Remove</Button>
-                          <Button onClick={() => handleView(item.email)}>View Organization document</Button>
-                          <Button onClick={() => handleViewloc(item.email)}>View Location</Button>
-                        </td>
-                      </tr>
-                    )
-                  ))
-              )}
-              </tbody>
-            </Table>
-        ) : (
-            <p className="text-center" style={{ marginTop: '50px', marginBottom: '50px' }}>No records found.</p>
-        )}
-      </div>
+                {isClicked ? (
+                    filteredData.map((item: OrganizationData, index: number) => (
+                        item.verification === "True" && (
+                            <tr key={index}>
+                              <td style={{width: '15%'}}>{item.email}</td>
+                              <td style={{width: '15%'}}>{item.password}</td>
+                              <td style={{width: '10%'}}>{item.firstname}</td>
+                              <td style={{width: '10%'}}>{item.lastname}</td>
+                              <td style={{width: '10%'}}>{item.address}</td>
+                              <td>{item.gender}</td>
+                              <td style={{width: '10%'}}>{item.area}</td>
+                              <td style={{width: '10%'}}>{item.number}</td>
+                              <td style={{width: '10%'}}>{item.governate}</td>
+                              <td style={{width: '15%'}}>{item.verification}</td>
+                              <td style={{width: '15%'}}>{item.organizationname}</td>
+                              <td style={{width: '15%'}}>{item.organizationtype}</td>
+                              <td style={{display: 'flex', gap: '8px'}}>
+                                <Button variant="danger" id="rejectbutton" onClick={() => handleReject(item.email)}>Remove
+                                  Account</Button>
+                                <Button onClick={() => handleView(item.email)}>View Organization document</Button>
+                                <Button onClick={() => handleViewloc(item.email)}>View Location</Button>
+                              </td>
+                            </tr>
+                        )
+                    ))
+                ) : (
+
+                    Object.values(data).map((item: OrganizationData, index: number) => (
+                        item.verification === "True" && (
+                            <tr key={index}>
+                              <td style={{width: '15%'}}>{item.email}</td>
+                              <td style={{width: '15%'}}>{item.password}</td>
+                              <td style={{width: '10%'}}>{item.firstname}</td>
+                              <td style={{width: '10%'}}>{item.lastname}</td>
+                              <td style={{width: '10%'}}>{item.address}</td>
+                              <td>{item.gender}</td>
+                              <td style={{width: '10%'}}>{item.area}</td>
+                              <td style={{width: '10%'}}>{item.number}</td>
+                              <td style={{width: '10%'}}>{item.governate}</td>
+                              <td style={{width: '15%'}}>{item.verification}</td>
+                              <td style={{width: '15%'}}>{item.organizationname}</td>
+                              <td style={{width: '15%'}}>{item.organizationtype}</td>
+                              <td style={{display: 'flex', gap: '8px'}}>
+                                <Button variant="danger" id="rejectbutton"
+                                        onClick={() => handleReject(item.email)}>Remove</Button>
+                                <Button onClick={() => handleView(item.email)}>View Organization document</Button>
+                                <Button onClick={() => handleViewloc(item.email)}>View Location</Button>
+                              </td>
+                            </tr>
+                        )
+                    ))
+                )}
+                </tbody>
+              </Table>
+          ) : (
+              <p className="text-center" style={{marginTop: '50px', marginBottom: '50px'}}>No records found.</p>
+          )}
+        </div>
+      <Footer/>
+    </div>
   );
 };
 
