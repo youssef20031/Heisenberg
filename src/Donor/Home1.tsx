@@ -1,14 +1,11 @@
 import './Home1.css';
 import React, { useEffect, useState } from 'react';
-import { ref, onValue, update,get, remove } from 'firebase/database';
+import { ref, onValue, update, get, remove } from 'firebase/database';
 import { auth, db } from '@/firebase';
-import {useNavigate, useParams} from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import HeaderBar from "@/Donor/HeaderBar.tsx";
 import { Row } from 'react-bootstrap';
 import Footer from './footer';
-import Mapsetter2 from './Mapsetter2';
-import Mapsetter from './Mapsetter';
-import MapComp from './MapComp';
 
 type DonationPost = {
     id: string;
@@ -22,12 +19,18 @@ type DonationPost = {
 const Home1: React.FC = () => {
     const [selectedCategory, setSelectedCategory] = useState<string>('');
     const [donationPosts, setDonationPosts] = useState<DonationPost[]>([]);
-    const [details, setDetails] = useState<any>({});
+    const [details, setDetails] = useState<any>({
+        Gender: '',
+        Age: '',
+        Season: '',
+    });
+    
     const [burgerMenuOpen, setBurgerMenuOpen] = useState<boolean>(false);
     const [showUpdateForm, setShowUpdateForm] = useState<boolean>(false);
     const navigate = useNavigate();
     const { email } = useParams<{ email: string }>();
     const [showMap, setShowMap] = useState<boolean>(false);
+
     useEffect(() => {
         const fetchDonationPosts = async () => {
             try {
@@ -95,10 +98,10 @@ const Home1: React.FC = () => {
     };
 
     const handleBurgerMenuClick = () => {
-      const burgerIcon = document.querySelector(".burger-icon");
-      if (burgerIcon) {
-        burgerIcon.classList.toggle("active");
-      }
+        const burgerIcon = document.querySelector(".burger-icon");
+        if (burgerIcon) {
+            burgerIcon.classList.toggle("active");
+        }
     };
 
     const renderDetailFields = () => {
@@ -120,7 +123,6 @@ const Home1: React.FC = () => {
                             <option value="Baked_Goods">Baked Goods</option>
                             <option value="Drinks">Drinks</option>
                         </select>
-
                     </>
                 );
             case "medical":
@@ -211,7 +213,6 @@ const Home1: React.FC = () => {
             case "school":
                 return (
                     <>
-
                         <label htmlFor="School_Supplies">
                             <b>School Supplies:</b>
                         </label>
@@ -227,7 +228,7 @@ const Home1: React.FC = () => {
                         </select>
                         {details.School_Supplies === "Books" && (
                             <>
-                            <div>
+                                <div>
                                     <b>ISBN:</b><br/>
                                     <input
                                         type="text"
@@ -273,7 +274,12 @@ const Home1: React.FC = () => {
                                         type="file"
                                         id="Book_Picture"
                                         name="Book_Picture"
-                                        onChange={(e) => setDetails({ ...details, Book_Picture: e.target.files[0] })}
+                                        onChange={(e) => {
+                                            const file = e.target.files ? e.target.files[0] : null;
+                                            if (file) {
+                                                setDetails({ ...details, Book_Picture: file });
+                                            }
+                                        }}
                                     />
                                 </div>
                             </>
@@ -283,23 +289,40 @@ const Home1: React.FC = () => {
             case "clothes":
                 return (
                     <>
-                        <label htmlFor="Clothes">Pieces of Clothes:</label>
+                        <label htmlFor="Gender">Gender:</label>
                         <select
-                            id="Clothes"
-                            name="Clothes"
-                            value={details.Clothes || ""}
-                            onChange={(e) => setDetails({ ...details, Clothes: e.target.value })}
+                            id="Gender"
+                            name="Gender"
+                            value={details.Gender || ""}
+                            onChange={(e) => setDetails({ ...details, Gender: e.target.value })}
                         >
-                            <option value="">Select Clothes</option>
-                            <option value="Pants">Pants</option>
-                            <option value="T_shirt">T-shirt</option>
-                            <option value="Shorts">Shorts</option>
-                            <option value="Skirts">Skirts</option>
-                            <option value="Sweaters">Sweaters</option>
-                            <option value="Jackets">Jackets</option>
-                            <option value="Hijab">Hijab</option>
-                            <option value="Shoes">Shoes</option>
-                            <option value="Socks">Socks</option>
+                            <option value="">Select Gender</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                        </select>
+                
+                        <label htmlFor="Age">Age:</label>
+                        <input
+                            type="text"
+                            id="Age"
+                            name="Age"
+                            value={details.Age || ""}
+                            onChange={(e) => setDetails({ ...details, Age: e.target.value })}
+                        />
+                
+                        <label htmlFor="Season">Season:</label>
+                        <select
+                            id="Season"
+                            name="Season"
+                            value={details.Season || ""}
+                            onChange={(e) => setDetails({ ...details, Season: e.target.value })}
+                        >
+                            <option value="">Select Season</option>
+                            <option value="Summer">Summer</option>
+                            <option value="Winter">Winter</option>
+                            <option value="Spring">Spring</option>
+                            <option value="Fall">Fall</option>
                         </select>
                     </>
                 );
@@ -309,58 +332,71 @@ const Home1: React.FC = () => {
     };
 
     const handleUpdate = () => {
-      setShowUpdateForm(true);
-  };
+        setShowUpdateForm(true);
+    };
 
     const handleShowMap = () => {
         navigate('/Mapsetter'); // Navigate to LocationSetterForMedical component
     };
 
     const handleDeleteUser = async () => {
-      try {
-        const user = auth.currentUser;
-        if (user) {
-          const userId = user.uid;
-          const userDataRef = ref(db, `UserData/${userId}`);
-          await remove(userDataRef);
-          navigate('/Signin1');
-          alert('User deleted successfully!');
-        } else {
-          console.log('No user signed in');
-          alert('No user signed in.');
+        try {
+            const user = auth.currentUser;
+            if (user) {
+                const userId = user.uid;
+                const userDataRef = ref(db, `UserData/${userId}`);
+                await remove(userDataRef);
+                navigate('/Signin1');
+                alert('User deleted successfully!');
+            } else {
+                console.log('No user signed in');
+                alert('No user signed in.');
+            }
+        } catch (error) {
+            console.error('Error deleting user:', error);
+            alert('An error occurred while deleting user. Please try again later.');
         }
-      } catch (error) {
-        console.error('Error deleting user:', error);
-        alert('An error occurred while deleting user. Please try again later.');
-      }
     };
 
     const filteredDonationPosts = selectedCategory
-        ? donationPosts.filter(post => post.category === selectedCategory && (!post.details || post.details.amount > 0))
-        : donationPosts.filter(post => !post.details || post.details.amount > 0);
+    ? donationPosts.filter(post => {
+        if (post.category === selectedCategory && (!post.details || post.details.amount > 0)) {
+            if (selectedCategory === 'clothes') {
+                const { Age, Gender, Season } = details;
+                if (
+                    (!Age || post.details.Age === Age) &&
+                    (!Gender || post.details.Gender === Gender) &&
+                    (!Season || post.details.Season === Season)
+                ) {
+                    return true;
+                }
+            } else {
+                return true;
+            }
+        }
+        return false;
+    })
+    : donationPosts.filter(post => !post.details || post.details.amount > 0);
 
 
     return (
-
         <div className="home1">
             <Row>
                 <HeaderBar/>
             </Row>
-          <div className="burger-menu">
-        {}
-        <button className={`burger-icon ${burgerMenuOpen ? 'active' : ''}`} onClick={() => setBurgerMenuOpen(!burgerMenuOpen)}>
-          <div className="bar" />
-          <div className="bar" />
-          <div className="bar" />
-        </button>
-        {}
-        {burgerMenuOpen && (
-          <div className="burger-menu-content">
-            <button onClick={handleUpdate}>Update</button>
-            <button onClick={handleDeleteUser}>Delete</button>
-          </div>
-        )}
-      </div>
+            <div className="burger-menu">
+                <button className={`burger-icon ${burgerMenuOpen ? 'active' : ''}`} onClick={() => setBurgerMenuOpen(!burgerMenuOpen)}>
+                    <div className="bar" />
+                    <div className="bar" />
+                    <div className="bar" />
+                </button>
+                {burgerMenuOpen && (
+                    <div className="burger-menu-content">
+                        <button onClick={handleUpdate}>Update</button>
+                        <button onClick={handleDeleteUser}>Delete</button>
+                    </div>
+                )}
+            </div>
             <h2 className="donation-posts-heading">Donation Posts</h2>
             <div className="category-dropdown">
                 <label htmlFor="category">Select Category:</label>

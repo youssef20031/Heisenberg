@@ -319,11 +319,16 @@ const Home2: React.FC = () => {
                     />
                     <label htmlFor="Toy_Picture">Toy Picture:</label>
                     <input
-                        type="file"
-                        id="Toy_Picture"
-                        name="Toy_Picture"
-                        onChange={(e) => setDetails({ ...details, Toy_Picture: e.target.files[0] })}
-                    />
+                       type="file"
+                         id="Toy_Picture"
+                       name="Toy_Picture"
+                       onChange={(e) => {
+                            if (e.target.files && e.target.files.length > 0) {
+                             setDetails({ ...details, Toy_Picture: e.target.files[0] });
+                             }
+                                  }}
+                           />
+
                 </>
             );
         case "school":
@@ -390,10 +395,64 @@ const Home2: React.FC = () => {
                     )}
                 </>
             );
-      default:
-        return null;
-    }
-  };
+            case "clothes":
+              return (
+                <>
+                  <label htmlFor="Pieces">Pieces of Clothes:</label>
+                  <input
+                    type="text"
+                    id="Pieces"
+                    name="Pieces"
+                    value={details.Pieces || ""}
+                    onChange={(e) => setDetails({ ...details, Pieces: e.target.value })}
+                  />
+                  <label htmlFor="Age">Age:</label>
+                  <input
+                    type="text"
+                    id="Age"
+                    name="Age"
+                    value={details.Age || ""}
+                    onChange={(e) => setDetails({ ...details, Age: e.target.value })}
+                  />
+                  <label htmlFor="Gender">Gender:</label>
+                  <select
+                    id="Gender"
+                    name="Gender"
+                    value={details.Gender || ""}
+                    onChange={(e) => setDetails({ ...details, Gender: e.target.value })}
+                  >
+                    <option value="">Select Gender</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                  </select>
+                  <label htmlFor="Season">Season:</label>
+                  <select
+                    id="Season"
+                    name="Season"
+                    value={details.Season || ""}
+                    onChange={(e) => setDetails({ ...details, Season: e.target.value })}
+                  >
+                    <option value="">Select Season</option>
+                    <option value="Summer">Summer</option>
+                    <option value="Spring">Spring</option>
+                    <option value="Autumn">Autumn</option>
+                    <option value="Winter">Winter</option>
+                  </select>
+                  <label htmlFor="Material">Material:</label>
+                  <input
+                    type="text"
+                    id="Material"
+                    name="Material"
+                    value={details.Material || ""}
+                    onChange={(e) => setDetails({ ...details, Material: e.target.value })}
+                  />
+                </>
+              );
+            default:
+              return null;
+          }
+        }
 
     const handleQuantityChange = (e: { target: { value: any; }; }) => {
         const inputValue = e.target.value;
