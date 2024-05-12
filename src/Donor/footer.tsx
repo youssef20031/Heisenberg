@@ -10,11 +10,11 @@ export default function Footer() {
                     <div className="sb__footer-links_div">
                         <h4>About Us</h4>
                         <p>
-                            Our system stores the message log data in an MS SQL Server
-                            database, ensuring reliable and scalable storage for your
-                            monitoring needs. The use of MS SQL Server guarantees high
-                            performance and seamless integration with the backend
-                            infrastructure.
+                            Our system leverages the capabilities of Firebase for storing message log data,
+                            providing a robust and scalable solution for your monitoring requirements.
+                            Utilizing Firebase ensures dependable storage while offering seamless integration with the
+                            backend infrastructure. With Firebase, we guarantee high performance and reliability,
+                            empowering our system to meet your monitoring needs effectively.
                         </p>
                     </div>
                     <div className="sb__footer-links_div">
