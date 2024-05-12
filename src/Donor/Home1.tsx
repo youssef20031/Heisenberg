@@ -370,6 +370,15 @@ const Home1: React.FC = () => {
                 ) {
                     return true;
                 }
+            } else if (selectedCategory === 'toys') {
+                const { Age, Gender, Toys } = details;
+                if (
+                    (!Age || post.details.Age === Age) &&
+                    (!Gender || post.details.Gender === Gender) &&
+                    (!Toys || post.details.Toys === Toys)
+                ) {
+                    return true;
+                }
             } else {
                 return true;
             }
@@ -377,6 +386,11 @@ const Home1: React.FC = () => {
         return false;
     })
     : donationPosts.filter(post => !post.details || post.details.amount > 0);
+
+
+
+
+    
 
 
     return (
