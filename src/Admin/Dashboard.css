@@ -57,3 +57,18 @@
 .btn:hover {
   background-color: #45a049;
 }
+
+@keyframes glowing {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.welcome-message {
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  background-size: 400% 400%;
+  animation: glowing 5s ease-in-out infinite;
+  color: white; /* Change the text color to white for better visibility */
+  padding: 20px; /* Add some padding for better appearance */
+  border-radius: 10px; /* Add some border radius to make it look like a banner */
+}
