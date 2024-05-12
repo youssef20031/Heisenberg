@@ -127,9 +127,7 @@ const SignUpFormOrg =() => {
               <Form.Select className="dark-theme-control" onChange={(e) => setorganizationtype(e.target.value)} required>
                 <option value="">Select Organization Type</option>
                 <option value="Hospital">Hospital</option>
-                <option value="Orphanage">Orphanage</option>
                 <option value="School">School</option>
-                <option value="Refugees">Refugee and people in need</option>
               </Form.Select>
             </Form.Group>
             <div className="dark-theme-group file-upload">
