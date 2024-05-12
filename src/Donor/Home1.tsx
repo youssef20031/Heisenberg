@@ -6,6 +6,9 @@ import {useNavigate, useParams} from "react-router-dom";
 import HeaderBar from "@/Donor/HeaderBar.tsx";
 import { Row } from 'react-bootstrap';
 import Footer from './footer';
+import Mapsetter2 from './Mapsetter2';
+import Mapsetter from './Mapsetter';
+import MapComp from './MapComp';
 
 type DonationPost = {
     id: string;
@@ -24,6 +27,7 @@ const Home1: React.FC = () => {
     const [showUpdateForm, setShowUpdateForm] = useState<boolean>(false);
     const navigate = useNavigate();
     const { email } = useParams<{ email: string }>();
+    const [showMap, setShowMap] = useState<boolean>(false);
     useEffect(() => {
         const fetchDonationPosts = async () => {
             try {
@@ -308,6 +312,10 @@ const Home1: React.FC = () => {
       setShowUpdateForm(true);
   };
 
+    const handleShowMap = () => {
+        navigate('/Mapsetter'); // Navigate to LocationSetterForMedical component
+    };
+
     const handleDeleteUser = async () => {
       try {
         const user = auth.currentUser;
@@ -384,10 +392,12 @@ const Home1: React.FC = () => {
                                         placeholder="Enter quantity"
                                         onChange={(e) => {
                                             const quantity = parseInt(e.target.value);
-                                            setDetails({ ...details, quantity });
+                                            setDetails({...details, quantity});
                                         }}
                                     />
-                                    <button disabled={!details.quantity} onClick={() => handleDonate(post.id)}>Donate</button>
+                                    <button disabled={!details.quantity} onClick={() => handleDonate(post.id)}>Donate
+                                    </button>
+                                    <button onClick={handleShowMap}>View Location</button>
                                 </div>
                             )}
                         </li>
