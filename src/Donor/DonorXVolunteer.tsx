@@ -1,10 +1,9 @@
 import React, {useEffect} from 'react';
 import {Link, NavLink, useNavigate, useParams} from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import '@/Designs/EntryPage.css';
+import './DonorXVolunteer.css';
 import {get, ref} from "firebase/database";
 import {db} from "@/firebase.tsx";
-import "@/Designs/EntryPage.css";
 
 const NavigationButton = () => {
     const navigate = useNavigate();
@@ -13,7 +12,6 @@ const NavigationButton = () => {
     const handleNavigateDonate =  () => {
         navigate(`/Home1/${email}`);
     };
-    //write a function that checks if there is a transportation notification for the user
     const handleIfTransportationNotificationExists = async () => {
     try {
         const dbRef = ref(db, '/TransportationForDonation');

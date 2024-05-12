@@ -1,6 +1,6 @@
-.entry-page {
+.dashboard-container{
     display: flex; 
-    background-color: #100e0e;
+    background-color: #ffffff;
   }
   
   .container {
@@ -29,3 +29,4 @@
     transform: translateX(-50%);
     font-size: 24px;
   }
+  
