@@ -4,7 +4,7 @@ import { ref, onValue, update, get, remove } from 'firebase/database';
 import { auth, db } from '@/firebase';
 import { useNavigate, useParams } from "react-router-dom";
 import HeaderBar from "@/Donor/HeaderBar.tsx";
-import { Row } from 'react-bootstrap';
+import {Button, Card, Row} from 'react-bootstrap';
 import Footer from './footer';
 
 type DonationPost = {
@@ -178,7 +178,7 @@ const Home1: React.FC = () => {
                             value={details.Toys || ""}
                             onChange={(e) => setDetails({...details, Toys: e.target.value})}
                         >
-                            <option value="">Select Toys</option>
+                            <option value="">All</option>
                             <option value="Board_Games">Board Games</option>
                             <option value="Stuffed_Toys">Stuffed toys</option>
                             <option value="Dolls">Dolls</option>
@@ -202,7 +202,7 @@ const Home1: React.FC = () => {
                             value={details.Gender || ""}
                             onChange={(e) => setDetails({...details, Gender: e.target.value})}
                         >
-                            <option value="">Select Gender</option>
+                            <option value="">All</option>
                             <option value="Male">Male</option>
                             <option value="Female">Female</option>
                             <option value="Other">Other</option>
@@ -438,33 +438,39 @@ const Home1: React.FC = () => {
             </div>
             {renderDetailFields()}
             {filteredDonationPosts.length > 0 ? (
-                <ul className="donation-list">
+                <div className="card-container row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
                     {filteredDonationPosts.map((post) => (
-                        <li key={post.id} className="donation-list-item">
-                            <div className="donation-header" onClick={() => toggleDetails(post.id)}>
-                                <p>{post.category}</p>
-                                {post.showDetails ? <span>&#x25B2;</span> : <span>&#x25BC;</span>}
-                            </div>
-                            {post.showDetails && (
-                                <div className="donation-details">
-                                    <p>{post.content}</p>
-                                    <p>{JSON.stringify(post.details).replace(/[{"}]/g, ' ')}</p>
-                                    <input
-                                        type="number"
-                                        placeholder="Enter quantity"
-                                        onChange={(e) => {
-                                            const quantity = parseInt(e.target.value);
-                                            setDetails({...details, quantity});
-                                        }}
-                                    />
-                                    <button style={{marginRight:"10px"}} disabled={!details.quantity} onClick={() => handleDonate(post.id)}>Donate
-                                    </button>
-                                    <button onClick={handleShowMap}>View Location</button>
-                                </div>
-                            )}
-                        </li>
+                        <div key={post.id} className="col">
+                            <Card key={post.id} className="donation-card">
+                                <Card.Body>
+                                    <Card.Title>{post.category}</Card.Title>
+                                    <Button onClick={() => toggleDetails(post.id)} className="view-details-button">
+                                        View Details
+                                    </Button>
+                                    {post.showDetails && (
+                                        <div className="donation-details">
+                                            <p>{post.content}</p>
+                                            <p>{JSON.stringify(post.details).replace(/[{"}]/g, ' ')}</p>
+                                            <input
+                                                type="number"
+                                                placeholder="Enter quantity"
+                                                onChange={(e) => {
+                                                    const quantity = parseInt(e.target.value);
+                                                    setDetails({...details, quantity});
+                                                }}
+                                            />
+                                            <Button style={{marginRight: "10px"}} disabled={!details.quantity}
+                                                    onClick={() => handleDonate(post.id)}>
+                                                Donate
+                                            </Button>
+                                            <Button onClick={handleShowMap}>View Location</Button>
+                                        </div>
+                                    )}
+                                </Card.Body>
+                            </Card>
+                        </div>
                     ))}
-                </ul>
+                </div>
             ) : (
                 <p className="no-posts-message">No donation posts available for selected category.</p>
             )}
