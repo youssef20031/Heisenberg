@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { ref, push, remove, update, onValue, get } from "firebase/database";
-import { auth, db } from "@/firebase";
+import {auth, db, storage} from "@/firebase";
 import "./Home2.css";
 import {useNavigate, useParams} from "react-router-dom";
 import { deleteUser } from "firebase/auth";
 import HeaderBar from "@/Donor/HeaderBar.tsx";
 import Footer from "@/Donor/footer";
+import {ref as Ref2, uploadBytes} from "firebase/storage";
+import { v4 as uuidv4 } from 'uuid';
 
 type DonationPost = {
   id: string;
@@ -37,7 +39,14 @@ const Home2: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>("");
   const [value, setValue] = useState('');
   const [error, setError] = useState('');
+    const [file, setFile] = useState<File | null>(null);
+    const { id } = useParams<{ id: string }>();
 
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files && e.target.files[0]) {
+            setFile(e.target.files[0]);
+        }
+    };
   useEffect(() => {
     const fetchDonationPosts = async () => {
       try {
@@ -129,40 +138,45 @@ const Home2: React.FC = () => {
     }
   };
 
-  const handleSubmitDonationPost = () => {
-    if (!category && !donationPost) {
-      alert("Please select a category and provide donation post content.");
-      return;
-    } else if (!category) {
-      alert("Please select a category.");
-      return;
-    } else if (!donationPost) {
-      alert("Please provide content for the donation post.");
-      return;
-    }
-    try {
-      const donationPostsRef = ref(db, "donationPosts");
-      push(donationPostsRef, {
-        email: email,
-        category: category,
-        content: donationPost,
-        details: details,
-        timestamp: new Date().toISOString(),
-        status: "Pending",
-        deliveryDate: deliveryDate,
-      });
+  const handleSubmitDonationPost = async () => {
+      if (!category && !donationPost) {
+          alert("Please select a category and provide donation post content.");
+          return;
+      } else if (!category) {
+          alert("Please select a category.");
+          return;
+      } else if (!donationPost) {
+          alert("Please provide content for the donation post.");
+          return;
+      }
+      try {
+          const id = uuidv4(); // Generate a unique identifier
+          const donationPostsRef = ref(db, "donationPosts");
+          push(donationPostsRef, {
+              id: id,
+              email: email,
+              category: category,
+              content: donationPost,
+              details: details,
+              timestamp: new Date().toISOString(),
+              status: "Pending",
+              deliveryDate: deliveryDate,
+          });
+          if (file) {
+              const storageRef = Ref2(storage, `${id}`);
+              await uploadBytes(storageRef, file);
+          }
+          alert("Donation post submitted successfully!");
 
-      alert("Donation post submitted successfully!");
-
-      setCategory("");
-      setDonationPost("");
-      setDetails({});
-    } catch (error) {
-      console.error("Error submitting donation post:", error);
-      alert(
-          "An error occurred while submitting the donation post. Please try again later."
-      );
-    }
+          setCategory("");
+          setDonationPost("");
+          setDetails({});
+      } catch (error) {
+          console.error("Error submitting donation post:", error);
+          alert(
+              "An error occurred while submitting the donation post. Please try again later."
+          );
+      }
   };
 
   const handleEdit = (id: string) => {
@@ -322,11 +336,7 @@ const Home2: React.FC = () => {
                        type="file"
                          id="Toy_Picture"
                        name="Toy_Picture"
-                       onChange={(e) => {
-                            if (e.target.files && e.target.files.length > 0) {
-                             setDetails({ ...details, Toy_Picture: e.target.files[0] });
-                             }
-                                  }}
+                       onChange={handleFileChange}
                            />
 
                 </>

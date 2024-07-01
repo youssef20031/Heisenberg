@@ -1,20 +1,21 @@
 import './Home1.css';
 import React, { useEffect, useState } from 'react';
 import { ref, onValue, update, get, remove } from 'firebase/database';
-import { auth, db } from '@/firebase';
+import {auth, db, storage} from '@/firebase';
 import { useNavigate, useParams } from "react-router-dom";
 import HeaderBar from "@/Donor/HeaderBar.tsx";
 import {Button, Card, Row} from 'react-bootstrap';
 import Footer from './footer';
+import {getDownloadURL, ref as Ref2} from "firebase/storage";
 
-type DonationPost = {
+interface DonationPost {
     id: string;
     category: string;
     content: string;
     details: any;
     status: string;
     showDetails?: boolean;
-};
+}
 
 const Home1: React.FC = () => {
     const [selectedCategory, setSelectedCategory] = useState<string>('');
@@ -30,7 +31,15 @@ const Home1: React.FC = () => {
     const navigate = useNavigate();
     const { email } = useParams<{ email: string }>();
     const [showMap, setShowMap] = useState<boolean>(false);
-
+    const handleView = async (id: string) => {
+        try {
+            const pdf = Ref2(storage, `${id}`);
+            const pdfurl = await getDownloadURL(pdf);
+            window.open(pdfurl, '_blank');
+        } catch (error) {
+            console.error('Error fetching PDF:', error);
+        }
+    };
     useEffect(() => {
         const fetchDonationPosts = async () => {
             try {
@@ -500,6 +509,7 @@ const Home1: React.FC = () => {
                                                 Donate
                                             </Button>
                                             <Button onClick={handleShowMap}>View Location</Button>
+                                            <Button onClick={() => handleView(post.id)}>View requested item</Button>
                                         </div>
                                     )}
                                 </Card.Body>

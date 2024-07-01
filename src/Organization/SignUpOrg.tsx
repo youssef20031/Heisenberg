@@ -35,7 +35,7 @@ const SignUpFormOrg =() => {
         e.preventDefault();
         try {
 
-            <h1>You go registered now Login</h1>
+            <h1>You got registered, now Login</h1>
             console.log("Account created");
             const options={
                 method:'Post',

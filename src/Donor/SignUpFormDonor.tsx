@@ -140,14 +140,14 @@ const SignUpFormDonor =() => {
                     </Form.Select>
                 </div>
                 <div className="dark-theme-group">
-                    <Form.Label htmlFor="governate" className="dark-theme-label">Governate</Form.Label>
+                    <Form.Label htmlFor="governate" className="dark-theme-label">Governorate</Form.Label>
                     <Form.Select
                         id="governate"
                         value={governate}
                         onChange={(e) => setGovernate(e.target.value)}
                         className="dark-theme-control"
                     >
-                        <option value="">Choose a governate</option>
+                        <option value="">Choose a governorate</option>
                         <option value="Cairo">Cairo</option>
                         <option value="Alexandria">Alexandria</option>
                         <option value="Al Dakahlia">Al Dakahlia</option>
