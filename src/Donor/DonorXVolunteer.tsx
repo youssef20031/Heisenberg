@@ -93,6 +93,7 @@ const NavigationButton = () => {
         <div>
             <div className="dashboard-container">
                 <div className="sidebar">
+                    <NavLink to="/AI_Chatbot" className="menu-item">AI Chat Bot</NavLink>
                     <NavLink to="/" className="menu-item">Sign Out</NavLink>
                     {}
                 </div>

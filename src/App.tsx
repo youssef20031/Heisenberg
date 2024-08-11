@@ -35,6 +35,7 @@ import About from "@/Donor/About.tsx";
 import FAQ from "@/FAQ.tsx";
 import Locationdoctor from './Donor/locationdoctor.tsx';
 import MapSetterDonor from "@/Admin/MapSetterDonor.tsx";
+import AI_ChatBot from "@/Donor/AI_ChatBot.tsx";
 
 export const App = () => {
   const location = useLocation();
@@ -86,6 +87,7 @@ export const App = () => {
             <Route path ="/DonorXVolunteer/:email" element={<NavigationButton />} />
             <Route path ="/notverified" element={<Notverified />} />
             <Route path ="/ChooseTransportation/:email" element={<ChooseTransportation />} />
+            <Route path ="/AI_ChatBot" element={<AI_ChatBot />} />
           </Routes>
         </main>
       </>
