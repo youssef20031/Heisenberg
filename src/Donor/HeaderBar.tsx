@@ -7,6 +7,7 @@ const HeaderBar = () => {
             <div>
                 <Link to="/" style={{ color: 'white', textDecoration: 'none', marginRight: '20px', fontSize: '18px' }}>Home</Link>
                 <Link to="/about" style={{ color: 'white', textDecoration: 'none', marginRight: '20px', fontSize: '18px' }}>About</Link>
+                <Link to={'/AI_Chatbot'} style={{ color: 'white', textDecoration: 'none', marginRight: '20px', fontSize: '18px' }}>AI Chat Bot</Link>
             </div>
 
         </div>
